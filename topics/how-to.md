@@ -856,7 +856,7 @@ To move settings of the project and all its build configuration from one server 
 
 From the [`TeamCity Data Directory`](teamcity-data-directory.md), copy the directories of corresponding projects (`.BuildServer\config\projects\<id>`) and all its parent projects to `.BuildServer\config\projects` of the target server. This moves project settings, build configuration settings, VCS roots defined in the projects preserving the links between them. If there are same-named files on the target server as those copied, this can happen in case of 
   a) id match: same entities already exist on the target server, in which case the clashing files can be excluded from copying, or 
-  b) id clash: different entities happen to have same ids. In this case it should be resolved either by changing entity id on the source or target server to fulfill the uniqueness requirement.
+  b) id clash: different entities happen to have same ids. In this case it should be resolved either by changing entity ID on the source or target server to fulfill the uniqueness requirement.
 
 The set of parent projects is to be identified manually based on the web UI or the directory names on disk (which be default will have the same prefix).
 
