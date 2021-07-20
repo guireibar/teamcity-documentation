@@ -288,7 +288,7 @@ Other .NET runners:
 
 [.NET Process Runner](net-process-runner.md)
 
-</td><td></td>><td>.NET installed on the build agent</td></tr>
+</td><td></td><td>.NET installed on the build agent</td></tr>
 
 <tr><td>
 
@@ -580,7 +580,7 @@ Available as non-bundled plugins:
 
 [GitHub](github.md)
 
-</td><td>0.9-rc-1 or later</td><td></tr>
+</td><td>0.9-rc-1 or later</td></tr>
 
 <tr><td>
 
@@ -789,7 +789,7 @@ Oracle
 </table>
 
 
-[Read more details](setting-up-an-external-database.md).
+[Read more details](setting-up-external-database.md).
 
 ## Game Engines
 
