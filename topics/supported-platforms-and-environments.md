@@ -198,7 +198,7 @@ The TeamCity web interface is mostly W3C-compliant, so any modern browser should
 
 <table>
 
-<tr><td>Runner</td><td>Supported versions</td><td>Bundled version</td></tr>
+<tr><td>Runner</td><td>Supported versions</td><td>Bundled versions</td></tr>
 
 <tr><td>
 
@@ -668,7 +668,7 @@ Supported VCS
 {product="tc"}
 * ClearCase (the client software is required), _integrated via an additional plugin_
 
-[Read more](eclipse-plugin.md).
+[Read more details](eclipse-plugin.md).
 
 </td></tr><tr>
 
