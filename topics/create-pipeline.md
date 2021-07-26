@@ -1,6 +1,8 @@
 [//]: # (title: Create Pipeline)
 [//]: # (auxiliary-id: Create Pipeline)
 
+_This tutorial assumes that you have already installed and started your trial TeamCity instance as described [here](quick-setup-guide.md)._
+
 In TeamCity terms, a pipeline is called a _build chain_.
 
 Builds perform various CI/CD jobs. When you connect them into a sequence, they form a chain. Builds inside a chain can use the same revision of the source project and pass artifacts to one another. These chains can be quite complex and contain dozens of builds connected in series or in parallel. They are often designed to compile, test, and deploy a certain project, but you can create them for any other goal.
@@ -33,3 +35,17 @@ To connect these two configs together, we need to create an __artifact dependenc
 >If builds are connected by dependencies (which means they form a chain), they always run together. When you run any build from a chain, whether it's the last one or medium one, TeamCity queues all the other chained builds into a sequence, according to their dependencies.  
 >As you can see on the diagram above, _TodoImage_ always runs after _TodoApp_; _Test1_ and _Test2_ start only after _TodoImage_ finishes and run in parallel to each other.
 
+A dependency determines how one build depends on another, and thus is created in the settings of the dependent build. In our case, it's _TodoImage_. Let's go to its settings and add a dependency:
+
+1. Open the __Dependencies__ settings tab (you might need to click __Show more__ to display this item) and click __Add new artifact dependency__.
+2. Select _TodoApp_ as a build config to depend on.
+3. Choose to get artifacts from the build from the same chain, as we want to always process the freshest artifact.
+4. In _Artifacts rules_, specify that we want to import the specific artifact as `toto.jar` — enter `todo.jar => build/libs/todo.jar`. If there was at least one finished _TodoApp_ build, you would be able to select a needed artifact from the handy artifact browser (![ArtifactsBrowserIcon.png](ArtifactsBrowserIcon.png)).
+
+<img src="chaindemo1.png" width="539" alt="Simple build chain in TeamCity"/>
+
+Read about patterns of artifact rules and other details related to artifact dependencies [here](artifact-dependencies.md).
+
+At this point, you can already try starting the first _TodoImage_ build and watch how TeamCity composes and runs the chain of two builds. Note that to compose a Docker image, a [TeamCity agent](build-agent.md) needs to have [Docker](https://www.docker.com/) installed and running on its machine.
+
+## Configure Snapshot Dependencies
