@@ -184,7 +184,6 @@
                   <toc-element id="starteam.md" show-structure-for="chapter" show-structure-depth="4"/>
                   <toc-element id="subversion.md" show-structure-for="chapter" show-structure-depth="4"/>
                   <toc-element id="team-foundation-server.md" show-structure-for="chapter" show-structure-depth="4"/>
-                  <toc-element id="visual-sourcesafe.md"/>
                   <toc-element id="configuring-vcs-post-commit-hooks-for-teamcity.md" show-structure-for="chapter" show-structure-depth="4"/>
                </toc-element>
                <toc-element id="working-with-feature-branches.md" show-structure-for="chapter" show-structure-depth="4">
@@ -408,6 +407,7 @@
          <toc-element id="cron-expressions-in-teamcity.md" show-structure-for="chapter" show-structure-depth="4"/>
          <toc-element id="build-state.md" show-structure-for="chapter" show-structure-depth="4"/>
          <toc-element id="identifier.md" show-structure-for="chapter" show-structure-depth="4"/>
+         <toc-element id="requirement-conditions.md" show-structure-for="chapter" show-structure-depth="4"/>
          <toc-element id="search.md" show-structure-for="chapter" show-structure-depth="4"/>
          <toc-element id="wildcards.md"/>
       </toc-element>
@@ -415,6 +415,7 @@
    <toc-element id="what-s-new-in-teamcity.md" show-structure-for="chapter" show-structure-depth="4" accepts-web-file-names="what-s-new-in-teamcity-2021-1.html">
       <toc-element id="teamcity-2021-1-release-notes.md" show-structure-for="chapter" show-structure-depth="4"/>
       <toc-element id="teamcity-2021-1-1-release-notes.md" show-structure-for="chapter" show-structure-depth="4"/>
+      <toc-element id="teamcity-2021-1-2-release-notes.md" show-structure-for="chapter" show-structure-depth="4"/>
    </toc-element>
    <toc-element id="what-s-new-in-teamcity-2020-2.md" show-structure-for="chapter" show-structure-depth="4" hidden="true">
       <toc-element id="teamcity-2020-2-release-notes.md" show-structure-for="chapter" show-structure-depth="4" hidden="true"/>
