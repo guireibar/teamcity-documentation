@@ -1,140 +1,34 @@
 [//]: # (title: How To...)
 [//]: # (auxiliary-id: viewpage.actionpageId113084582;How To...)
 
-## Choose OS/Platform for TeamCity Server
-{product="tc"}
+### Set up TeamCity in Replication/Clustering Environment
 
-Once the server/OS fulfills the [requirements](supported-platforms-and-environments.md#TeamCity+Server), TeamCity can run on any system. Please also review the [requirements](supported-platforms-and-environments.md) for the integrations you plan to use, for example the following functionality requires or works better when TeamCity server is installed under Windows:
-* VCS integration with TFS
-* VCS integration with VSS
-* Windows domain logins (can also work under Linux, but may be less stable), especially NTLM HTTP authentication
-* NuGet feed on the server (can also work under Linux, but may be less stable)
-* Agent push to Windows machines
+It is possible to add a [secondary TeamCity node](multinode-setup.md) to ensure high availability and offload some operations from the main server. All nodes need to be connected to the same [`TeamCity Data Directory`](teamcity-data-directory.md) and the database.
 
-If you have no preference, Linux platforms may be more preferable due to more effective file system operations and the level of required general OS maintenance.
+To address fast disaster recovery scenarios, TeamCity supports active — failover (cold standby) approach. The data used by the TeamCity server can be replicated, and a new server can use the same data if the currently active server malfunctions for some reason.
 
-Final Operating System choice should probably depend more on the available resources and established practices in your organization.
+As to the data, the TeamCity server uses both database and file storage (Data Directory). You can browse through [TeamCity Data Backup](teamcity-data-backup.md) and [TeamCity Data Directory](teamcity-data-directory.md) pages in to get more information on TeamCity data storing. Basically, both the TeamCity Data Directory on the disk and the database which TeamCity uses must remain in a consistent state and thus must be replicated together.   
+Only a single TeamCity server instance should use the database and Data Directory at any time.
 
-## Estimate Hardware Requirements for TeamCity
-{product="tc"}
+Ensure that the distribution of the TeamCity failover/backup server is of exactly the same version as the main server. It is also important to ensure the same server environment/startup options like memory settings, and so on.
 
-The hardware requirements differ for the server and the agents.
+TeamCity agents farm can be reused between the main and the failover servers. Agents will automatically connect to the new server if you make the failover server to be resolved via the old server DNS name and agents connect to the server using the DNS name. See also information on [switching](#Switching+from+one+server+to+another) from one server to another.   
+If appropriate, the agents can be replicated just as the server. However, there is no need to replicate any TeamCity-specific data on the agents except for the conf\buildAgent.properties file as all the rest of the data can typically be renewed from the server. In case of replicated agents farm, the replica agents just need to be connected to the failover server.
 
-The __agent__ hardware requirements are basically determined by the builds that are run. Running TeamCity agent software introduces a requirement for additional CPU time (but it can usually be neglected comparing to the build process CPU requirements) and additional memory: about 500Mb. The disk space required corresponds to the disk usage by the builds running on the agent (sources checkouts, downloaded artifacts, the disk space consumed during the build; all that combined for the regularly occurring builds). Although you can run a build agent on the same machine as the TeamCity server, the recommended approach is to use a separate machine (it may be virtual) for each build agent. If you chose to install several agents on the [same machine](setting-up-and-running-additional-build-agents.md#Installing+Several+Build+Agents+on+the+Same+Machine), consider the possible CPU, disk, memory or network bottlenecks that might occur. The [Performance Monitor](performance-monitor.md) build feature can help you in analyzing live data.
+In case of two servers installations for redundancy purposes, they can use the same set of licenses as only one of them is running at any given moment.
 
-The __server__ hardware requirements depend on the server load, which in its turn depends significantly on the type of the builds and server usage. Consider the following general guidelines.   
+## Estimate Number of Required Build Agents
 
-<tip>
+There are no precise data, and the number of required build agents depends a lot on the server usage pattern, type of builds, team size, commitment of the team to CI process, and so on.   
+The best way is to start with the default 3 agents and see how that plays with the projects configured, then estimate further based on that.
 
-* If you decide to run an [external database](setting-up-external-database.md) on the same machine as the server, take into account hardware requirements with database engine requirements in mind.
-* If you face some TeamCity-related performance issues, they should probably be investigated and addressed individually. For example, if builds generate too much data, the server disk system might be needing an upgrade both in size and speed characteristics.
-</tip>
+You might want to increase the number of agents when you see:
+* builds waiting for an idle agent in the build queue;
+* more changes included into each build than you find comfortable (for example, for build failures analysis);
+* necessity for different environments.
+  We've seen patterns of having an agent per each 20 build configurations (types of builds). Or a build agent per 1-2 developers.
 
-__Database Note:__  
-When using the server extensively, the database performance starts to play a greater role.   
-For reliability and performance reasons you should use an external database.   
-See the [notes](setting-up-external-database.md) on choosing external database.    
-The database size requirements naturally vary based on the amount of data stored (number of builds, number of tests, and so on). The active server database usage can be estimated at several gigabytes of data per year.
-
-__Overview of the TeamCity hardware resources usage:__      
-* CPU: TeamCity utilizes multiple cores of the CPU, so increasing number of cores makes sense. For non-trivial TeamCity usage at least 4 CPU cores are recommended.
-* Memory: used by the TeamCity server main process and child processes (used for Maven integration, version control integration, Kotlin DSL execution). See the [notes](installing-and-configuring-the-teamcity-server.md#Setting+Up+Memory+settings+for+TeamCity+Server) on the main process memory usage. Generally, you will probably not need to dedicate more than 4G of memory to TeamCity server if you do not plan to run more than 100 concurrent builds (agents), support more than 200 online users or work with large repositories.
-* HDD/disk usage: This sums up mainly from the temp directory usage (`<[TeamCity Home](teamcity-home-directory.md)>/temp` and OS default temp directory) and `<[TeamCity Data Directory](teamcity-data-directory.md)>/system` usage. Performance of the TeamCity server highly depends on the disk system performance. As TeamCity stores large amounts of data under `<[TeamCity Data Directory](teamcity-data-directory.md)>/system` (most notably, VCS caches and build results), it is important to ensure that the access to the disk is fast (in particular reading/writing files in multiple threads, listing files with attributes). Ensuring disk has good performance is especially important if you plan to store the Data Directory on a network drive. It is recommended to use local storage for `TeamCity Data Directory/system/caches` directory. See also [TeamCity Data Directory](teamcity-data-directory.md#Recommendations+as+to+choosing+Data+Directory+Location).
-* Network: This mainly sums up from the traffic from VCS servers, to clients (web browsers, IDE, etc.) and to/from build agents (send sources, receive build results, logs and artifacts).
-
-__The load on the server depends on:__   
-* number of build configurations;
-* number of builds in the history;
-* number of the builds running daily;
-* amount of data consumed and produced by the builds (size of the used sources and artifacts, size of the build log, number and output size of unit tests, number of inspections and duplicates hits, size and number of produced artifacts, and so on);
-* clean-up rules configured
-* number of agents and their utilization percentage;
-* number of users having TeamCity web pages open;
-* number of users logged in from IDE plugin;
-* number and type of VCS roots as well as the configured checking for changes interval for the VCS roots. VCS checkout mode is relevant too: server checkout mode generates greater server load. Specific types of VCS also affect server load, but they can be roughly estimated based on native VCS client performance;
-* number of changes detected by TeamCity per day in all the VCS roots;
-* the size of the repositories TeamCity works with;
-* total size of the sources checked out by TeamCity daily.    
-
-A general example of hardware configuration capable to handle up to 100 concurrently running builds and running only TeamCity server can be:   
-Server-suitable modern multicore CPU, 8Gb of memory, fast network connection, fast and reliable HDD, fast external database access. 
-
-Based on our experience, a modest hardware likeIntel 3.2 GHz dual core CPU, 3.2Gb memory under Windows, 1Gb network adapter, single HDDcan provide acceptable performance for the following setup:
-* 60 projects and 300 build configurations (with one forth being active and running regularly);
-* more than 300 builds a day;
-* about 2Mb log per build;
-* 50 build agents;
-* 50 web users and 30 IDE users;
-* 100 VCS roots (mainly Perforce and Subversion using server checkout), average checking for changes interval is 120 seconds;
-* more than 150 changes per day;
-* Kotlin DSL is not used;
-* the database (MySQL) is running on the same machine;
-* TeamCity server process has `-Xmx1100m` JVM setting. 
-
-The following configuration can provide acceptable performance for a more loaded TeamCity server:   
-Intel Xeon E5520 2.2 GHz CPU (4 cores, 8 threads), 12Gb memory under Windows Server 2008 R2 x64, 1Gb network adapter, 3 HDD RAID1 disks (general, one for artifacts, logs and caches storage, and one for the database storage)
-
-__Server load characteristics:__
-* 150 projects and 1500 build configurations (with one third being active and running regularly);
-* more than 1500 builds a day;
-* about 4Mb log per build;
-* 100 build agents;
-* 150 web users and 40 IDE users;
-* 250 VCS roots (mainly Git, Hg, Perforce and Subversion using agent-side checkout), average checking for changes interval is 180 seconds;
-* more than 1000 changes per day;
-* the database (MySQL) is running on the same machine;
-* TeamCity server process has `-Xmx3700m` x64 JVM setting.
-
-However, to ensure peak load can be handled well, more powerful hardware is recommended.
-
-HDD free space requirements are mainly determined by the number of builds stored on the server and the artifacts size/build log size in each. Server disk storage is also used to store VCS-related caches and you can estimate that at double the checkout size of all the VCS roots configured on the server.
-
-If the builds generate large number of data (artifacts/build log/test data), using fast hard disk for storing the `.BuildServer/system` directory and fast network between agents and server are recommended.
-
-The general recommendation for deploying large-scale TeamCity installation is to start with a reasonable hardware while considering hardware upgrade. Then increase the load on the server (e.g. add more projects) gradually, monitoring the performance characteristics and deciding on necessary hardware or software improvements. There is also a [benchmark plugin](https://plugins.jetbrains.com/plugin/9127-benchmark) which can be used to estimate the number of simultaneous build the current server installation can handle. Anyway, best administration practices are recommended like keeping adequate disk defragmentation level, and so on.
-
-Starting with an adequately loaded system, if you then increase the number of concurrently running builds (agents) by some factor, be prepared to increase CPU, database and HDD access speeds, amount of memory by the same factor to achieve the same performance.   
-If you increase the number of builds per day, be prepared to increase the disk size.
-
-If you consider cloud deployment for TeamCity agents (for example, on Amazon EC2),  also review [Setting Up TeamCity for Amazon EC2](setting-up-teamcity-for-amazon-ec2.md#Estimating+EC2+Costs)
-
-A note on the agents' setup in JetBrains internal TeamCity installation:   
-We use both separate machines each running a single agent and dedicated "servers" running several virtual machines each of them having a single agent installed. Experimenting with the hardware and software we settled on a configuration when each core7i physical machine runs 3 virtual agents, each using a separate hard disk. This stems form the fact that our (mostly Java) builds depend on HDD performance in the first place. But YMMV.
-
-TeamCity is known to work well with 500\+ build agents (500 concurrently running builds actively logging build run-time data). In synthetic tests the server was functioning OK with as many as 1000 concurrent builds (the server with 8 cores, 32Gb of total memory running under Linux, and MySQL server running on a separate comparable machine). The load on the server produced by each build depends on the amount of data the build produces (build log, tests number and failure details, inspections/duplicates issues number, etc.). Keeping the amount of data reasonably constrained (publishing large outputs as build artifacts, not printing those into standard output; tweaking inspection profiles to report limited set of the most important inspection hits, etc.) will help scale the server to handle more concurrent builds.   
-If you need much more agents/parallel builds, it is recommended to use [several nodes setup](multinode-setup.md). If a substantially large amount of agents is required, it is recommended to consider using several separate TeamCity instances and distributing the projects between them. We constantly work on TeamCity performance improvements and are willing to work closely with organizations running large TeamCity installations to study any performance issues and improve TeamCity to handle larger loads. See also a related post on the [maximum number of agents which TeamCity can handle](http://blog.jetbrains.com/teamcity/2015/08/benchmarking-teamcity/)
-
-See also a related post: [description of a substantial TeamCity setup](http://blogs.jetbrains.com/teamcity/2011/09/05/improving-performance-and-scalability-of-your-teamcity-server/).
-
-### Network Traffic between the Server and the Agents
-
-The traffic mostly depends on the settings as some of them include transferring binaries between the agent and the server.   
-The most important flows of traffic between the agent and the server are:
-* agent retrieves commands from the server: these are typically build start tasks which basically include a dump of the build configuration settings and the full set of build parameters. The latter can be large (e.g. megabytes) in case of a large build chain. The parameters can be reviewed on the build's [Parameters tab](working-with-build-results.md#Parameters);
-* agent periodically sends current status data to the server (this includes all the agents parameters which can be reviewed on the agent's [Agent Parameters](viewing-build-agent-details.md#Agent+Parameters) tab);
-* during the build, the agent sends  build log messages and parameters data back to the server. These can be reviewed on the [Build Log](working-with-build-results.md#Build+Log) and [Parameters](working-with-build-results.md#Parameters) tabs of the build;
-* (when the server-side checkout mode is used) the agent downloads the sources before the build (as a full or incremental patch) from the server;
-* (when an [artifact dependency](artifact-dependencies.md) is configured) the agent downloads build artifacts of other builds from the server before starting a build;
-* (when artifacts are configured for a build) the agent uploads build artifacts to the server;
-* some runners (like coverage or code analysis) include automatic uploading of their results' reports to the server.
-
-## Configuring TeamCity Server for Performance
-{product="tc"}
-
-Here are some recommendations to tweak TeamCity server setup for better performance. The list for [production server use](installing-and-configuring-the-teamcity-server.md#Configuring+Server+for+Production+Use) is a prerequisite:
-* Regularly review reported Server Health reports (including hidden ones)
-* Use a separate [reverse proxy](#Set+Up+TeamCity+behind+a+Proxy+Server) server (e.g. NGINX) to handle HTTPS
-* Use a separate server for the external database and monitor the database performance
-* Monitor the server's CPU and IO performance, increase hardware resources as necessary (see also [hardware notes](#Estimate+Hardware+Requirements+for+TeamCity))
-* Make sure clean-up is configured for all the projects with a due retention policy, make sure clean-up completely finishes regularly (check Administration / Clean-Up page)
-* Consider ensuring good IO performance for the `<[TeamCity Data Directory](teamcity-data-directory.md)>/system/caches` directory, e.g. by moving it to a separate local drive (or storing on a local drive you choose to store the TeamCity Data Directory on a network storage)
-* Regularly archive obsolete projects
-* Regularly review the installed not bundled plugins and remove those not essential for the server functioning
-* Consider using agent-side checkout whenever possible
-* Make sure the build logs are not huge (tens megabytes at most, better less than 10 Mb)
-* If lots VCS roots are configured on the server, consider configuring [repository commit hooks](configuring-vcs-post-commit-hooks-for-teamcity.md) instead of using polling for changes or at least increase [VCS polling interval](configuring-vcs-roots.md#Common+VCS+Root+Properties) to 300 seconds or more
-* If the server is often used by large number of users (e.g. more than 1000), consider reducing the frequency of background UI requests their by increasing [UI refresh intervals](teamcity-tweaks.md#Web+Page+Refresh+Interval)
-* When regularly exceeding 500 concurrently running builds which log a lot of data, consider using [Several Nodes Setup](multinode-setup.md)
+See also [notes](#Estimate+Hardware+Requirements+for+TeamCity) on maximum supported number of agents.
 
 <anchor name="HowTo-RetrieveAdministratorPassword"/>
 
@@ -147,143 +41,7 @@ If you want to regain access to the system and you cannot log in as a user with 
 
 It is also possible to use [REST API](https://www.jetbrains.com/help/teamcity/rest/curl-examples.html#Making+user+a+system+administrator) to add the System Administrator role to any existing user.
 
-If you use built-in authentication and have correct email specified, you can [reset the password](managing-your-user-account.md#Changing+Your+Password) from the login page. 
-
-## Estimate External Database Capacity
-{product="tc"}
-
-It is quite hard to provide the exact numbers when setting up or migrating to an external database, as the required capacity varies greatly depending on how TeamCity is used.
-
-The database size and database performance are crucial aspects to consider.
-
-__Database Size__
-
-The size of the database will depend on:   
-* how many builds are started every day
-* how many test are reported from builds
-* [clean-up](clean-up.md) rules (retention policy)
-* clean-up schedule
-
-We recommend the initial size of data spaces to be 4 GB. When migrating from the internal database, we suggest at least doubling the size of the current internal database. For example, the size of the external database (without the Redo Log files) of the internal TeamCity server in JetBrains is about 50 GB. Setting your database to grow automatically helps to increase file sizes to a predetermined limit when necessary, which minimizes the effort to monitor disk space.
-
-Allocating 1 GB for the redo log (see the table below) and undo files is sufficient in most cases.
-
-__Database Performance__
-
-The following factors are to be taken into account:   
-* type of database (RDBMS)
-* number of agents (which actually means the number of builds running in parallel)
-* number of web pages opened by all users
-* [clean-up](clean-up.md) rules (retention policy)
-
-It is advised to place the [`TeamCity Data Directory`](teamcity-data-directory.md) and database data files on physically different hard disks (even when both the TeamCity server and RDBMS share the same host).
-
-Placing redo logs on a separate physical disk is also recommended especially in case of the high number of agents (50 and more).
-
-__Database-specific considerations__
-
-The _redo_ log (or a similar entity) naming for different RDBMS:
-
-<table><tr>
-
-<td>
-
-RDBMS
-
-</td>
-
-<td>
-
-Log name
-
-</td></tr><tr>
-
-<td>
-
-Oracle
-
-</td>
-
-<td>
-
-Redo Log
-
-</td></tr><tr>
-
-<td>
-
-MS SQL Server
-
-</td>
-
-<td>
-
-Transaction Log
-
-</td></tr><tr>
-
-<td>
-
-PostgreSQL
-
-</td>
-
-<td>
-
-WAL (write ahead log)
-
-</td></tr><tr>
-
-<td>
-
-MySQL \+ InnoDB and Percona
-
-</td>
-
-<td>
-
-Redo Log
-
-</td></tr></table>
-
-PostgreSQL: We recommend using version 9.2\+, which has a lot of query optimization features. Also see the information on the write-ahead-log (WAL) in the [PostgreSQL documentation](http://www.postgresql.org/docs/9.2/static/wal-internals.html)
-
-Oracle: it is recommended to keep statistics on: all automatically gathered statistics should be enabled (since Oracle 10.0, this is the default setup). Also see the information on redo log files in the [Oracle documentation](https://docs.oracle.com/cd/B14117_01/server.101/b10752/iodesign.htm#26022).
-
-MS SQL Server: it is NOT recommended to use the jTDS driver: it does not work with `nchar/nvarchar`, and to preserve unicode streams it may cause queries to take a long time and consume a lot of IO. Also see the information on redo log in the [Microsoft Knowledge base](https://support.microsoft.com/kb/2033523). If you use jTDS, please [migrate](setting-up-external-database.md#jTDS+driver).
-
-MySQL: the query optimizer might be inefficient: some queries may get a wrong execution plan causing them to take a long time and consume huge IO.
-
-## Estimate the Number of Required Build Agents
-
-There are no precise data and the number of required build agents depends a lot on the server usage pattern, type of builds, team size, commitment of the team to CI process, and so on.   
-The best way is to start with the default 3 agents and see how that plays with the projects configured, then estimate further based on that.
-
-You might want to increase the number of agents when you see:
-* builds waiting for an idle agent in the build queue;
-* more changes included into each build than you find comfortable (for example, for build failures analysis);
-* necessity for different environments.
-We've seen patterns of having an agent per each 20 build configurations (types of builds). Or a build agent per 1-2 developers.
-
-See also [notes](#Estimate+Hardware+Requirements+for+TeamCity) on maximum supported number of agents.
-{product="tc"}
-
-## Setup TeamCity in Replication/Clustering Environment
-{product="tc"}
-
-It is possible to add a [secondary TeamCity node](multinode-setup.md) to ensure high availability and offload some operations from the main server. All nodes need to be connected to the same [`TeamCity Data Directory`](teamcity-data-directory.md) and the database.
-
-To address fast disaster recovery scenarios, TeamCity supports active - failover (cold standby) approach: the data that the TeamCity server uses can be replicated and a solution put in place to start a new server using the same data if the currently active server malfunctions.
-
-As to the data, the TeamCity server uses both database and file storage (Data Directory). You can browse through [TeamCity Data Backup](teamcity-data-backup.md) and [TeamCity Data Directory](teamcity-data-directory.md) pages in to get more information on TeamCity data storing. Basically, both the TeamCity Data Directory on the disk and the database which TeamCity uses must remain in a consistent state and thus must be replicated together.   
-Only a single TeamCity server instance should use the database and Data Directory at any time.
-
-Ensure that the distribution of the TeamCity failover/backup server is of exactly the same version as the main server. It is also important to ensure the same server environment/startup options like memory settings, and so on.
-
-TeamCity agents farm can be reused between the main and the failover servers. Agents will automatically connect to the new server if you make the failover server to be resolved via the old server DNS name and agents connect to the server using the DNS name. See also information on [switching](#Switching+from+one+server+to+another) from one server to another.   
-If appropriate, the agents can be replicated just as the server. However, there is no need to replicate any TeamCity-specific data on the agents except for the conf\buildAgent.properties file as all the rest of the data can typically be renewed from the server. In case of replicated agents farm, the replica agents just need to be connected to the failover server.
-
-In case of two servers installations for redundancy purposes, they can use the same set of licenses as only one of them is running at any given moment.
+If you use built-in authentication and have correct email specified, you can [reset the password](managing-your-user-account.md#Changing+Your+Password) from the login page.
 
 ## TeamCity Security Notes
 
