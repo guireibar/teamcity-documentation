@@ -1,6 +1,10 @@
 [//]: # (title: How To...)
 [//]: # (auxiliary-id: viewpage.actionpageId113084582;How To...)
 
+>Sections related to system requirements have been moved to a [separate article](system-requirements.md).
+> 
+{type="note"}
+
 ### Set up TeamCity in Replication/Clustering Environment
 
 It is possible to add a [secondary TeamCity node](multinode-setup.md) to ensure high availability and offload some operations from the main server. All nodes need to be connected to the same [`TeamCity Data Directory`](teamcity-data-directory.md) and the database.
