@@ -1,7 +1,7 @@
 [//]: # (title: Supported Platforms and Environments)
 [//]: # (auxiliary-id: Supported Platforms and Environments)
 
-This page covers software-related environments TeamCity works with. For hardware-related notes, see [this section](how-to.md#Estimate+Hardware+Requirements+for+TeamCity).
+This page covers software-related environments TeamCity works with. For hardware-related notes, see [this section](system-requirements.md).
 {product="tc"}
 
 ## Operating Systems

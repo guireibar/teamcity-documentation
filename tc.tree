@@ -74,6 +74,7 @@
             <toc-element id="testing-frameworks.md"/>
             <toc-element id="code-quality-tools.md" show-structure-for="chapter" show-structure-depth="4"/>
          </toc-element>
+         <toc-element id="system-requirements.md" show-structure-for="chapter" show-structure-depth="4"/>
          <toc-element id="installation.md" show-structure-for="chapter" show-structure-depth="4">
             <toc-element id="installing-and-configuring-the-teamcity-server.md" show-structure-for="chapter" show-structure-depth="4">
                <toc-element id="csrf-protection.md" show-structure-for="chapter" show-structure-depth="4"/>

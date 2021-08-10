@@ -32,7 +32,7 @@ You might want to increase the number of agents when you see:
 * necessity for different environments.
   We've seen patterns of having an agent per each 20 build configurations (types of builds). Or a build agent per 1-2 developers.
 
-See also [notes](#Estimate+Hardware+Requirements+for+TeamCity) on maximum supported number of agents.
+See also [notes](system-requirements.md#TeamCity+Agent+Requirements) on maximum supported number of agents.
 
 <anchor name="HowTo-RetrieveAdministratorPassword"/>
 

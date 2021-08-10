@@ -77,7 +77,7 @@ If the agent is not connected within that time, check the name of the agent (as 
 
 If the agent stays in the state for more than 10 minutes and you have a fast network connection between the agent and the server, do the following:
 * check the related agent machine to ensure that the agent process is running and `serverURL` in `conf\buildAgent.properties` is correct (and that the server is reachable by that URL from the machine);
-* check that all the related environment [requirements](setting-up-and-running-additional-build-agents.md#Necessary+OS+and+environment+permissions) are met;
+* check that all the related environment [requirements](system-requirements.md#TeamCity+Agent+Requirements) are met;
 * check [agent logs](viewing-build-agent-logs.md) (`teamcity-agent.log`, `launcher.log`, `upgrade.log`) for any related messages/errors;
 * check [server logs](teamcity-server-logs.md) (`teamcity-server.log`) for any messages/errors mentioning agent name or IP.
 {product="tc"}

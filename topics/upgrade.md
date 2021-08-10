@@ -168,7 +168,7 @@ Generally, versions of the IntelliJ IDEA TeamCity plugin, Eclipse TeamCity plugi
 
 ### Automatic Build Agent Upgrading
 
-On starting TeamCity server (and updating agent distribution or plugins on the server), TeamCity agents connected to the server and [correctly installed](setting-up-and-running-additional-build-agents.md#Necessary+OS+and+environment+permissions) are automatically updated to the version corresponding to the server. This occurs for both server upgrades and downgrades. If there is a running build on the agent, the build finishes. No new builds are started on the agent unless the agent is up to date with the server. 
+On starting TeamCity server (and updating agent distribution or plugins on the server), TeamCity agents connected to the server and [correctly installed](system-requirements.md#TeamCity+Agent+Requirements) are automatically updated to the version corresponding to the server. This occurs for both server upgrades and downgrades. If there is a running build on the agent, the build finishes. No new builds are started on the agent unless the agent is up to date with the server. 
 
 __Since TeamCity 2018.2__, before starting the agent upgrade, the agent is checked for free disk space, 3 Gb by default. To modify the value required for the upgrade, configure the `teamcity.agent.upgrade.ensure.free.space` [agent property](build-agent-configuration.md).
 

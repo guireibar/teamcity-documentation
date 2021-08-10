@@ -81,7 +81,7 @@ The number of authorized agents is limited by the number of agents licenses on t
 
 <note>
 
-Ensure that the user account used to run the agent service has appropriate [permissions](#Necessary+OS+and+environment+permissions)
+Ensure that the user account used to run the agent service has appropriate [permissions](system-requirements.md#TeamCity+Agent+Requirements)
 </note>
 
 ### Installing via Docker Agent Image
@@ -247,7 +247,7 @@ To configure the agent to be __started automatically__, see the corresponding se
 
 To run an agent automatically on the machine boot under Windows, you can either set up the agent to be run as a Windows service or use another way of the automatic process start.   
 Using the Windows service approach is the easiest way, but Windows applies [some constraints](known-issues.md#Agent+running+as+Windows+Service+Limitations) to the processes run this way.   
-A TeamCity agent works reliably under Windows service provided all the [requirements](#Necessary+OS+and+environment+permissions) are met, but is often not the case for the build processes configured to be run on the agent.
+A TeamCity agent works reliably under Windows service provided all the [requirements](system-requirements.md#TeamCity+Agent+Requirements) are met, but is often not the case for the build processes configured to be run on the agent.
 
 That is why it is recommended to run a TeamCity agent as a Windows service only if all the build scripts support this. Otherwise, it is advised to use alternative OS-specific ways to start a TeamCity agent automatically.   
 One of the ways is to configure an [automatic user logon](https://support.microsoft.com/en-us/help/324737/how-to-turn-on-automatic-logon-in-windows) on Windows start and then configure the TeamCity agent start (via `agent.bat start`) on the user logon (for example, via Windows [Task Scheduler](https://msdn.microsoft.com/en-us/library/windows/desktop/aa383614(v=vs.85).aspx)).
@@ -258,7 +258,7 @@ In Windows, you may want to run TeamCity agent as a Windows service to allow it 
 
 <warning>
 
-To run builds, the build agent must be started under a user with sufficient permissions for performing a build and [managing](#Windows) the service. By default, a Windows service is started under the SYSTEM account which is not recommended for production use due to extended permissions the account uses. To change it, use the standard Windows Services applet (__Control Panel | Administrative Tools | Services__) and change the user for the _TeamCity Build Agent_ service.
+To run builds, the build agent must be started under a user with sufficient permissions for performing a build and [managing](system-requirements.md#Requirements+to+Windows-based+Agents) the service. By default, a Windows service is started under the SYSTEM account which is not recommended for production use due to extended permissions the account uses. To change it, use the standard Windows Services applet (__Control Panel | Administrative Tools | Services__) and change the user for the _TeamCity Build Agent_ service.
 </warning>
 
 >If you start an Amazon EC2 cloud agent as a Windows service, check the [related notes](setting-up-teamcity-for-amazon-ec2.md#Preparing+Image+with+Installed+TeamCity+Agent).
@@ -292,7 +292,7 @@ net start TCBuildAgent
 
 The `<agent home>\launcher\conf\wrapper.conf` file can also be used to alter the agent JVM parameters.
 
-The user account used to run the build agent service must have enough rights to start/stop the agent service, as described [above](#Windows).
+The user account used to run the build agent service must have enough rights to start/stop the agent service, as described [above](system-requirements.md#Requirements+to+Windows-based+Agents).
 
 #### Automatic Agent Start under Linux
 

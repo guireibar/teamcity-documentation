@@ -196,7 +196,7 @@ If you run several agents on the same machine and do not [enable clean checkout]
 
 __Control permissions of the OS user who runs a TeamCity agent__.
 
-It is advised to run TeamCity agents under an OS account with only a [necessary set of permissions](setting-up-and-running-additional-build-agents.md#Necessary+OS+and+environment+permissions).
+It is advised to run TeamCity agents under an OS account with only a [necessary set of permissions](system-requirements.md#TeamCity+Agent+Requirements).
 
 __Connect agents only to a trusted server__.
 {product="tc"}

@@ -7,7 +7,7 @@ To install a TeamCity server, perform the following:
 
 1. Choose the appropriate TeamCity distribution (`.exe`, `.tar.gz` or [Docker image](https://hub.docker.com/r/jetbrains/teamcity-server/)) based on the details below. You can also [run TeamCity on AWS](running-teamcity-stack-in-aws.md) stack.
 2. [Download](http://www.jetbrains.com/teamcity/download/) the distribution.
-3. Review [software requirements](supported-platforms-and-environments.md) and [hardware requirements notes](how-to.md#Estimate+Hardware+Requirements+for+TeamCity) and [platform selection](how-to.md#Choose+OS%2FPlatform+for+TeamCity+Server).
+3. Review [software requirements](supported-platforms-and-environments.md) and [hardware requirements notes](system-requirements.md).
 4. Review TeamCity [Licensing Policy](licensing-policy.md).
 5. Install and configure the TeamCity server per instructions below.
 
@@ -304,7 +304,7 @@ Out-of-the-box TeamCity server installation is suitable for evaluation purposes.
 * Planning for regular [upgrades](upgrade.md) to the latest TeamCity releases.
 * Consider adding the `teamcity.installation.completed=true` line into the `<[TeamCity Data Directory](teamcity-data-directory.md)>\conf\teamcity-startup.properties` file — this will prevent the server from creating an administrator user if no such user is found.
 
-Make sure to review the [notes on configuring the server for performance](how-to.md#Configuring+TeamCity+Server+for+Performance) and [security notes](security-notes.md).
+Make sure to review the [notes on configuring the server for performance](system-requirements.md#Configuring+TeamCity+Server+for+Performance) and [security notes](security-notes.md).
 
 <seealso>
         <category ref="installation">

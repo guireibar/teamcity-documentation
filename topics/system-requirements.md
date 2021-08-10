@@ -130,7 +130,7 @@ This section gives recommendations on tweaking the TeamCity server setup for bet
 * If the server is used by more than 1000 users, consider reducing the frequency of background UI requests by increasing the [UI refresh intervals](teamcity-tweaks.md#Web+Page+Refresh+Interval).
 * When regularly exceeding 500 concurrently running builds which log a lot of data, consider switching to a [multinode setup](multinode-setup.md).
 
-## TeamCity Agent Prerequisites
+## TeamCity Agent Requirements
 
 This section lists requirements to the environment and OS user suitable for running a TeamCity [build agent](build-agent.md) process.
 

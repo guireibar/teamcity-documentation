@@ -89,7 +89,7 @@ For a build agent configuration, refer to [this section](build-agent-configurati
 ## Agent Upgrade
 {product="tc"}
 
-A TeamCity agent is upgraded automatically when necessary. The process involves downloading new agent files from the TeamCity server and restarting the agent on the new files. In order to successfully accomplish this, the user under whose account the agent runs should have [enough](setting-up-and-running-additional-build-agents.md#Necessary+OS+and+environment+permissions) permissions.
+A TeamCity agent is upgraded automatically when necessary. The process involves downloading new agent files from the TeamCity server and restarting the agent on the new files. In order to successfully accomplish this, the user under whose account the agent runs should have [enough](system-requirements.md#TeamCity+Agent+Requirements) permissions.
 
 Typically, an agent upgrade happens when:
 * the server is [upgraded](upgrade.md)

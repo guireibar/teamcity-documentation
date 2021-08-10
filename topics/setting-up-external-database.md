@@ -21,7 +21,7 @@ In short, __do not EVER use internal HSQLDB database for production TeamCity ins
 
 As a general rule you should use the database that better suits your environment and that you can maintain/configure better in your organization. While we strive to make sure TeamCity functions equally well under all of the supported databases, issues can surface in some of them under high TeamCity\-generated load.
 
-You may also want to estimate the [required database capacity](how-to.md#Estimate+External+Database+Capacity).
+You may also want to estimate the [required database capacity](system-requirements.md#Estimating+External+Database+Capacity).
 
 ### Supported Databases
 
