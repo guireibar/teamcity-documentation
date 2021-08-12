@@ -1,13 +1,15 @@
 [//]: # (title: System Requirements)
 [//]: # (auxiliary-id: System Requirements)
 
-This article contains general recommendations on choosing and configuring the environment for TeamCity Server and Agents, as well as the network connection between them and dedicated external database. If you have specific questions that are not covered here, please contact our support via any convenient [feedback channel](feedback.md).
+This article contains general recommendations on choosing and configuring the environment for TeamCity Server and Agents, as well as the network connection between them and a dedicated external database. If you have specific questions that are not covered here, please contact our support via any convenient [feedback channel](feedback.md).
 
 ## TeamCity Server Requirements
 
 ### Choosing Server OS/Platform
 
-TeamCity Server can run on any recent version of Windows, Linux, or macOS. Requirements to the server's operating system are listed [here](supported-platforms-and-environments.md#TeamCity+Server). We also recommend that you review the [requirements](supported-platforms-and-environments.md) to the integrations you plan to use. For example, the following functionalities may require or work better when TeamCity Server is installed under Windows:
+TeamCity Server can run on any recent version of Windows, Linux, or macOS. Requirements to the server's operating system are listed [here](supported-platforms-and-environments.md#TeamCity+Server).
+
+We also recommend that you review the [requirements](supported-platforms-and-environments.md) for the integrations you plan to use. For example, the following functionalities may require or work better when TeamCity Server is installed under Windows:
 * VCS integration with Azure DevOps Server (TFS)
 * VCS integration with VSS
 * Windows domain logins (can work under Linux, but may be less stable), especially NTLM HTTP authentication
@@ -22,7 +24,7 @@ The server's hardware requirements depend on the server load, which in its turn 
 
 #### CPU
 
-TeamCity can utilize multiple CPU cores, so increasing their number might make sense. For a production TeamCity usage we recommend using at least 4 CPU cores.
+TeamCity Server can utilize multiple CPU cores, and it makes sense to use at least 4 CPU cores for production purposes.
 
 #### Memory
 
@@ -32,15 +34,15 @@ TeamCity utilizes memory resources for Maven integration, version control integr
 
 TeamCity loads the disk to work with temp directories (`<[TeamCity Home](teamcity-home-directory.md)>/temp` and OS's default `temp` directory) and `<[TeamCity Data Directory](teamcity-data-directory.md)>/system`.
 
-Note that __performance of a TeamCity server highly depends on the disk performance__. As TeamCity stores large amounts of data under `<[TeamCity Data Directory](teamcity-data-directory.md)>/system` (most notably, VCS caches and build results), it is important to ensure that the access to the disk is fast (in particular, reading/writing files in multiple threads and listing files with attributes). Ensuring that the disk has good performance is especially important if you plan to store the Data Directory on a network drive. However, it is recommended using local storage for the `TeamCity Data Directory/system/caches` directory. See also [notes on choosing the Data Directory location](teamcity-data-directory.md#Recommendations+as+to+choosing+Data+Directory+Location).
+Note that __performance of a TeamCity server highly depends on the disk performance__. As TeamCity stores large amounts of data under `<[TeamCity Data Directory](teamcity-data-directory.md)>/system` (most notably, VCS caches and build results), it is important to ensure that the access to the disk is fast (in particular, reading/writing files in multiple threads and listing files with attributes). Ensuring that the disk has good performance is especially important if you plan to store the Data Directory on a network drive. However, it is recommended to use local storage for the `TeamCity Data Directory/system/caches` directory. See also [notes on choosing the Data Directory location](teamcity-data-directory.md#Recommendations+as+to+choosing+Data+Directory+Location).
 
 The free disk space requirements are mainly determined by the number of builds stored on the server and the artifacts / build log size in each of them. The disk space is also used to store VCS-related caches: it can take about twice as much space as the checkout size of all the VCS roots configured on the server.
 
-If builds generate large amount of data (artifacts/build logs/test data), we suggest that you use a fast disk for storing the `.BuildServer/system` directory and fast network between agents and the server.
+If builds generate large amounts of data (artifacts/build logs/test data), we suggest that you use a fast disk for storing the `.BuildServer/system` directory and fast network between agents and the server.
 
 #### Network
 
-Network resources are used for the traffic from VCS servers to clients (browsers, IDEs, and so on) and to/from build agents (to send sources or receive build results, logs, and artifacts).
+Network resources are used for the traffic from VCS servers to clients (browsers, IDEs, and so on) and to/from build agents (to send sources or receive build results, logs, and artifacts). To support a loaded server with many agents, a fast network connection is required.
 
 #### Server Load Formula
 
@@ -56,7 +58,7 @@ The load on the server depends on:
 * number and type of VCS roots as well as the configured interval of checking for changes. VCS checkout mode is relevant too: the server checkout mode generates greater server load. Specific types of VCS also affect server load, but they can be roughly estimated based on the native VCS client performance.
 * number of changes detected by TeamCity per day in all the VCS roots
 * the size of the repositories TeamCity works with
-* total size of the sources checked out by TeamCity daily
+* the total size of the sources checked out by TeamCity daily
 
 #### Example Server Configurations
 
@@ -67,7 +69,7 @@ The following hardware configuration is capable of handling up to 100 concurrent
 * Fast and reliable HDD
 * Fast external database access
 
-Based on our experience, a modest hardware like _Intel 3.2 GHz dual-core CPU, 3.2 GB memory under Windows, 1 GB network adapter, and single HDD_ can provide acceptable performance for the following setup:
+Based on our experience, modest hardware like _Intel 3.2 GHz dual-core CPU, 3.2 GB memory under Windows, 1 GB network adapter, and single HDD_ can provide acceptable performance for the following setup:
 * 60 projects and 300 build configurations (with one forth being active and running regularly)
 * more than 300 builds a day
 * about 2 MB log per build
@@ -92,7 +94,7 @@ The following configuration can provide acceptable performance for a more loaded
 
 However, to ensure the peak load can be handled well, more powerful hardware is recommended.
 
-The general recommendation for deploying a large-scale TeamCity installation is to start with a reasonable hardware while considering hardware upgrade. You can increase the load on the server gradually (for example, add more projects), while monitoring the performance stats, and then decide on necessary hardware or software improvements. There is also a [benchmark plugin](https://plugins.jetbrains.com/plugin/9127-benchmark) which can be used to estimate the number of simultaneous builds the current server installation can handle.  
+The general recommendation for deploying a large-scale TeamCity installation is to start with reasonable hardware while considering hardware upgrade. You can increase the load on the server gradually (for example, add more projects) while monitoring the performance stats, and then decide on necessary hardware or software improvements. There is also a [benchmark plugin](https://plugins.jetbrains.com/plugin/9127-benchmark) that can be used to estimate the number of simultaneous builds the current server installation can handle.  
 
 We also recommend that you stick to the best practices of server administration, like keeping disk defragmentation on a reasonable level.  
 
@@ -100,7 +102,7 @@ If you need to increase the number of concurrently running builds (agents) by so
 
 ### Scaling Server Depending on Agents Number
 
-TeamCity can stably work with 500+ build agents (500 concurrently running builds which are actively logging build runtime data). In synthetic tests, the server was functioning fine with as many as 1000 concurrent builds (the server with 8 cores, 32 GB of total memory running under Linux, and a MySQL server running on a separate comparable machine).
+TeamCity can stably work with 500+ build agents (500 concurrently running builds that are actively logging build runtime data). In synthetic tests, the server was functioning fine with as many as 1000 concurrent builds (the server with 8 cores, 32 GB of total memory running under Linux, and a MySQL server running on a separate comparable machine).
 
 The server load produced by each build depends on the amount of this build's data (logs, tests, and failure details, inspections/duplicates issues number, and so on). Keeping the amount of data reasonably constrained (publishing large outputs as build artifacts, not printing those into standard output, tweaking inspection profiles to report a limited set of the most important inspection hits, and so on) will help scale the server to handle more concurrent builds.
 
@@ -138,7 +140,7 @@ This section lists requirements to the environment and OS user suitable for runn
 
 The agent Java process has to:
 * be able to open outbound HTTP connections to the server URL that is configured via the `serverUrl` property in the [`buildAgent.properties`](build-agent-configuration.md) file (typically the same address you use in the browser to view the TeamCity UI).  
-  Sending requests to the paths under the configured URL should not be limited. See also the recommended [reverse proxy settings](how-to.md#Set+Up+TeamCity+behind+a+Proxy+Server). Ensure that any firewalls installed on the agent or server machines, network configuration and proxies (if any) comply with these requirements.
+  Sending requests to the paths under the configured URL should not be limited. See also the recommended [reverse proxy settings](how-to.md#Set+Up+TeamCity+behind+a+Proxy+Server). Ensure that any firewalls installed on the agent or server machines, network configuration, and proxies (if any) comply with these requirements.
 * have full permissions (read/write/delete) to the following directories recursively: [`<agent home>`](agent-home-directory.md) (necessary for automatic agent upgrade and agent tools support), [`<agent work>`](agent-work-directory.md), [`<agent temp>`](agent-home-directory.md#Agent+Directories), and agent system directory (set by `workDir`, `tempDir`, and `systemDir` parameters in the `buildAgent.properties` file).
 * be able to launch processes (to run builds).
 * be able to launch nested processes with the following parent process exit (this is used during the agent upgrade).
@@ -148,9 +150,9 @@ The agent Java process has to:
 The Windows user who runs an agent process must:
 * be able to run as a Windows service (see also this [Microsoft Knowledge Base article](https://support.microsoft.com/en-us/help/325349/how-to-grant-users-rights-to-manage-services-in-windows-server-2003)).
 * be able to start/stop service (to run as Windows service, necessary for the agent upgrade to work, see also [Microsoft KB article](https://support.microsoft.com/en-us/help/325349/how-to-grant-users-rights-to-manage-services-in-windows-server-2003)).
-* be able to debug programs (required for take process dump functionality).
+* be able to debug programs (required for taking process dump functionality).
 * be able to reboot the machine (required for agent reboot functionality).
-* be a member of the _Performance Monitor Users_ group (to be able to [monitor performance](performance-monitor.md) of a build agent run as a Windows [service](setting-up-and-running-additional-build-agents.md#Build+Agent+as+a+Windows+Service)).
+* be a member of the _Performance Monitor Users_ group (to be able to [monitor the performance](performance-monitor.md) of a build agent running as a Windows [service](setting-up-and-running-additional-build-agents.md#Build+Agent+as+a+Windows+Service)).
 
 Note on granting rights:
 
@@ -170,7 +172,7 @@ subinacl.exe /service TCBuildAgent /grant=<user login name>=PTO
 
 ### Requirements to Linux-based Agents
 
-The Linux user who runs an agent process must be able to run the `shutdown` command (for the agent machine reboot and shutdown functionality when running in a cloud environment). If you are using `systemd`, it should not kill the processes on the main process exit (use [`RemainAfterExit=yes`](https://serverfault.com/questions/660063/teamcity-build-agent-gets-killed-by-systemd-when-upgrading)). See also [how to set up automatic agent start under Linux](setting-up-and-running-additional-build-agents.md#Automatic+Agent+Start+under+Linux).
+The Linux user who runs an agent process must be able to run the `shutdown` command (for the agent machine reboot and shutdown functionality when running in a cloud environment). If you are using `systemd`, it should not kill the processes on the main process exit (use [`RemainAfterExit=yes`](https://serverfault.com/questions/660063/teamcity-build-agent-gets-killed-by-systemd-when-upgrading)). See also [how to set up an automatic agent start under Linux](setting-up-and-running-additional-build-agents.md#Automatic+Agent+Start+under+Linux).
 
 ### Build-related Permissions
 
@@ -181,9 +183,9 @@ Every build process is launched by a TeamCity agent. It shares the environment a
 
 ### Estimating Hardware Requirements for Agent
 
-The __agent__ hardware requirements are determined by the builds they run. Running a TeamCity agent software introduces a requirement for additional CPU time (but it can usually be neglected comparing to the build process CPU requirements) and additional memory: about 500 MB. The disk space required corresponds to the disk usage by the builds running on the agent (sources checkouts, downloaded artifacts, the disk space consumed during the build; all that combined for the regularly occurring builds).
+The __agent__ hardware requirements are determined by the builds they run. Running a TeamCity agent software introduces a requirement for additional CPU time (but it can usually be neglected compared to the build process CPU requirements) and additional memory: about 500 MB. The disk space required corresponds to the disk usage by the builds running on the agent (sources checkouts, downloaded artifacts, the disk space consumed during the build; all that combined for the regularly occurring builds).
 
-Although you can run a build agent on the same machine as the TeamCity server, the recommended approach is to use a separate machine (it may be virtual) for each build agent. If you chose to install several agents on the [same machine](setting-up-and-running-additional-build-agents.md#Installing+Several+Build+Agents+on+the+Same+Machine), consider the possible CPU, disk, memory or network bottlenecks that might occur. The [Performance Monitor](performance-monitor.md) build feature can help analyze live data.
+Although you can run a build agent on the same machine as the TeamCity server, the recommended approach is to use a separate machine (it may be virtual) for each build agent. If you chose to install several agents on the [same machine](setting-up-and-running-additional-build-agents.md#Installing+Several+Build+Agents+on+the+Same+Machine), consider the possible CPU, disk, memory, or network bottlenecks that might occur. The [Performance Monitor](performance-monitor.md) build feature can help analyze live data.
 
 If you consider cloud deployment for TeamCity agents (for example, on Amazon EC2), also see [this section](setting-up-teamcity-for-amazon-ec2.md#Estimating+EC2+Costs)
 
@@ -196,7 +198,7 @@ The traffic mostly depends on your settings as some of them include transferring
 
 The most important flows of traffic between an agent and the server are:
 * Agent retrieves commands from the server: these are typically build start tasks which include a dump of the build configuration settings and the full set of build parameters. These parameters can be reviewed on the build's __[Parameters](working-with-build-results.md#Parameters)__ tab.
-* Agent periodically sends current status data to the server (this includes all the agents parameters which can be reviewed on the agent's __[Agent Parameters](viewing-build-agent-details.md#Agent+Parameters)__ tab).
+* Agent periodically sends current status data to the server (this includes all the agents' parameters which can be reviewed on the agent's __[Agent Parameters](viewing-build-agent-details.md#Agent+Parameters)__ tab).
 * During the build, the agent sends build log messages and parameters data back to the server. These can be reviewed on the __[Build Log](working-with-build-results.md#Build+Log)__ and __[Parameters](working-with-build-results.md#Parameters)__ tabs of the build.
 * (when the server-side checkout mode is used) The agent downloads the sources before the build (as a full or incremental patch) from the server.
 * (when an [artifact dependency](artifact-dependencies.md) is configured) The agent downloads build artifacts of other builds from the server before starting a build.
@@ -205,7 +207,7 @@ The most important flows of traffic between an agent and the server are:
 
 ## Estimating External Database Capacity
 
-If a TeamCity server is used extensively, the database performance starts to play a greater role. To ensure production performance and reliability, an [external database](setting-up-external-database.md) must be used. Its size and performance are crucial aspects to consider.
+If a TeamCity server is used extensively, the database performance starts to play a greater role. To ensure production-level performance and reliability, an [external database](setting-up-external-database.md) must be used. Its size and performance are crucial aspects to consider.
 
 If you decide to run an external database on the same machine as the server (__not recommended__), choose the server's hardware with the database engine requirements in mind.
 
@@ -285,7 +287,7 @@ PostgreSQL
 
 <td>
 
-WAL (write ahead log)
+WAL (write-ahead log)
 
 </td></tr><tr>
 
@@ -301,10 +303,10 @@ Redo Log
 
 </td></tr></table>
 
-__PostgreSQL__: it is recommended using version 9.2\+, which has a lot of query optimization features. Also see the information on the write-ahead-log (WAL) in the [PostgreSQL documentation](http://www.postgresql.org/docs/9.2/static/wal-internals.html).
+__PostgreSQL__: it is recommended to use version 9.2\+, which has a lot of query optimization features. Also see the information on the write-ahead-log (WAL) in the [PostgreSQL documentation](http://www.postgresql.org/docs/9.2/static/wal-internals.html).
 
-__Oracle__: it is recommended keeping statistics on — all automatically gathered statistics should be enabled (since Oracle 10.0, this is the default setup). Also see the information on redo log files in the [Oracle documentation](https://docs.oracle.com/cd/B14117_01/server.101/b10752/iodesign.htm#26022).
+__Oracle__: it is recommended to keep statistics on — all automatically gathered statistics should be enabled (since Oracle 10.0, this is the default setup). See the information on redo log files in the [Oracle documentation](https://docs.oracle.com/cd/B14117_01/server.101/b10752/iodesign.htm#26022).
 
-__MS SQL Server__: it is NOT recommended using the jTDS driver — it does not work with `nchar/nvarchar`. To preserve unicode streams, it may cause queries to take a long time and consume many I/O operations. Also see the information on redo log in the [Microsoft Knowledge base](https://support.microsoft.com/kb/2033523). If you use jTDS, [consider migrating](setting-up-external-database.md#jTDS+driver).
+__MS SQL Server__: it is NOT recommended using the jTDS driver — it does not work with `nchar/nvarchar`. To preserve unicode streams, it may cause queries to take a long time and consume many I/O operations. See the information on redo log in the [Microsoft Knowledge base](https://support.microsoft.com/kb/2033523). If you use jTDS, [consider migrating](setting-up-external-database.md#jTDS+driver).
 
 __MySQL__: the query optimizer might be inefficient: some queries may get a wrong execution plan causing them to take a long time and consume many I/O operations.
