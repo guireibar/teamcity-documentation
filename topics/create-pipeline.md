@@ -19,8 +19,9 @@ First sections show how to create a simple chain (1-2) that builds a Spring Boot
 
 TeamCity allows saving project's settings in Kotlin or XML. That's what we did with the sample project, so you can easily import it to your server. To do this:
 1. Go to __Administration | Projects__ and click __Create project__.
-2. In the _Repository URL_ field, enter the [sample project](https://github.com/mkjetbrains/TodoApp-NoChain-KTS) URL and click __Proceed__.
-2. In the _Repository URL_ field, enter the [sample project's](https://github.com/mkjetbrains/TodoApp-NoChain-KTS) URL and click __Proceed__.
+2. In the _Repository URL_ field, enter the [sample project's](https://github.com/mkjetbrains/TodoApp-NoChain-KTS) URL and click __Proceed__.  
+   
+  >Note that the sample settings lead to a source repository whose editing is restricted. To be able to tweak the source settings during the tutorial, we suggest that you fork both the settings project and the [source code project](https://github.com/mkjetbrains/todoapp-backend), and then respectively adjust the `namesAndTags` and `url` values in the `.teamcity/settings.kts` file. This is completely optional — feel free to use our sample sources for a quick walkthrough.
 3. TeamCity will detect the `settings.kts` file, which corresponds to a TeamCity project's settings saved in Kotlin format. Leave the default settings and proceed.
 4. TeamCity will import the sample project's settings and redirect you to its __Global Settings__ page. Here, you can find the _TodoBackend_ subproject. Click it to see all the created build configurations.
 
@@ -79,9 +80,37 @@ Our experimental UI offers three modes of representing dependencies: timeline, l
 
 ## Configure Triggers and Checkout Rules
 
-You already know the basics of creating chains, or pipelines, in TeamCity. However, to make a chain effective and production-ready, you need to automate it further.
+You already know the basics of creating chains, or pipelines, in TeamCity. However, to become effective and production-ready, a chain needs to me automated further.
 
-As we explained in the [first build guide](configure-and-run-your-first-build.md), TeamCity offers a variety of build triggers. Triggers can builds automatically if certain conditions are satisfied. The most popular type of trigger is a [VCS trigger](configuring-vcs-triggers.md). And it will help us in this tutorial as well.
+As we explained in the [first build guide](configure-and-run-your-first-build.md), TeamCity offers a variety of build triggers. Triggers run builds automatically if certain conditions are satisfied. The most popular type of trigger is a [VCS trigger](configuring-vcs-triggers.md), and that's the trigger we will use in this tutorial.
+
+A VCS trigger starts a new build whenever it detects changes in the project's sources. You can define what repository and even exact files it monitor. Let's add a trigger in the _TodoImage_ settings:
+
+1. Open the __Triggers__ page and click __Add new trigger__.
+2. Enable advanced options and then turn on the option to _trigger a build on changes in snapshot dependencies_. This way, this trigger will also react on changes relevant for the _TodoApp_ config. It's often convenient to add a single trigger at the end of the chain and just enable this option to consider the previous builds. This way, if you want to change the trigger settings, you can do this in one place.
+3. Leave other settings default and save the trigger.
+
+Now, if you change the sample project's code, TeamCity will detect it and run the chain.
+
+Every chain stage is responsible for its own task. That is, in most cases, different build configs need to monitor different parts of the source project. Our _TodoImage_ is mostly interested in changes made to `Dockerfile`, and it makes sense to restrict its scope to it. This way, when you change the logic itself, only _TodoApp_ will be triggered, and _TodoImage_ will run as its dependency build. Without such restrictions, TeamCity would start both of these builds per any change to the source repo.
+
+You can define the scope of monitored sources in a build configuration's __Version Control Settings__:
+1. Opposite our only VCS root click __Edit checkout rules__.
+2. Enter the rules using [this syntax](vcs-checkout-rules.md) and save them.
+
+For _TodoImage_, the rules will be:
+
+```Shell
+-:.
++:docker
+```
+
+First, we exclude the whole repository scope from checkout, but then we include only the `docker` directory.
+
+For _TodoImage_, the rule is only to exclude this directory but monitor all the other files: `-:docker`.
+
+## Complete Chain with Tests
+
 
 
 
