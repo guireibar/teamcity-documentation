@@ -94,7 +94,7 @@ Now, if you change the sample project's code, TeamCity will detect it and run th
 
 Every chain stage is responsible for its own task. That is, in most cases, different build configs need to monitor different parts of the source project. Our _TodoImage_ is mostly interested in changes made to `Dockerfile`, and it makes sense to restrict its scope to it. This way, when you change the logic itself, only _TodoApp_ will be triggered, and _TodoImage_ will run as its dependency build. Without such restrictions, TeamCity would start both of these builds per any change to the source repo.
 
-You can define the scope of monitored sources in a build configuration's __Version Control Settings__:
+You can define the scope of monitored sources in each build configuration's __Version Control Settings__:
 1. Opposite our only VCS root click __Edit checkout rules__.
 2. Enter the rules using [this syntax](vcs-checkout-rules.md) and save them.
 
@@ -111,7 +111,19 @@ For _TodoImage_, the rule is only to exclude this directory but monitor all the 
 
 ## Complete Chain with Tests
 
+On the example of tests, we will show how chained builds can be run in parallel.
 
+As you can see in the project's __Global Settings__, it has other three build configurations: _Test1_, _Test2_, and _TestReport_. According to our target [diagram](#top), _Test1_ and _Test2_ should depend on _TodoImage_, which means you need to create a snapshot dependency on it in both of these builds. If there are at least two suitable build agents on your server, TeamCity will run these builds in parallel to each other; otherwise, it will start one after another. Though, as you might remember, our VCS trigger in _TodoImage_ considers only preceding builds (that is _TodoApp_) and won't be able to launch these test builds. We can add triggers in both test builds, but TeamCity provides a more straight-forward option.
+
+The _TestReport_ build config has the _Composite_ type. [Composite builds](composite-build-configuration.md) run without an agent and is designed to accumulate results of the preceding builds in a chain. Just what we need.
+
+So, to complete this tutorial:
+1. Add snapshot dependencies from _TestReport_ on _Test1_.
+2. Add a VCS trigger in _TestReport_, similarly to how we did it [for _TodoImage_](#Configure+Triggers+and+Checkout+Rules). After that, you can safely remove the trigger from _TodoImage_, as the one will trigger the whole chain.
+
+The build chain mechanism in TeamCity is very flexible and designed to satisfy the needs of every project. You will also notice that build chains are much easier to monitor than scattered builds. You can see the detailed statuses of all chained builds in the __Dependencies__ tab of __Build Results__. And if there is a composite build that depends on multiple test builds, it will report results of all these tests in one place.
+
+Proceed with our getting started tutorials to learn about the other type of build configuration — deployment.
 
 
 
