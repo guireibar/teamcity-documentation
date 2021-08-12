@@ -14,7 +14,7 @@ TeamCity Server is a web application that runs within a capable J2EE servlet con
 Supported Java versions: __OpenJDK and Oracle Java 8 (8u16 or later) and 11 (32 or 64 bit)__. Using 64-bit Java is recommended.  
 The TeamCity server Windows installer and server Docker images come __bundled with [Amazon Corretto](https://aws.amazon.com/corretto/) 64-bit Java 11__.
 
->The core features of TeamCity Server are platform-independent. See [considerations](how-to.md#Choose+OS%2FPlatform+for+TeamCity+Server) on choosing the server platform.
+>The core features of TeamCity Server are platform-independent. See [considerations](system-requirements.md#Choosing+Server+OS%2FPlatform) on choosing the server platform.
 
 Generally, __all the recent versions of Windows, Linux, and macOS are supported__. If you find any compatibility issues with any of the operating systems, [let us know](feedback.md).
 
