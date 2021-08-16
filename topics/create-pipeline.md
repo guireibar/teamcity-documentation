@@ -17,18 +17,17 @@ While running this chain, TeamCity will (1) build a Spring Boot application and 
 
 TeamCity allows saving a project's settings in Kotlin or XML. That's what we did with the sample project, so you can easily import it to your server. To do this:
 1. Go to __Administration | Projects__ and click __Create project__.
-2. In the _Repository URL_ field, enter the [sample project's](https://github.com/mkjetbrains/TodoApp-NoChain-KTS) URL and click __Proceed__.
+2. In the _Repository URL_ field, enter the [sample project's](https://github.com/mkjetbrains/TodoApp-NoChain-KTS) URL and click __Proceed__.  
+   >__Fork sample projects to get full control__  
+   >Note that the sample settings lead to a source repository whose editing is restricted. To be able to tweak the source code during the tutorial, you need to fork both the settings repo and the [source code repo](https://github.com/mkjetbrains/todoapp-backend). Change the values of `namesAndTags` and `url` values in the `.teamcity/settings.kts` file, so they correspond to your GitHub account. This step is completely optional — feel free to just use our sample sources for a quick walkthrough.
 3. TeamCity will detect the `settings.kts` file, which corresponds to a TeamCity project's settings saved in Kotlin format. Leave the default settings and proceed.
-4. TeamCity will import the sample project's settings and redirect you to its __Global Settings__ page. Here, you can find the _TodoBackend_ subproject. Click it to see all the created build configurations.
+4. TeamCity will import the sample project's settings and redirect you to its __General Settings__ page. Here, you can find the _TodoBackend_ subproject. Click it to see all the created build configurations.
 
 Now you can start chaining them.
 
->__Fork sample projects to get full control__  
-> Note that the sample settings lead to a source repository whose editing is restricted. To be able to tweak the source code during the tutorial, we suggest that you fork both the settings repo and the [source code repo](https://github.com/mkjetbrains/todoapp-backend). Then, you will need to change the values of `namesAndTags` and `url` values in the `.teamcity/settings.kts` file, so they correspond to your GitHub account. This is completely optional — feel free to just use our sample sources for a quick walkthrough.
-
 ## Configure Artifact Dependency
 
-The _TodoApp_ build configuration compiles a `.jar` application and publishes it to the `build/libs/` directory on a [build agent](build-agent.md). The _TodoImage_ config builds a Docker image out of this `.jar`.
+The _TodoApp_ build configuration compiles a `.jar` application and publishes it to the `build/libs/` directory. The _TodoImage_ config builds a Docker image out of this `.jar`.
 
 To pass the `.jar` from one config to another, we need to create an __artifact dependency__ between them. This way, when each new _TodoApp_ build finishes and produces an artifact, TeamCity will use this artifact in the following _TodoImage_ build.
 
@@ -44,7 +43,7 @@ A dependency determines how one build depends on another, and thus is created in
 
 Read about patterns of artifact rules and other details related to artifact dependencies [here](artifact-dependencies.md).
 
-At this point, you can start the first _TodoImage_ build and, after its finish, run a _TodoApp_ build. As a result of this build, TeamCity will produce a Docker image (you can find it in __Build Results | Artifacts__). Note that to compose a Docker image, a [TeamCity agent](build-agent.md) needs to have [Docker](https://www.docker.com/) installed and running on its machine.
+At this point, you can start the first _TodoApp_ build and, after its finish, run a _TodoImage_ build. As a result of this build, TeamCity will produce a Docker image. Note that to compose a Docker image, a [TeamCity agent](build-agent.md) needs to have [Docker](https://www.docker.com/) installed and running on its machine.
 
 ## Configure Snapshot Dependency
 
@@ -63,9 +62,7 @@ Let's compliment our existing artifact dependency with a snapshot dependency:
 
 At this point, the first two builds are already chained together, and you can run your first chain.
 
-__Important to understand__:  
-Build in a chain always run together. When you run any build from a chain, whether it's the last one or medium one, TeamCity gathers all the other chained builds into a sequence, according to their dependencies.  
-As you can see on our chain's scheme, _TodoImage_ always runs after _TodoApp_; _Test1_ and _Test2_ start only after _TodoImage_ finishes and run in parallel to each other.
+When you run any build from a chain, whether it's the last one or medium one, TeamCity gathers all the other chained builds into a sequence, according to their dependencies. As you can see on our chain's scheme, _TodoImage_ always runs after _TodoApp_; _Test1_ and _Test2_ start only after _TodoImage_ finishes and run in parallel to each other.
 
 Let's run the _TodoImage_ build with the __Run__ button. Notice how TeamCity automatically runs a new _TodoApp_ build first and, after its finish, launches the following _TodoApp_ build.
 
@@ -112,7 +109,7 @@ You can define the scope of monitored sources in each build configuration's __Ve
   
   First, we exclude the whole repository scope from the checkout, and then we include only the `docker` directory.
   
-  For _TodoImage_, the rule is only to exclude this directory but monitor all the other files: `-:docker`.
+  For _TodoApp_, the rule is only to exclude this directory but monitor all the other files: `-:docker`.
 
 <img src="chaindemo-checkout-rules.png" width="542" alt="Simple build chain in TeamCity"/>
 
@@ -120,7 +117,7 @@ You can define the scope of monitored sources in each build configuration's __Ve
 
 Builds in a chain can run in parallel. Let's explore this on an example of tests.
 
-As you can see in the project's __Global Settings__, it has three other build configurations: _Test1_, _Test2_, and _TestReport_. According to our [target scheme](#), _Test1_ and _Test2_ should depend on _TodoImage_, which means you need to create a snapshot dependency on it in both of these builds. If there are at least two suitable build agents on your server, TeamCity will be able to run these builds in parallel to each other; otherwise, it will start one after another.
+As you can see in the project's __General Settings__, it has three other build configurations: _Test1_, _Test2_, and _TestReport_. According to our [target scheme](#), _Test1_ and _Test2_ should depend on _TodoImage_, which means you need to create a snapshot dependency on it in both of these builds. If there are at least two suitable build agents on your server, TeamCity will be able to run these builds in parallel to each other; otherwise, it will start one after another.
 
 As you might remember, our VCS trigger in _TodoImage_ considers only preceding builds (that is _TodoApp_) and won't be able to launch tests. We can add triggers in both test builds, but TeamCity provides a more straight-forward option — creating an extra [composite build](composite-build-configuration.md), that is _TestReport_. A composite build can run without an agent and accumulate results of the preceding builds in a chain. Just what we need.
 
