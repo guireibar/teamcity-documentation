@@ -1,0 +1,74 @@
+[//]: # (title: View Build Results)
+[//]: # (auxiliary-id: View Build Results)
+
+TeamCity offers a comprehensive overview of build results:
+* Detailed build log
+* Test results and problems
+* Pipeline statuses
+* Artifacts
+* Changes in sources
+* and many more, including custom graphs
+
+In this article, we give a quick overview of how to explore build results in TeamCity. Note that the examples showcase our new UI, but if you prefer the classic UI, you can find many of these features in it as well. To switch between the UIs, use a toggle in the upper right corner of the screen (![mammoth.png](mammoth.png) for classic, ![tube.png](tube.png) for experimental).
+
+## Preview Projects and Build Configurations
+
+TeamCity has two main modes: __Home__ mode is for viewing results and running builds, and __Edit__ mode is for configuring settings. The switch between them is located in the upper right corner of the screen.
+
+Both __Project Home__ and __Build Configuration Home__ allow you to monitor builds and perform all the basic actions.
+
+__Build Configuration Home__ shows statuses of the recent builds, per branch or all combined. To preview a build without opening its results, you can just expand it in the list:
+
+<img src="exp-build-home.png" alt="Experimental Build Home page"/>
+
+__Project Home__ gives a more general overview of all the project's subprojects and build configurations. The _Builds_ mode aggregates __Build Configuration Home__ views of the nested configurations. The _Trends_ mode displays configurations as interactive graphs:
+
+<img src="exp-project-home.png" alt="Experimental Project Home page"/>
+
+## Explore Build Results
+
+If you click a build in the list, its __Build Results__ page will open.
+
+<img src="exp-build-details.png" alt="Experimental Build Results page"/>
+
+The heading part of this page shows:
+* General information like number, date, stats.
+* Branch selector.
+* The __Actions__ menu from where you can label, pin, compare builds, and perform other operations.
+* The __Run__ button.
+* A switch to the settings menu.
+* A widget with the recent builds' statuses. Hover over any of them to see its details.
+
+Below the heading, there are multiple tabs you can explore for more details. The most important ones are:
+* __Overview__: a summary of all the results. Contains an interactive build graph and collapsible blocks with other information.
+* __Changes__: revisions and commits that got to this build.
+* __Tests__: all the information on tests. Here, you can download test results in CSV, as well as mute them, assign an investigator, or mark them as fixed.
+* __Dependencies__: a visualized build chain, or pipeline, the current build belongs to. Three modes with different levels of detail are available.
+* __Artifacts__: browse and download the build artifacts.
+* __Parameters__: see what parameters' values were passed into this build.
+
+The set of displayed tabs depends on the build's specifics (see [more information](working-with-build-results.md) on the default tabs). Some of them are displayed only if a certain feature is enabled. For example, if you add the [Docker Support](docker-support.md) feature to a build, the __Docker Info__ tab will appear in its results.  
+You can also add [custom charts](custom-chart.md) using XML.
+
+## View Build Log
+
+A detailed and structured build log is one of the strongest points of TeamCity. Whenever you investigate a build problem, the log is the first place you should check.
+
+You can access a build log both from the __Overview__ and __Build Log__ tabs. If there are any problems or failed tests in the build, you can quickly view the relevant parts of the log right in the __Overview__. You can also click on any place on the build timeline to open the related part of the log.
+
+<img src="build-timeline.png" width="600" alt="Build timeline"/>
+
+The __Build Log__ tab shows a log in a structured form where the main blocks are collapsed, so the log is easier to navigate. You can explore the log manually, or search and filter messages by their text and type. A log can be downloaded in several formats whenever necessary.
+
+If you want to customize the log output, use special [service messages](build-log.md#Customizing+Log+Output).
+
+## Extras
+
+Apart from viewing the __Build Results__ page directly, you can monitor the build statuses by:
+
+* Configuring [notifications](notifications.md) to messengers and emails.
+* Integrating TeamCity with a third-party service. For example, if you use Jira Cloud, you can display the main build results right in the tasks related to each build ([learn how](jira-cloud-integration.md)).
+* Ksyusha??
+
+
+
