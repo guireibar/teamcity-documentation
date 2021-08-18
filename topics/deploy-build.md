@@ -14,14 +14,15 @@ When you create or edit a build configuration, you can change its type from _Reg
 * All dependency builds get an extra __Deployments__ section of __Build Results__, from where you can quickly deploy the product.
 * Personal builds are disabled to prevent any accidental deployment.
 
-See [more details](deployment-build-configuration.md) about these and other features. We suggest that you use deployment configs to deliver any medium to large software.
+See [more details](deployment-build-configuration.md) about these and other features. We suggest that you use deployment configurations to deliver any medium to large software.
 
-## Ways to Deploy Build in TeamCity
+## Ways to Deploy Product with TeamCity
 
-Here's how you can deploy your TeamCity build:
+Here's how you can deploy your build artifacts:
 * __Via a command line__, using any general runner like [Command Line](command-line.md) or [PowerShell](powershell.md). This is the most straightforward approach. Just add a build step, select any such runner, and enter commands as if in a regular terminal. The benefits you get from TeamCity in this case are automation, synchronization with the previous build stages, and a convenient view of build results in the TeamCity UI.
-* __Using a specific runner for your platform__. For example, if you run .NET projects, the best way to deploy them is via our [.NET runner](net.md). It supports all the relevant .NET commands such as `pack` or `publish` and offers a variety of other features.
+* __Using a specific runner for your platform__. For example, if you run .NET projects, the best way to deploy them is via our [.NET runner](net.md). It supports all the relevant .NET commands such as `pack` or `publish` and offers a variety of other features. Other runners are listed under [this section](configuring-build-steps.md).
 * __Using a deployer__. TeamCity offers several build runners dedicated to deployment: [SMB Upload](smb-upload.md), [FTP Upload](ftp-upload.md), [SSH Upload](ssh-upload.md), [SSH Exec](ssh-exec.md), and [Container Deployer](container-deployer.md). They can upload build artifacts via different protocols and let you configure the upload process via the UI.
+* __By publishing an artifact to an external storage__. If you need to update a certain file in a third-party storage, you can simply instruct TeamCity to automatically upload artifacts there. The [support for Amazon S3](configuring-artifacts-storage.md#Amazon+S3+Support) comes bundled with TeamCity. See how to enable support for other services in [this article](configuring-artifacts-storage.md).
 
 ## Detach Build from Agent
 
