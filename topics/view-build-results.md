@@ -68,7 +68,3 @@ Apart from viewing the __Build Results__ page directly, you can monitor the buil
 
 * Configuring [notifications](notifications.md) to messengers and emails.
 * Integrating TeamCity with a third-party service. For example, if you use Jira Cloud, you can display the main build results right in the tasks related to each build ([learn how](jira-cloud-integration.md)).
-* Ksyusha??
-
-
-
