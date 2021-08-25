@@ -40,9 +40,9 @@ The heading part of this page shows:
 * A widget with the recent builds' statuses. Hover over any of them to see its details.
 
 Below the heading, there are multiple tabs you can explore for more details. The most important ones are:
-* __Overview__: a summary of all the results. Contains an interactive build graph and collapsible blocks with other information.
+* __Overview__: a summary of all the results. Contains an interactive build timeline and collapsible blocks with other information.
 * __Changes__: revisions and commits that got to this build.
-* __Tests__: all the information on tests. Here, you can download test results in CSV, as well as mute them, assign an investigator, or mark them as fixed.
+* __Tests__: all the information on tests. Here, you can explore the test history, download test results in CSV, as well as mute tests, assign their investigator, or mark them as fixed.
 * __Dependencies__: a visualized build chain, or pipeline, the current build belongs to. Three modes with different levels of detail are available.
 * __Artifacts__: browse and download the build artifacts.
 * __Parameters__: see what parameters' values were passed into this build.
@@ -58,13 +58,14 @@ You can access a build log both from the __Overview__ and __Build Log__ tabs. If
 
 <img src="build-timeline.png" width="600" alt="Build timeline"/>
 
-The __Build Log__ tab shows a log in a structured form where the main blocks are collapsed, so the log is easier to navigate. You can explore the log manually, or search and filter messages by their text and type. A log can be downloaded in several formats whenever necessary.
+The __Build Log__ tab shows a structured log with highlighted warnings and errors. Its main blocks are by default collapsed, so the log is easier to navigate. You can explore the log manually, or search and filter messages by their text and type. A log can be downloaded in several formats whenever necessary.
 
 If you want to customize the log output, use special [service messages](build-log.md#Customizing+Log+Output).
 
 ## Extras
 
 Apart from viewing the __Build Results__ page directly, you can monitor the build statuses by:
-
 * Configuring [notifications](notifications.md) to messengers and emails.
 * Integrating TeamCity with a third-party service. For example, if you use Jira Cloud, you can display the main build results right in the tasks related to each build ([learn how](jira-cloud-integration.md)).
+* Publishing build statuses to your VCS repositories via [Commit Status Publisher](commit-status-publisher.md).
+* Using our plugins for IDEs, such as [IntelliJ Platform Plugin](intellij-platform-plugin.md).
