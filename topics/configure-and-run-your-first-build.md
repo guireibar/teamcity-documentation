@@ -181,3 +181,13 @@ Automatic build triggering on a change in the repository is essential to any CI.
 ### Build Number Format
 
 Each build in TeamCity has a build number, that is a string identifier. It is composed according to the pattern defined in __Build Configuration Settings | General Settings__ (click _Show advanced options_ to display it). If you leave the default value, the build number format will be maintained by TeamCity; the number will be resolved into a next integer value on each new build start. Or, you can customize the pattern as described [here](configuring-general-settings.md#Build+Number+Format).
+
+## Takeaway
+
+To configure a certain CI/CD job in TeamCity:
+1. Create a project from your source repository and alter its main settings.
+2. Create a build configuration inside this project.
+3. In the build configuration settings, add build steps that will represent stages of the build.
+4. Alter other configurations settings. For example, add handy build features and automatic triggers.
+
+After that, you can run a build based on the created configuration manually, or wait until it is triggered automatically, if any triggers are configured.
