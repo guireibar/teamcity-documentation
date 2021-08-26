@@ -9,7 +9,7 @@ TeamCity offers a comprehensive overview of build results:
 * Changes in sources
 * and many more, including custom graphs
 
-In this article, we give a quick overview of how to explore build results in TeamCity. Note that the examples showcase our new UI, but if you prefer the classic UI, you can find many of these features in it as well. To switch between the UIs, use a toggle in the upper right corner of the screen (![mammoth.png](mammoth.png) for classic, ![tube.png](tube.png) for experimental).
+In this article, we give a quick overview of how to explore build results in TeamCity. Note that the examples showcase our new UI, but if you prefer the classic UI, you can find many of these features in it as well. To switch between the UIs, use the toggle in the upper right corner of the screen (![mammoth.png](mammoth.png) for classic, ![tube.png](tube.png) for experimental).
 
 ## Preview Projects and Build Configurations
 
@@ -32,7 +32,7 @@ If you click a build in the list, its __Build Results__ page will open.
 <img src="exp-build-details.png" alt="Experimental Build Results page"/>
 
 The heading part of this page shows:
-* General information like number, date, stats.
+* General information like number, date, and statistics.
 * Branch selector.
 * The __Actions__ menu from where you can label, pin, compare builds, and perform other operations.
 * The __Run__ button.
@@ -47,8 +47,9 @@ Below the heading, there are multiple tabs you can explore for more details. The
 * __Artifacts__: browse and download the build artifacts.
 * __Parameters__: see what parameters' values were passed into this build.
 
-The set of displayed tabs depends on the build's specifics (see [more information](working-with-build-results.md) on the default tabs). Some of them are displayed only if a certain feature is enabled. For example, if you add the [Docker Support](docker-support.md) feature to a build, the __Docker Info__ tab will appear in its results.  
-You can also add [custom charts](custom-chart.md) using XML.
+The set of displayed tabs depends on the build's specifics (see [more information](working-with-build-results.md) on the default tabs). Some of them are displayed only if a certain feature is enabled. For example, if you add the [Docker Support](docker-support.md) feature to a build, the __Docker Info__ tab will appear in its results.
+
+You can also add a tab with [custom charts](custom-chart.md) using XML.
 
 ## View Build Log
 
@@ -60,12 +61,12 @@ You can access a build log both from the __Overview__ and __Build Log__ tabs. If
 
 The __Build Log__ tab shows a structured log with highlighted warnings and errors. Its main blocks are by default collapsed, so the log is easier to navigate. You can explore the log manually, or search and filter messages by their text and type. A log can be downloaded in several formats whenever necessary.
 
-If you want to customize the log output, use special [service messages](build-log.md#Customizing+Log+Output).
+If you want to customize how TeamCity produces the log output, use special [service messages](build-log.md#Customizing+Log+Output).
 
 ## Extras
 
 Apart from viewing the __Build Results__ page directly, you can monitor the build statuses by:
-* Configuring [notifications](notifications.md) to messengers and emails.
+* Configuring [notifications](notifications.md) to a messanger, email, or in a browser.
 * Integrating TeamCity with a third-party service. For example, if you use Jira Cloud, you can display the main build results right in the tasks related to each build ([learn how](jira-cloud-integration.md)).
 * Publishing build statuses to your VCS repositories via [Commit Status Publisher](commit-status-publisher.md).
 * Using our plugins for IDEs, such as [IntelliJ Platform Plugin](intellij-platform-plugin.md).
