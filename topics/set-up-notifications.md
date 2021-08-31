@@ -16,9 +16,9 @@ In this guide, we show how to quickly configure email, browser, and Slack notifi
 
 First of all, the TeamCity server administrator should integrate TeamCity with the email service provider used in your organization. This can be done in __Administration | Email Notifier__ and requires entering parameters like SMTP host and service email.
 
-The email notifier will send notifications to the addresses specified in each user's profiles, according to their [preferences](#Subscribe+to+Notifications).
+The email notifier will send notifications to the addresses specified in each user's profile, according to their [preferences](#Subscribe+to+Notifications).
 
-In addition to notifications per user, you can configure mailing lists per build configuration. This way, when a certain event occurs in a certain build configuration, TeamCity will report about it to the respective service email address, specified by you. You can control the final distribution stages of this notification on your email provider's site.  
+In addition to notifications per user, you can configure mailing lists per build configuration. This way, when a certain event occurs in a certain build configuration, TeamCity will report it to the respective service email address, specified by you. You can control the final distribution stages of this notification on your email provider's site.  
 To configure such behavior for a build configuration, you need to add a [Notifications](notifications.md#Email+Notifier) build feature.
 
 ### Browser Notifier
@@ -39,7 +39,7 @@ Configuring Slack notifications is a bit trickier than the previous types, as it
 
 When configured, you will need to authenticate in Slack in __Your Profile | Notification Rules__ and specify the [rules](#Subscribe+to+Notifications) themselves. Then, you will be receiving build status notifications directly to private messages in Slack.
 
-In addition to notifications per user, you can configure notifications per build configuration. This way, when a certain event occurs in a certain build configuration, TeamCity will report about it to the respective Slack channel, specified by you.  
+In addition to notifications per user, you can configure notifications per build configuration. This way, when a certain event occurs in a certain build configuration, TeamCity will report it to the respective Slack channel, specified by you.  
 To configure such behavior for a build configuration, you need to add a [Notifications](notifications.md#Configuring+Slack+Notifier) build feature.
 
 ## Subscribe to Notifications
@@ -58,4 +58,4 @@ Admins can configure these rules per [user group](user-group.md), and its users 
 
 ## Customize Notifications
 
-You can change the text and structure of the notification messages by altering their templates. Read [our instruction](customizing-notifications.md) on this subject.
+You can change the text and structure of the notification messages by altering their templates. Read [our instructions](customizing-notifications.md) on this subject.

@@ -96,7 +96,7 @@ Now, if you change the sample project's code, TeamCity will detect it and run th
 
 ### Restrict Checkout Scope
 
-Every chain stage is responsible for its own task. And in most cases, different build configurations need to monitor different parts of the source project. For example, our _TodoImage_ is mostly interested in changes made to `Dockerfile`, and it makes sense to restrict its scope to it. This way, when you change the app's logic, only _TodoApp_ will be triggered, and _TodoImage_ will run as its dependency build. Without such restrictions, TeamCity would start both of these builds per any change in the source repo, which will waste resources and could create mess.
+Every chain stage is responsible for its own task. And in most cases, different build configurations need to monitor different parts of the source project. For example, our _TodoImage_ is mostly interested in changes made to `Dockerfile`, and it makes sense to restrict its scope to it. This way, when you change the app's logic, only _TodoApp_ will be triggered, and _TodoImage_ will run as its dependency build. Without such restrictions, TeamCity would start both of these builds per any change in the source repo, which will waste resources and could create a mess.
 
 You can define the scope of monitored sources in each build configuration's __Version Control Settings__:
 1. Opposite the VCS root, click __Edit checkout rules__.
@@ -117,7 +117,7 @@ Builds in a chain can run in parallel. Let's explore this on the example of test
 
 As you can see in the project's __General Settings__, it has three other build configurations: _Test1_, _Test2_, and _TestReport_. According to our [target scheme](#), _Test1_ and _Test2_ should depend on _TodoImage_, which means you need to create a snapshot dependency on it in both of these builds. If there are at least two suitable build agents on your server, TeamCity will be able to run these builds in parallel to each other; otherwise, it will start one after another.
 
-As you might remember, our VCS trigger in _TodoImage_ considers only preceding builds (that is _TodoApp_) and won't be able to launch tests. We can add triggers in both test builds, but TeamCity provides a more straight-forward option — creating an extra [composite build](composite-build-configuration.md), that is _TestReport_. A composite build can run without an agent and accumulate results of the preceding builds in a chain. Moreover, it will aggregate and report the results of _Test1_ and _Test2_ in one place. Just what we need.
+As you might remember, our VCS trigger in _TodoImage_ considers only preceding builds (that is _TodoApp_) and won't be able to launch tests. We can add triggers in both test builds, but TeamCity provides a more straightforward option — creating an extra [composite build](composite-build-configuration.md), that is _TestReport_. A composite build can run without an agent and accumulate results of the preceding builds in a chain. Moreover, it will aggregate and report the results of _Test1_ and _Test2_ in one place. Just what we need.
 
 So, to complete this tutorial:
 1. Add snapshot dependencies from _TestReport_ on _Test1_ and _Test2_.
@@ -130,10 +130,10 @@ Proceed with our getting started tutorials to learn about the other type of buil
 ## Takeaway
 
 * A build chain is a sequence of builds connected with snapshot dependencies. A snapshot corresponds to a certain commit in the source code.
-* Builds in a chain can pass artifacts to each other, if you configure artifact dependencies between them.
+* Builds in a chain can pass artifacts to each other if you configure artifact dependencies between them.
 * Builds in a chain can run sequentially or in parallel. You can create chains with dozens of builds, and only the number of available build agents limits how many of them can run simultaneously.
 * When any chained build is triggered, TeamCity composes and runs the whole chain from start to finish. As triggers can only consider preceding builds, it is convenient to add one VCS trigger in the very last build of a chain.
-* You can limit what scopes of the source projects are relevant to each build configuration. This allows preventing excessive build runs.
+* You can limit what scopes of the source projects are relevant to each build configuration. This prevents excessive build runs.
 * You can create a logical _composite_ configuration to gather the results of multiple dependency builds. Such a configuration doesn't require a build agent and only serves as an aggregator.
 
 

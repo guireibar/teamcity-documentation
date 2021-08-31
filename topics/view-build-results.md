@@ -66,7 +66,7 @@ If you want to customize how TeamCity produces the log output, use special [serv
 ## Extras
 
 Apart from viewing the __Build Results__ page directly, you can monitor the build statuses by:
-* Configuring [notifications](notifications.md) to a messanger, email, or in a browser.
+* Configuring [notifications](notifications.md) to a messenger, email, or in a browser.
 * Integrating TeamCity with a third-party service. For example, if you use Jira Cloud, you can display the main build results right in the tasks related to each build ([learn how](jira-cloud-integration.md)).
 * Publishing build statuses to your VCS repositories via [Commit Status Publisher](commit-status-publisher.md).
 * Using our plugins for IDEs, such as [IntelliJ Platform Plugin](intellij-platform-plugin.md).
