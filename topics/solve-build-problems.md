@@ -12,7 +12,7 @@ You can perform these actions from any place the problem or test is visible in t
 
 Or, in the __Overview__ and __Tests__ tabs of __Build Results__. Besides, the __Tests__ tab allows you to filter and select multiple tests, so you can apply a certain action to the whole selection.
 
-<img src="groupactions.png" alt="Investigate or mute a problem"/>
+<img src="groupactions.png" width="500" alt="Investigate or mute a problem"/>
 
 ## Assign Investigations and Mute Problems
 
@@ -32,7 +32,7 @@ The investigation/mute menu is equal for both tests (from your source project) a
 
 To see all investigations that have been assigned to you, open your user profile menu in the header and select __Investigations__. If there are any active investigations, you will see their number to the left of your username. In this case, you can simply click it, with no need to open the user menu.
 
-<img src="accessmyinvestigations.png" alt="Open My investigations" width="400"/>
+<img src="accessmyinvestigations.png" alt="Open My investigations" width="300"/>
 
 The __My Investigations__ page shows a tree of all your investigations. Here, you can manage any failure manually, or mark them all as fixed.
 

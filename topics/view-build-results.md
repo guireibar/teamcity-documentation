@@ -58,7 +58,7 @@ A detailed and structured build log is one of the strongest points of TeamCity.
 
 You can access a build log both from the __Overview__ and __Build Log__ tabs. If there are any problems or failed tests in the build, you can quickly view the relevant parts of the log right in the __Overview__. You can also click on any place on the build timeline to open the related part of the log.
 
-<img src="build-timeline.png" width="600" alt="Build timeline"/>
+<img src="build-timeline.png" width="700" alt="Build timeline"/>
 
 The __Build Log__ tab shows a structured log with highlighted warnings and errors. Its main blocks are by default collapsed, so the log is easier to navigate. You can explore the log manually, or search and filter messages by their text and type. A log can be downloaded in several formats whenever necessary.
 
