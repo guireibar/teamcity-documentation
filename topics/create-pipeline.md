@@ -15,25 +15,35 @@ While running this chain, TeamCity will (1) build a Spring Boot application and 
 
 ## Import Sample Project
 
-TeamCity allows saving a project's configuration in Kotlin or XML. That's what we did with the sample project, so you can easily import it to your server. To do this:
+This tutorial uses a sample project with five separate build configurations which we are about to connect. To follow the tutorial, you can fork the [sample repository](https://github.com/mkjetbrains/TodoApp-NoChain-KTS) and repeat the steps below on your TeamCity server.
+
+To import the sample project:
 1. Go to __Administration | Projects__ and click __Create project__.
-2. In the _Repository URL_ field, enter the [sample project's](https://github.com/mkjetbrains/TodoApp-NoChain-KTS) URL and click __Proceed__.  
-   >__Fork sample projects to get full control__  
-   >Note that sample repositories are restricted to edit. To be able to tweak the source code during the tutorial, you need to fork both the settings repo and the [source code repo](https://github.com/mkjetbrains/todoapp-backend). Then, change the values of `namesAndTags` and `url` parameters in the `.teamcity/settings.kts` file, so they correspond to your forks.  
-   >This step is completely optional — feel free to just use our sample sources for a quick walkthrough.
-3. TeamCity will detect the `settings.kts` file, which corresponds to a TeamCity project's settings saved in Kotlin format. Leave the default settings and proceed.
+2. In the _Repository URL_ field, enter the [sample repo URL](https://github.com/mkjetbrains/TodoApp-NoChain-KTS) and click __Proceed__.
+3. TeamCity will detect the `settings.kts` file, which corresponds to a TeamCity project's settings saved in [Kotlin format](kotlin-dsl.md). Leave the default settings and proceed.
 4. TeamCity will import the sample project's settings and redirect you to its __General Settings__ page. Here, you can scroll a bit and see the _TodoBackend_ subproject. Click it to view all the created build configurations.
 
-Now you can start chaining them.
+Now we can start chaining them!
+
+## Configure Snapshot Dependency
+
+The _TodoApp_ build configuration compiles a `.jar` application and publishes it to the `build/libs/` directory. The _TodoImage_ configuration has to build a Docker image out of this `.jar`.
+
+To create a synchronized pipeline, or chain, you need to connect these builds with a _snapshot dependency_. We use the word _snapshot_ to describe a specific state of the project's sources, or basically a specific commit. If you connect multiple builds with snapshot dependencies, they are guaranteed to process the same sources.
+
+>In special cases, you can create a chain where revision synchronization is disabled. Read more about advanced features of snapshot dependencies [here](snapshot-dependencies.md).
+
+A dependency determines how one build depends on another, and thus is created in the settings of the dependent build. In our case, it's _TodoImage_. Let's go to its settings and add a snapshot dependency:
+1. Open the __Dependencies__ settings tab (you might need to click __Show more__ to display this item) and click __Add new snapshot dependency__.
+2. Select _TodoApp_ as a build config to depend on.
+3. Leave the default settings and save the dependency.
 
 ## Configure Artifact Dependency
 
-The _TodoApp_ build configuration compiles a `.jar` application and publishes it to the `build/libs/` directory. The _TodoImage_ configuration builds a Docker image out of this `.jar`.
+To pass the `.jar` from one configuration to another, we need to create an _artifact dependency_ between them. This way, when each new _TodoApp_ build finishes and produces an artifact, TeamCity will use this artifact in the following _TodoImage_ build.
 
-To pass the `.jar` from one configuration to another, we need to create an __artifact dependency__ between them. This way, when each new _TodoApp_ build finishes and produces an artifact, TeamCity will use this artifact in the following _TodoImage_ build.
-
-A dependency determines how one build depends on another, and thus is created in the settings of the dependent build. In our case, it's _TodoImage_. Let's go to its settings and add an artifact dependency:
-1. Open the __Dependencies__ settings tab (you might need to click __Show more__ to display this item) and click __Add new artifact dependency__.
+To add an artifact dependency in _TodoImage_:
+1. Open the __Dependencies__ settings tab and click __Add new artifact dependency__.
 2. Select _TodoApp_ as a build configuration to depend on.
 3. Choose to get artifacts from the build from the same chain, as we are about to chain these builds.
 4. In _Artifacts rules_, specify that we want to import the specific artifact as `todo.jar` — enter `todo.jar => build/libs/todo.jar`.  
@@ -42,34 +52,19 @@ A dependency determines how one build depends on another, and thus is created in
 
 >To simplify step 4 in the future, you can use the artifact browser (![popup-artifacts-tree.png](popup-artifacts-tree.png)). When there is at least one finished dependent build that already produced some artifacts, TeamCity can show them in a tree, so you can choose them in a handy way.
 
-At this point, you can start the first _TodoApp_ build and, after its finish, run a _TodoImage_ build. As a result of this build, TeamCity will produce a Docker image. Note that to compose a Docker image, a [TeamCity agent](build-agent.md) needs to have [Docker](https://www.docker.com/) installed and running on its machine, so make sure to install it in advance.
-
-## Configure Snapshot Dependency
-
-Passing artifacts automatically is great, but might get unpredictable unless there is a way to ensure they are processed within the same context on all stages of the chain.
-
-To create a real synchronized pipeline, you need to connect builds with a _snapshot dependency_. We use the word _snapshot_ to describe a specific state of the project's sources, or basically a specific commit. If you connect multiple builds with snapshot dependencies, they are guaranteed to process the same sources.
-
->In special cases, you can create a chain where revision synchronization is disabled. Read more about advanced features of snapshot dependencies [here](snapshot-dependencies.md).
-
-Let's compliment our existing artifact dependency with a snapshot dependency:
-1. Open the __Dependencies__ settings tab of _TodoImage_ and click __Add new snapshot dependency__.
-2. Select _TodoApp_ as a build config to depend on.
-3. Leave the default settings and save the dependency.
-
-Note that a build chain is a sequence of builds connected with snapshot dependencies. Some of the builds might also be connected with artifact dependencies, but this is not a mandatory condition.
+It is important to remember that a _build chain is a sequence of builds connected with snapshot dependencies_. Some of the builds might also be connected with artifact dependencies, but this is not a mandatory condition.
 
 ## Run Simple Chain
 
-At this point, the first two builds are already chained together, and you can run your first chain.
+At this point, the first two builds are already chained together, and you can run your first chain. Note that to compose a Docker image, a [TeamCity agent](build-agent.md) needs to have [Docker](https://www.docker.com/) installed and running on its machine, so make sure to install it in advance.
 
 When you run any build from a chain, whether it's the last one or medium one, TeamCity gathers all the other chained builds into a sequence, according to their dependencies. As you saw on our sample chain's scheme, _TodoImage_ always runs after _TodoApp_; _Test1_ and _Test2_ start only after _TodoImage_ finishes and run in parallel to each other.
 
-Let's run the _TodoImage_ build with the __Run__ button. Notice how TeamCity automatically runs a new _TodoApp_ build first and, after its finish, launches the following _TodoApp_ build.
+Let's run the _TodoImage_ build with the __Run__ button. Notice how TeamCity automatically runs a new _TodoApp_ build first and, after its finish, launches the following _TodoApp_ build. As a result of this chain, TeamCity produces a Docker image.
 
->If you had at least one finished _TodoApp_ build before running a chain and this build has a suitable revision, TeamCity can simply reuse it as the first stage of the chain. You can disable this optimization mechanism anytime in the snapshot dependency settings.
+>To speed up a chain, TeamCity can reuse already finished builds instead of running new ones. Read about this optimization mechanism [here](snapshot-dependencies.md#Suitable+Builds).
 
-To view the statuses of all chained builds, go to __Build Configuration Home__ of any of these builds and open the __Dependencies__ tab of __Build Results__:
+To view the statuses of all chained builds, go to __Build Configuration Home__ of any chained build and open the __Dependencies__ tab of __Build Results__:
 
 <img src="simpleBuildChain.png" width="1217" alt="Simple build chain in TeamCity"/>
 
@@ -96,20 +91,12 @@ Now, if you change the sample project's code, TeamCity will detect it and run th
 
 ### Restrict Checkout Scope
 
-Every chain stage is responsible for its own task. And in most cases, different build configurations need to monitor different parts of the source project. For example, our _TodoImage_ is mostly interested in changes made to `Dockerfile`, and it makes sense to restrict its scope to it. This way, when you change the app's logic, only _TodoApp_ will be triggered, and _TodoImage_ will run as its dependency build. Without such restrictions, TeamCity would start both of these builds per any change in the source repo, which will waste resources and could create a mess.
+Every chain stage is responsible for its own task. And in some cases, different build configurations need to monitor different parts of the source project. You can configure custom _checkout rules_ for a configuration, and its build will only be triggered by the change that satisfies these rules. For example, let's exclude `Dockerfile` from the checkout scope of _TodoApp_. This way, when you change the Docker settings, only _TodoImage_ will be triggered, and _TodoApp_ will run as its dependency build. Without such restrictions, TeamCity would start both of these builds per any change in the source repo, which will waste resources and could cause a mess.
 
-You can define the scope of monitored sources in each build configuration's __Version Control Settings__:
-1. Opposite the VCS root, click __Edit checkout rules__.
-2. Enter the rules using [this syntax](vcs-checkout-rules.md) and save them.  
-   For _TodoImage_, the rules will be:  
-  
-      ```Shell
-      -:.
-      +:docker
-      ```
-   First, we exclude the whole repository scope from the checkout, and then we include only the `docker` directory.  
-   <img src="chaindemo-checkout-rules.png" width="542" alt="Simple build chain in TeamCity"/>      
-   For _TodoApp_, the rule is only to exclude this directory but monitor all the other files: `-:docker`.
+You can define the scope of monitored sources in a build configuration's __Version Control Settings__:
+1. Opposite our only VCS root, click __Edit checkout rules__.
+2. Enter the `-:docker` rule to exclude the `docker` directory from the checkout scope. The rules are specified using [this syntax](vcs-checkout-rules.md).
+3. Save the rules.
 
 ## Complete Chain with Tests
 
