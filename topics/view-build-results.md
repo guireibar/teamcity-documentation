@@ -40,9 +40,10 @@ The heading part of this page shows:
 * A widget with the recent builds' statuses. Hover over any of them to see its details.
 
 Below the heading, there are multiple tabs you can explore for more details. The most important ones are:
-* __Overview__: a summary of all the results. Contains an interactive build timeline and collapsible blocks with other information.
+* __Overview__: a summary of all the results. Contains an interactive build timeline and collapsible blocks with summary of other tabs.
 * __Changes__: revisions and commits that got to this build.
-* __Tests__: all the information on tests. Here, you can explore the test history, download test results in CSV, as well as mute tests, assign their investigator, or mark them as fixed.
+* __Tests__: all the information on tests. Here, you can explore the test history, download test results in CSV, as well as mute tests, assign their investigator, or mark them as fixed.  
+  TeamCity puts a lot of effort into making the test preview as informative and rich as possible. Moreover, you can view test results on-the-fly, while the build is still running.
 * __Dependencies__: a visualized build chain, or pipeline, the current build belongs to. Three modes with different levels of detail are available.
 * __Artifacts__: browse and download the build artifacts.
 * __Parameters__: see what parameters' values were passed into this build.
@@ -53,7 +54,7 @@ You can also add a tab with [custom charts](custom-chart.md) using XML.
 
 ## View Build Log
 
-A detailed and structured build log is one of the strongest points of TeamCity. Whenever you investigate a build problem, the log is the first place you should check.
+A detailed and structured build log is one of the strongest points of TeamCity.
 
 You can access a build log both from the __Overview__ and __Build Log__ tabs. If there are any problems or failed tests in the build, you can quickly view the relevant parts of the log right in the __Overview__. You can also click on any place on the build timeline to open the related part of the log.
 

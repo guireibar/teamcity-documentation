@@ -16,7 +16,7 @@ Or, in the __Overview__ and __Tests__ tabs of __Build Results__. Besides, the __
 
 ## Assign Investigations and Mute Problems
 
->If you want to try this on your server, make sure there is at least one failed build available. The easiest way to fail a build is to add a new [Command Line](command-line.md) build step and report the status [service message](service-messages.md) like `echo ##teamcity[message text='Exception text' errorDetails='stack trace' status='ERROR']`. On Linux, remember to wrap the part after `echo` in quotemarks.
+>If you want to try this on your server, make sure there is at least one failed build available. You can use the sample project from the [pipeline tutorial](create-pipeline.md#Import+Sample+Project).
 
 Let's begin with opening __[Build Results](view-build-results.md)__ of our failed build. Find the failure on the __Overview__ tab and open its context menu, as shown on the above screenshot. Select either _Assign investigation_ or _Mute problem/test_.
 
