@@ -15,12 +15,12 @@ While running this chain, TeamCity will (1) build a Spring Boot application and 
 
 ## Import Sample Project
 
-This tutorial uses a sample project with five separate build configurations which we are about to connect. To follow the tutorial, you can fork the [sample repository](https://github.com/mkjetbrains/TodoApp-NoChain-KTS) and repeat the steps below on your TeamCity server.
+This tutorial uses a sample project with five separate build configurations which we are about to connect. To follow the tutorial, you can use the [sample repository](https://github.com/mkjetbrains/TodoApp-NoChain-KTS) and repeat the steps below on your TeamCity server.
 
 To import the sample project:
 1. Go to __Administration | Projects__ and click __Create project__.
 2. In the _Repository URL_ field, enter the [sample repo URL](https://github.com/mkjetbrains/TodoApp-NoChain-KTS) and click __Proceed__.
-3. TeamCity will detect the `settings.kts` file, which corresponds to a TeamCity project's settings saved in [Kotlin format](kotlin-dsl.md). Leave the default settings and proceed.
+3. TeamCity will detect the `.teamcity/settings.kts` file, which corresponds to a TeamCity project's settings saved in [Kotlin format](kotlin-dsl.md). Leave the default settings and proceed.
 4. TeamCity will import the sample project's settings and redirect you to its __General Settings__ page. Here, you can scroll a bit and see the _TodoBackend_ subproject. Click it to view all the created build configurations.
 
 Now we can start chaining them!
@@ -93,7 +93,7 @@ Now, if you change the sample project's code, TeamCity will detect it and run th
 
 Every chain stage is responsible for its own task. And in some cases, different build configurations need to monitor different parts of the source project. You can configure custom _checkout rules_ for a configuration, and its builds will only be triggered by changes that satisfy these rules.
 
-For example, let's exclude `Dockerfile` from the checkout scope of _TodoApp_. This way, when you change the Docker settings, only _TodoImage_ will be triggered, and _TodoApp_ will run as its dependency build. Without such restrictions, TeamCity would start both of these builds per any change in the source repo, which will waste resources and could cause a mess.
+For example, let's exclude `Dockerfile` from the checkout scope of _TodoApp_. This way, when you change the Docker settings, only _TodoImage_ will be triggered. Without such restrictions, TeamCity would start both of these builds per any change in the source repo, which will waste resources and could cause a mess.
 
 You can define the scope of monitored sources in a build configuration's __Version Control Settings__:
 1. Opposite our only VCS root, click __Edit checkout rules__.
@@ -109,7 +109,7 @@ The project's __General Settings__ list three other build configurations: _Test1
 As you might remember, our VCS trigger in _TodoImage_ considers only preceding builds (that is _TodoApp_) and won't be able to launch tests. We can add triggers in both test builds, but TeamCity provides a more straightforward option — creating an extra [composite build](composite-build-configuration.md), that is _TestReport_. A composite build can run without an agent and accumulate results of the preceding builds in a chain. Moreover, it will aggregate and report the results of _Test1_ and _Test2_ in one place. Just what we need.
 
 So, to complete this tutorial:
-1. Add snapshot dependencies from _TestReport_ on _Test1_ and _Test2_.
+1. Add snapshot dependencies from _Test1_ and _Test2_ on _TodoImage_ and from _TestReport_ on _Test1_ and _Test2_.
 2. Add a VCS trigger in _TestReport_, similarly to [how we did it](#Configure+Trigger+and+Checkout+Rules) for _TodoImage_. After that, you can safely remove the trigger from _TodoImage_, as the new one will trigger the whole chain.
 
 As _Test2_ contains a failing test, you will see that _TestReport_ will fail as well. Expand any test or build problem to quickly preview the related part of the build log.

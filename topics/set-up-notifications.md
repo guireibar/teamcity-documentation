@@ -6,7 +6,6 @@ You can integrate TeamCity with various external systems and be notified about t
 * via email
 * via Slack
 * in an IDE
-* via Jabber or RSS
 
 In this guide, we show how to quickly configure email, browser, and Slack notifications. For other methods and in-depth details, see [this article](subscribing-to-notifications.md).
 

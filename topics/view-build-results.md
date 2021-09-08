@@ -50,7 +50,7 @@ Below the heading, there are multiple tabs you can explore for more details. The
 
 The set of displayed tabs depends on the build's specifics (see [more information](working-with-build-results.md) on the default tabs). Some of them are displayed only if a certain feature is enabled. For example, if you add the [Docker Support](docker-support.md) feature to a build, the __Docker Info__ tab will appear in its results.
 
-You can also add a tab with [custom charts](custom-chart.md) using XML.
+You can also add a tab with [custom charts](custom-chart.md) based on XML.
 
 ## View Build Log
 
@@ -60,7 +60,7 @@ You can access a build log both from the __Overview__ and __Build Log__ tabs. If
 
 <img src="build-timeline.png" width="700" alt="Build timeline"/>
 
-The __Build Log__ tab shows a structured log with highlighted warnings and errors. Its main blocks are by default collapsed, so the log is easier to navigate. You can explore the log manually, or search and filter messages by their text and type. A log can be downloaded in several formats whenever necessary.
+The __Build Log__ tab shows a structured log with highlighted warnings and errors. Its main blocks are by default collapsed, so the log is easier to navigate. You can explore the log manually, search and filter messages by their text and type, or download the full log.
 
 If you want to customize how TeamCity produces the log output, use special [service messages](build-log.md#Customizing+Log+Output).
 

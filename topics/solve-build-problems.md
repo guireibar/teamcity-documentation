@@ -14,6 +14,8 @@ Or, in the __Overview__ and __Tests__ tabs of __Build Results__. Besides, the __
 
 <img src="groupactions.png" width="500" alt="Investigate or mute a problem"/>
 
+An investigator will be able to explore the build results, view the related stacktrace in the build __Overview__, and identify the cause of the problem.
+
 ## Assign Investigations and Mute Problems
 
 >If you want to try this on your server, make sure there is at least one failed build available. You can use the sample project from the [pipeline tutorial](create-pipeline.md#Import+Sample+Project).
