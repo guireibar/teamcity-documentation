@@ -10,7 +10,7 @@ Go to the [JetBrains website](http://www.jetbrains.com/teamcity/download/) and d
 Or, install it from a __Docker image__. All the information related to the TeamCity Server Docker images are described on [Docker Hub](https://hub.docker.com/r/jetbrains/teamcity-server/).
 
 Specifics of the `.exe` and `.tar.gz` distributions:
-* They include a Tomcat version tested to work fine with the respective version of TeamCity. You can use an [alternative Tomcat version](#Use+Another+Version+of+Tomcat), but other combinations are not guaranteed to work correctly.
+* They include a Tomcat version tested to work fine with the respective version of TeamCity. You can use an [alternative Tomcat version](install-non-bundled-java-and-tomcat.md#Use+Another+Version+of+Tomcat), but other combinations are not guaranteed to work correctly.
 * On Windows, they provide better error reporting for some scenarios (like a missing Java installation).
 * It is possible to configure the installation by changing the startup script and JRE options.
 * They come bundled with a build agent distribution and a startup script which allows for easy TeamCity server evaluation with one agent.
@@ -43,16 +43,3 @@ To install the server, unpack the `TeamCity<version number>.tar.gz` archive. You
 >\* We suggest that you use GNU tar to unpack. For example, Solaris 10 tar is reported to truncate too long file names and may cause a `ClassNotFoundException` when using the server after such unpacking. Consider getting GNU tar at [Solaris packages](http://sunfreeware.com/) or using the `gtar xfz` command.
 
 Ensure that JRE or JDK are installed and the `JAVA_HOME` environment variable is pointing to the Java installation directory (see [recommended Java versions](supported-platforms-and-environments.md#TeamCity+Server)).
-
-## Use Another Version of Tomcat
-
-To use another version of the Tomcat web server instead of the bundled one, you need to perform the Tomcat upgrade/patch.
-
-When using an `.exe` distribution of TeamCity, we suggest that you:
-* Back up the current [TeamCity Home](teamcity-home-directory.md).
-* Delete/move from the TeamCity Home directories that are also present in the Tomcat distribution.
-* Unpack the Tomcat distribution to the TeamCity Home directory.
-* Copy TeamCity-specific files from the previously backed-up/moved directories to the TeamCity Home:
-    * files under `bin` which are not present in the Tomcat distribution
-    * review differences between the default Tomcat `conf` directory and one from TeamCity, update Tomcat files with TeamCity-specific settings (`teamcity-*` files, and portions of `server.xml`)
-    * delete the default Tomcat `webapps/ROOT` directory and replace it with the one provided by TeamCity

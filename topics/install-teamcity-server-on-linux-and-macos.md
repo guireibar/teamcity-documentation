@@ -8,7 +8,7 @@ Go to the [JetBrains website](http://www.jetbrains.com/teamcity/download/) and d
 Or, install it from a __Docker image__. All the information related to the TeamCity Server Docker images are described on [Docker Hub](https://hub.docker.com/r/jetbrains/teamcity-server/).
 
 Specifics of the `.tar.gz` distributions:
-* They include a Tomcat version tested to work fine with the respective version of TeamCity. You can use an alternative Tomcat version, but other combinations are not guaranteed to work correctly.
+* They include a Tomcat version tested to work fine with the respective version of TeamCity. You can use an [alternative Tomcat version](install-non-bundled-java-and-tomcat.md#Use+Another+Version+of+Tomcat), but other combinations are not guaranteed to work correctly.
 * It is possible to configure the installation by changing the startup script and JRE options.
 * They come bundled with a build agent distribution and a startup script which allows for easy TeamCity server evaluation with one agent.
 * They come bundled with the devPackage for the [TeamCity plugin development](https://plugins.jetbrains.com/docs/teamcity/developing-teamcity-plugins.html).
