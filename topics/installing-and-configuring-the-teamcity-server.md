@@ -48,7 +48,7 @@ If you opted to install the services, use the standard Windows `Services` applet
 
 If you did not change the default port (8111) during the installation, the TeamCity web UI can be accessed via [`http://localhost/`](http://localhost/) in a web browser running on the same machine where the server is installed. Note that port 8111 can be used by other programs (for example, Skype, or other web servers like IIS). In this case you can specify another port during the installation and use [`http://localhost:<port>/`](http://localhost:<port>/) address in the browser.
 
-If you want to edit the TeamCity server's service parameters, memory settings or system properties after the installation, refer to the [Configuring TeamCity Server Startup Properties](configuring-teamcity-server-startup-properties.md) page.
+If you want to edit the TeamCity server's service parameters, memory settings or system properties after the installation, refer to the [Configuring TeamCity Server Startup Properties](server-startup-properties.md) page.
 
 <warning>
 
@@ -111,7 +111,7 @@ If TeamCity is installed using the `.exe` or `.tar.gz` distributions, the TeamCi
 
 By default, TeamCity runs on [`http://localhost:8111/`](http://localhost:8111/). See the information [below](#Changing+Server+Port) for changing the server port.
 
-If you need to pass special properties to the server, refer to [Configuring TeamCity Server Startup Properties](configuring-teamcity-server-startup-properties.md).
+If you need to pass special properties to the server, refer to [Configuring TeamCity Server Startup Properties](server-startup-properties.md).
 
 ### Autostart TeamCity server on macOS
 
@@ -238,18 +238,18 @@ If you need to update 32-bit Java to the 64-bit JVM, note that the memory usage 
 
 To update to the 64-bit Java, either use the bundled version of Java or:
 * [Update](#Java+Installation) Java to be used by the server.
-* [Set JVM memory options](configuring-teamcity-server-startup-properties.md). It is recommended to set the following options for the 64-bit JVM: `-Xmx4g -XX:ReservedCodeCacheSize=450m`.
+* [Set JVM memory options](server-startup-properties.md). It is recommended to set the following options for the 64-bit JVM: `-Xmx4g -XX:ReservedCodeCacheSize=450m`.
 
 <anchor name="InstallingandConfiguringtheTeamCityServer-SettingUpMemorysettingsforTeamCityServer"/>
 
 ### Setting Up Memory settings for TeamCity Server
 
 TeamCity server has the main process which can also launch child processes. Child processes use available memory on the machine, this section covers the memory settings of the main TeamCity server process only as it requires special configuration.   
-As a JVM application, the TeamCity main server process only utilizes memory devoted to the JVM. The required memory may depend on the JVM used (32- or 64-bit). The memory used by JVM usually consists of: heap (configured via `-Xmx`) and metaspace (limited by the amount of available native memory), internal JVM (usually tens of Mb), and OS-dependent memory features like memory-mapped files. TeamCity mostly depends on the heap memory, and this setting can be configured for the TeamCity application manually by [passing](configuring-teamcity-server-startup-properties.md#JVM+Options) the `-Xmx` (heap space) option to the JVM running the TeamCity server.
+As a JVM application, the TeamCity main server process only utilizes memory devoted to the JVM. The required memory may depend on the JVM used (32- or 64-bit). The memory used by JVM usually consists of: heap (configured via `-Xmx`) and metaspace (limited by the amount of available native memory), internal JVM (usually tens of Mb), and OS-dependent memory features like memory-mapped files. TeamCity mostly depends on the heap memory, and this setting can be configured for the TeamCity application manually by [passing](server-startup-properties.md#JVM+Options) the `-Xmx` (heap space) option to the JVM running the TeamCity server.
 
 Once you start using TeamCity for [production](#Configuring+Server+for+Production+Use) purposes or if you want to load the server during evaluation, you should manually set the appropriate memory settings for the TeamCity server.
 
-To __change the memory settings__, refer to [Configuring TeamCity Server Startup Properties](configuring-teamcity-server-startup-properties.md#JVM+Options).   
+To __change the memory settings__, refer to [Configuring TeamCity Server Startup Properties](server-startup-properties.md#JVM+Options).   
 Generally this means setting `TEAMCITY_SERVER_MEM_OPTS` environment variable to the value like `-Xmx750m`
 
 We recommend removing the `-XX:MaxPermSize` JVM option from the `TEAMCITY_SERVER_MEM_OPTS` environment variable, if previously configured, since it is ignored in Java 8.

@@ -1,5 +1,5 @@
-[//]: # (title: Setting up External Database)
-[//]: # (auxiliary-id: Setting up External Database;Setting up an External Database)
+[//]: # (title: Set up External Database)
+[//]: # (auxiliary-id: Set up External Database;Setting up External Database;Setting up an External Database)
 
 TeamCity stores build history, users, build results, and some run time data in an SQL database. See also the description of what is stored where on the [Manual Backup and Restore](manual-backup-and-restore.md) page.
 

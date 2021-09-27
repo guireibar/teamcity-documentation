@@ -1,5 +1,5 @@
 [//]: # (title: Configuring TeamCity Server Startup Properties)
-[//]: # (auxiliary-id: Configuring TeamCity Server Startup Properties)
+[//]: # (auxiliary-id: Server Startup Properties;Configuring TeamCity Server Startup Properties)
 
 Various aspects of TeamCity behavior can be customized through a set options passed on a TeamCity server start. These options fall into two categories: affecting Java Virtual Machine (JVM) and affecting TeamCity behavior.
 

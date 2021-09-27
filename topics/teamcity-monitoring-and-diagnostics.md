@@ -44,7 +44,7 @@ This section allows restarting the server from the UI.
 
 ### Java Configuration
 
-This section informs you on the Java [installed on your server](installing-and-configuring-the-teamcity-server.md#Java+Installation) and the configured [JVM options](configuring-teamcity-server-startup-properties.md#JVM+Options).
+This section informs you on the Java [installed on your server](installing-and-configuring-the-teamcity-server.md#Java+Installation) and the configured [JVM options](server-startup-properties.md#JVM+Options).
 
 ## VCS Status
 
@@ -68,7 +68,7 @@ This tab allows you to view and download the available [TeamCity server logs](te
 
 ## Internal Properties
 
-This tab displays the TeamCity [server internal properties](configuring-teamcity-server-startup-properties.md#TeamCity+internal+properties) and allows modifying them.
+This tab displays the TeamCity [server internal properties](server-startup-properties.md#TeamCity+internal+properties) and allows modifying them.
 
 ## Logging Presets
 

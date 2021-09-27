@@ -100,7 +100,7 @@ It is recommended that you take a thread dump of the TeamCity server from the We
 
 If the UI is not accessible (or the server is not yet fully started), you can take a server thread dump manually using the approaches described [below](#Taking+Thread+Dump).
 
-You can also adjust the `teamcity.diagnostics.requestTime.threshold.ms=30000` [internal property](configuring-teamcity-server-startup-properties.md#TeamCity+internal+properties) to change the timeout after which a thread dump is automatically created in the `threadDumps-<date>` directory under TeamCity logs whenever there is a user-originated web request taking longer than timeout.
+You can also adjust the `teamcity.diagnostics.requestTime.threshold.ms=30000` [internal property](server-startup-properties.md#TeamCity+internal+properties) to change the timeout after which a thread dump is automatically created in the `threadDumps-<date>` directory under TeamCity logs whenever there is a user-originated web request taking longer than timeout.
 
 ### Collecting CPU Profiling Data on Server
 
@@ -152,7 +152,7 @@ See also [Server Performance](#Determine+Which+Process+Is+Slow) section above.
 
 When the server is slow, check if the problem is caused by database operations.It is recommended to use database-specific tools.
 
-You can also use the `debug-sql` server [logging preset](teamcity-server-logs.md#Logging-related+Diagnostics+UI). Upon enabling, all the queries which take longer 1 second will be logged into the `teamcity-sql.log` file. The time can be changed by setting the `teamcity.sqlLog.slowQuery.threshold` [internal property](configuring-teamcity-server-startup-properties.md#TeamCity+internal+properties). The value should be set in milliseconds and is 1000 by default.
+You can also use the `debug-sql` server [logging preset](teamcity-server-logs.md#Logging-related+Diagnostics+UI). Upon enabling, all the queries which take longer 1 second will be logged into the `teamcity-sql.log` file. The time can be changed by setting the `teamcity.sqlLog.slowQuery.threshold` [internal property](server-startup-properties.md#TeamCity+internal+properties). The value should be set in milliseconds and is 1000 by default.
 
 #### MySQL
 
@@ -186,7 +186,7 @@ If you experience problems with TeamCity consuming too much memory or "OutOfMemo
     jmap -dump:file=<file_on_disk_to_save_dump_into>.hprof <pid_of_the_process>
     ```
 
-See how to change JVM options for the [server](configuring-teamcity-server-startup-properties.md#JVM+Options) and for [agents](configuring-build-agent-startup-properties.md#Agent+Properties).
+See how to change JVM options for the [server](server-startup-properties.md#JVM+Options) and for [agents](configuring-build-agent-startup-properties.md#Agent+Properties).
 
 ## "Too many open files" Error
 {product="tc"}

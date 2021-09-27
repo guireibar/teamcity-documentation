@@ -1,7 +1,7 @@
 [//]: # (title: TeamCity Tweaks)
 [//]: # (auxiliary-id: TeamCity Tweaks)
 
-This page lists some of the [Configuring TeamCity Server Startup Properties](configuring-teamcity-server-startup-properties.md) which can be used to tweak certain aspects of TeamCity behavior.  
+This page lists some of the [Configuring TeamCity Server Startup Properties](server-startup-properties.md) which can be used to tweak certain aspects of TeamCity behavior.  
 It is not recommended using any of these unless you face an issue which you expect to address by using the properties.  
 Please note that the support for any of these properties can be abandoned in the future versions of TeamCity without any notice. Thus, if you find a property useful in your environment please let us know about that: detail your case and the properties/values used in an email sent to our [support email address](feedback.md).
 
