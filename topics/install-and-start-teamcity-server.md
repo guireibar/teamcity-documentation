@@ -1,5 +1,5 @@
 [//]: # (title: Install and Start TeamCity Server)
-[//]: # (auxiliary-id: Install and Start TeamCity Server;Installation)
+[//]: # (auxiliary-id: Install and Start TeamCity Server;Installation;Installing and Configuring the TeamCity Server)
 
 Your instance of TeamCity Cloud is installed automatically after your register an account: no extra actions are required. After the server is ready, an invitation link will be sent to your email.
 {product="tcc"}

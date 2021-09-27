@@ -4,5 +4,6 @@
 
     <rule id="installation-redirect">
         <accepts>installation.html</accepts>
+        <accepts>installing-and-configuring-the-teamcity-server.html</accepts>
     </rule>
 </rules>

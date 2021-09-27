@@ -111,6 +111,7 @@
          <toc-element id="upgrade-teamcity-agent.md" show-structure-for="chapter" show-structure-depth="4"/>
          <toc-element id="upgrading-dsl.md" show-structure-for="chapter" show-structure-depth="4"/>
          <toc-element id="upgrade-notes.md" show-structure-for="chapter" show-structure-depth="4"/>
+
          <toc-element id="installation.md" show-structure-for="chapter" show-structure-depth="4">
             <toc-element id="installing-and-configuring-the-teamcity-server.md" show-structure-for="chapter" show-structure-depth="4">
                <toc-element id="running-teamcity-stack-in-aws.md" show-structure-for="chapter" show-structure-depth="4" hidden="true"/>
