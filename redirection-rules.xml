@@ -2,7 +2,7 @@
 <!DOCTYPE rules SYSTEM "https://helpserver.labs.jb.gg/help/redirection-rules.dtd">
 <rules>
 
-    <rule id="installation-redirect">
+    <rule id="installation">
         <accepts>installation.html</accepts>
         <accepts>installing-and-configuring-the-teamcity-server.html</accepts>
     </rule>
