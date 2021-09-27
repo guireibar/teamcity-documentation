@@ -79,7 +79,7 @@
             <toc-element id="testing-frameworks.md"/>
             <toc-element id="code-quality-tools.md" show-structure-for="chapter" show-structure-depth="4"/>
          </toc-element>
-         <toc-element id="install-and-start-teamcity-server.md" show-structure-for="chapter" show-structure-depth="4">
+         <toc-element id="install-and-start-teamcity-server.md" show-structure-for="chapter" show-structure-depth="4" accepts-web-file-names="installation-redirect">
             <toc-element id="install-teamcity-server-on-windows.md" show-structure-for="chapter" show-structure-depth="4" hidden="true"/>
             <toc-element id="install-teamcity-server-on-linux-and-macos.md" show-structure-for="chapter" show-structure-depth="4" hidden="true"/>
             <toc-element id="configure-server-installation.md" show-structure-for="chapter" show-structure-depth="4" hidden="true">
