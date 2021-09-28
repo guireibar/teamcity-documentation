@@ -17,7 +17,7 @@ To make sure TeamCity "knows" the actual absolute URLs used by the client to acc
 
 These URLs are used to generate absolute URLs in the client redirects and other responses.
 
-Note: An internal TeamCity server should work under the __same context__ (that is part of the URL after the host name) as it is visible from outside by an external address. See also the TeamCity server [context changing instructions](installing-and-configuring-the-teamcity-server.md#Changing+Server+Context).   
+Note: An internal TeamCity server should work under the __same context__ (that is part of the URL after the host name) as it is visible from outside by an external address. See also the TeamCity server [context changing instructions](install-and-start-teamcity-server.md#Changing+Server+Context).   
 If you need to run the server under a different context, note that the context-changing proxy should conceal this fact from the TeamCity: for example, it should map server redirect URLs as well as cookies setting paths to the original (external) context.
 
 The proxy should be configured with the generic web security in mind. Headers like `Referer` and `Origin` and all unknown headers should be passed to the TeamCity web application in the unmodified form. For example, TeamCity relies on the `X-TC-CSRF-Token` header added by the clients.
@@ -166,7 +166,7 @@ When the public server address is __HTTPS__, use the `secure="true"` and `scheme
 ### "RemoteIpValve" Approach
 [//]: # (AltHead: Proxy-Tomcat-RemoteIpValve)
 
-This approach can be used when the proxy server sets `X-Forwarded-Proto`, `X-Forwarded-Port` request headers to the values of the original URL. Also, while not critical for the most setups, this approach can be used to make sure the original client IP is passed to the TeamCity server correctly. This is important for legacy agents' [bidirectional communication](setting-up-and-running-additional-build-agents.md#Bidirectional+Communication).
+This approach can be used when the proxy server sets `X-Forwarded-Proto`, `X-Forwarded-Port` request headers to the values of the original URL. Also, while not critical for the most setups, this approach can be used to make sure the original client IP is passed to the TeamCity server correctly. This is important for legacy agents' [bidirectional communication](install-and-start-teamcity-agents.md#Bidirectional+Communication).
 
 Add the following into the Tomcat main `<Host>` node of the `conf\server.xml` file (see also Tomcat [doc](http://tomcat.apache.org/tomcat-8.5-doc/api/org/apache/catalina/valves/RemoteIpValve.html)):
 
@@ -191,7 +191,7 @@ This section describes configuring TeamCity to use a proxy server for outgoing H
 
 A TeamCity server can use a proxy server for certain outgoing HTTP connections to other services like issues trackers.
 
-To point TeamCity to your proxy server, set the following [internal properties](configuring-teamcity-server-startup-properties.md#TeamCity+internal+properties):
+To point TeamCity to your proxy server, set the following [internal properties](server-startup-properties.md#TeamCity+Internal+Properties):
 
 ```Shell
 
@@ -233,7 +233,7 @@ This section covers the configuration of a proxy server for TeamCity agent-to-se
 
 <chunk include-id="agent-proxy-server">
 
-On the TeamCity agent side, specify the proxy to connect to TeamCity server using the following properties in the [`buildAgent.properties`](build-agent-configuration.md) file:
+On the TeamCity agent side, specify the proxy to connect to TeamCity server using the following properties in the [`buildAgent.properties`](configure-agent-installation.md) file:
 
 
 ```Shell

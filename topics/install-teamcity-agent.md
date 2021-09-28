@@ -25,13 +25,13 @@ Ensure that the user account used to run the agent service has appropriate [perm
     * __Full ZIP file distribution*__: a full build agent prepacked with all plugins currently enabled on the server
 4. Extract the downloaded file into the desired directory.
 5. Navigate to the `<installation path>\conf` directory, locate the file called `buildAgent.dist.properties`, and rename it to `buildAgent.properties`.
-6. Edit the `buildAgent.properties` file to specify the TeamCity server URL (HTTPS is recommended, see [these notes](install-and-start-teamcity-agents.md#Agent-Server+Data+Transfers)), the name of the agent, and the [authentication token](install-and-start-teamcity-agents.m#Generating+Authentication+Token). Refer to [this article](build-agent-configuration.md) for details on the agent configuration.
+6. Edit the `buildAgent.properties` file to specify the TeamCity server URL (HTTPS is recommended, see [these notes](install-and-start-teamcity-agents.md#Agent-Server+Data+Transfers)), the name of the agent, and the [authentication token](install-and-start-teamcity-agents.m#Generating+Authentication+Token). Refer to [this article](configure-agent-installation.md) for details on the agent configuration.
    {product="tcc"}
-7. Edit the `buildAgent.properties` file to specify the TeamCity server URL and the name of the agent. Refer to [this article](build-agent-configuration.md) for details on the agent configuration.
+7. Edit the `buildAgent.properties` file to specify the TeamCity server URL and the name of the agent. Refer to [this article](configure-agent-installation.md) for details on the agent configuration.
    {product="tc"}
 8. Under Linux, you may need to give execution permissions to the `bin/agent.sh` shell script.
 
-On Windows, you may also want to install the [build agent Windows service](#Build+Agent+as+a+Windows+Service) instead of using the manual agent startup.
+On Windows, you may also want to install the [build agent Windows service](start-teamcity-agent.md#Build+Agent+as+Windows+Service) instead of using the manual agent startup.
 
 <tip>
 

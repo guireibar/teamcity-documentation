@@ -12,8 +12,8 @@ When installing several TeamCity build agents on the same machine, consider the 
 
 After having one agent installed, you can install additional agents by following the regular installation procedure (see an exception for the Windows service below), but make sure that:
 * The agents are installed in separate directories.
-* The agents have the distinctive `workDir` and `tempDir` directories in the [`buildAgent.properties`](build-agent-configuration.md) file.
-* Values for the `name` and `ownPort` properties of [`buildAgent.properties`](build-agent-configuration.md) are unique.
+* The agents have the distinctive `workDir` and `tempDir` directories in the [`buildAgent.properties`](configure-agent-installation.md) file.
+* Values for the `name` and `ownPort` properties of [`buildAgent.properties`](configure-agent-installation.md) are unique.
 * No build configurations specify the absolute path to the [checkout directory](build-checkout-directory.md) (or, if necessary, you can enable the "[clean checkout](clean-checkout.md)" option and make sure they do not run in parallel).
 
 Usually, for a new agent installation you can just copy the directory of the existing agent to a new place except its `temp`, `work`, `logs`, and `system` directories. Then, modify `conf/buildAgent.properties` with the new `name` and `ownPort` values. Clear (delete or remove the value) the `authorizationToken` property and make sure the `workDir` and `tempDir` are relative/do not clash with another agent.
@@ -22,9 +22,9 @@ Usually, for a new agent installation you can just copy the directory of the exi
 
 If you use Windows installer to install additional agents and want to run the agent as a service, you will need to perform manual steps as installing second agent as a service on the same machine is not supported by the installer: the existing service is overwritten (see also a [feature request](http://youtrack.jetbrains.net/issue/TW-4962)).
 
-In order to install the second agent, it is recommended to install the second agent [manually](#Installing+via+ZIP+File) (using the `.zip` agent distribution). You can use the Windows agent installer and do not opt for service installation, but you will lose uninstall option for the initially installed agent this way.
+In order to install the second agent, it is recommended to install the second agent [manually](install-teamcity-agent.md#Install+from+ZIP+File) (using the `.zip` agent distribution). You can use the Windows agent installer and do not opt for service installation, but you will lose uninstall option for the initially installed agent this way.
 
-After the second agent is installed, register a new service for it as mentioned in the [section above](#Build+Agent+as+a+Windows+Service).
+After the second agent is installed, register a new service for it as mentioned in [this section](start-teamcity-agent.md#Build+Agent+as+Windows+Service).
 
 >For step-by-step instructions on installing a second Windows agent as a service, see the related [external blog post](https://handcraftsman.wordpress.com/2010/07/20/multiple-teamcity-build-agents-on-one-server/).
 

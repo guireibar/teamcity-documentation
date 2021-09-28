@@ -29,7 +29,7 @@ When detecting the Team Explorer version, TeamCity checks [.NET GAC](https://msd
 * `Windows x86: %CommonProgramFiles%\Microsoft Shared\Team Foundation Server\%version_number%`
 * `Windows x64: %CommonProgramFiles(x86)%\Microsoft Shared\Team Foundation Server\%version_number%`
 
-To enforce the cross-platform mode on TeamCity, set the `teamcity.tfs.mode=java` [internal property](server-startup-properties.md#TeamCity+internal+properties) or [build configuration parameter](configuring-build-parameters.md).
+To enforce the cross-platform mode on TeamCity, set the `teamcity.tfs.mode=java` [internal property](server-startup-properties.md#TeamCity+Internal+Properties) or [build configuration parameter](configuring-build-parameters.md).
 {product="tc"}
 
 To enforce the cross-platform mode on TeamCity, set the `teamcity.tfs.mode=java` [build configuration parameter](configuring-build-parameters.md).

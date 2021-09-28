@@ -37,11 +37,11 @@ If a critical error was encountered on TeamCity startup, this page will display 
 
 ## TeamCity Database Creation
 
-If you see this screen when [setting up TeamCity with an external database](setting-up-external-database.md) or [after migrating to an external database](migrating-to-an-external-database.md), click __Proceed__ to create a new database for TeamCity.
+If you see this screen when [setting up TeamCity with an external database](set-up-external-database.md) or [after migrating to an external database](migrate-to-external-database.md), click __Proceed__ to create a new database for TeamCity.
  
 <seealso>
         <category ref="installation">
-            <a href="upgrade-teamcity-server-and-agents.md">Upgrade</a>
+            <a href="upgrading-teamcity-server-and-agents.md">Upgrade</a>
         </category>
         <category ref="admin-guide">
             <a href="teamcity-data-backup.md">TeamCity Data Backup</a>

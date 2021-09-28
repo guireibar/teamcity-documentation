@@ -20,7 +20,7 @@ If you need to pass special properties to the server, refer to [this article](se
 
 ## Open TeamCity Web UI
 
-The TeamCity UI can be accessed via a web browser. The default addresses are [`http://localhost/`](http://localhost/) for the Windows distribution and [`http://localhost:8111/`](http://localhost:8111/) for the `tar.gz` distribution. See how to [change the server port](configure-server-installation.md#Change+Server+Port), if necessary.
+The TeamCity UI can be accessed via a web browser. The default addresses are [`http://localhost/`](http://localhost/) for the Windows distribution and [`http://localhost:8111/`](http://localhost:8111/) for the `tar.gz` distribution. See how to [change the server port](configure-server-installation.md#Changing+Server+Port), if necessary.
 
 If you cannot access the TeamCity web UI after a successful installation, please refer to the [troubleshooting section](configure-server-installation.md#Troubleshoot+TeamCity+Installation).
 
@@ -73,4 +73,4 @@ Starting up TeamCity server on macOS is quite similar to starting Tomcat on macO
     <string>teamcity_user</string>
     
     ```
-The TeamCity server will now start automatically when the machine starts. To configure automatic start of a TeamCity build agent, see the [dedicated section](setting-up-and-running-additional-build-agents.md#Automatic+Start).
+The TeamCity server will now start automatically when the machine starts. To configure automatic start of a TeamCity build agent, see the [dedicated section](install-and-start-teamcity-agents.md#Automatic+Start).

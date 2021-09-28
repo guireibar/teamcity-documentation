@@ -56,7 +56,7 @@ By default, the new "_Main TeamCity node_" responsibility belongs to the current
 
 <img src="main-node-role.png" width="460" alt="Main node responsibility"/>
 
-The assigned server becomes the main node and automatically receives all its other responsibilities (processing builds, managing agents, and so on). This new main node keeps all its running builds, and the agents reconnect to it automatically if a [proxy is configured in your setup](multinode-setup-for-high-availability.md#Proxy+Configuration).
+The assigned server becomes the main node and automatically receives all its other responsibilities (processing builds, managing agents, and so on). This new main node keeps all its running builds, and the agents reconnect to it automatically if a [proxy is configured in your setup](multinode-setup.md#Proxy+Configuration).
 
 When the previously main server starts again, it becomes a secondary node, as the "_Main TeamCity node_" responsibility is already occupied by another server. If necessary, you can repeat the procedure above to switch roles between these servers.
 
@@ -66,11 +66,11 @@ In the previous versions of TeamCity, build agents had to send all the requests 
 
 This approach allows routing all agents to the proxy instead of the main server. This will make the server-agent communication less dependent on the main node and get your setup closer to 100% availability. Besides, since agents won't connect to the nodes directly, you can configure and maintain HTTPS settings in one place — on the proxy level.
 
-See more details and the example proxy configuration in [this article](multinode-setup-for-high-availability.md).
+See more details and the example proxy configuration in [this article](multinode-setup.md).
 
 ### Manage max number of builds on secondary node
 
-If a secondary node is assigned to processing builds, it is now possible to limit the number of parallel builds it can run. Previously, if the "_[Processing data produced by running builds](multinode-setup-for-high-availability.md#Processing+Data+Produced+by+Builds+on+Secondary+Node)_" responsibility was enabled for a node, it would process all builds. Now, you can distribute the load between multiple nodes or even keep some builds assigned to the main node.
+If a secondary node is assigned to processing builds, it is now possible to limit the number of parallel builds it can run. Previously, if the "_[Processing data produced by running builds](multinode-setup.md#Processing+Data+Produced+by+Builds+on+Secondary+Node)_" responsibility was enabled for a node, it would process all builds. Now, you can distribute the load between multiple nodes or even keep some builds assigned to the main node.
 
 To configure the limits, go to __Administration | Nodes Configuration__, find the required node in the list, and click __Edit__ next to its "_Processing data produced by running builds_" responsibility. In the _Limit builds_ dialog, enter a relative limit of builds allowed to run on this node. We suggest that you set the limits depending on the nodes' hardware capabilities.
 

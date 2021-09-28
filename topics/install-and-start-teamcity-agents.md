@@ -26,9 +26,9 @@ Note that to run a TeamCity build agent, the environment and user account used t
 #### Common
 
 The agent process (Java) must:
-* be able to open outbound HTTP connections to the server URL configured via the `serverUrl` property in the [`buildAgent.properties`](build-agent-configuration.md) file (typically the same address you use in the browser to view the TeamCity UI). Sending requests to the paths under the configured URL should not be limited. See also the recommended [reverse proxy settings](how-to.md#Set+Up+TeamCity+behind+a+Proxy+Server). Ensure that any firewalls installed on the agent or server machines, network configuration and proxies (if any) comply with these requirements.
+* be able to open outbound HTTP connections to the server URL configured via the `serverUrl` property in the [`buildAgent.properties`](configure-agent-installation.md) file (typically the same address you use in the browser to view the TeamCity UI). Sending requests to the paths under the configured URL should not be limited. See also the recommended [reverse proxy settings](how-to.md#Set+Up+TeamCity+behind+a+Proxy+Server). Ensure that any firewalls installed on the agent or server machines, network configuration and proxies (if any) comply with these requirements.
   {product="tc"}
-* be able to open outbound HTTP connections to the server URL configured via the `serverUrl` property in the [`buildAgent.properties`](build-agent-configuration.md) file (typically the same address you use in the browser to view the TeamCity UI). Sending requests to the paths under the configured URL should not be limited. Ensure that any firewalls installed on the agent, network configuration, and proxies (if any) comply with these requirements.
+* be able to open outbound HTTP connections to the server URL configured via the `serverUrl` property in the [`buildAgent.properties`](configure-agent-installation.md) file (typically the same address you use in the browser to view the TeamCity UI). Sending requests to the paths under the configured URL should not be limited. Ensure that any firewalls installed on the agent, network configuration, and proxies (if any) comply with these requirements.
   {product="tcc"}
 * have full permissions (read/write/delete) to the following directories recursively: [`<agent home>`](agent-home-directory.md) (necessary for automatic agent upgrade and agent tools support), [`<agent work>`](agent-work-directory.md), [`<agent temp>`](agent-home-directory.md#Agent+Directories), and agent system directory (set by `workDir`, `tempDir`, and `systemDir` parameters in the `buildAgent.properties` file).
 * be able to launch processes (to run builds).
@@ -41,7 +41,7 @@ The agent process (Java) must:
 * Start/Stop service (to run as Windows service, necessary for the agent upgrade to work, see also [Microsoft KB article](https://support.microsoft.com/en-us/help/325349/how-to-grant-users-rights-to-manage-services-in-windows-server-2003)).
 * Debug programs (required for take process dump functionality).
 * Reboot the machine (required for agent reboot functionality) .
-* To be able to [monitor performance](performance-monitor.md) of a build agent run as a Windows [service](#Build+Agent+as+a+Windows+Service), the user starting the agent must be a member of the Performance Monitor Users group.
+* To be able to [monitor performance](performance-monitor.md) of a build agent run as a Windows [service](start-teamcity-agent.md#Build+Agent+as+Windows+Service), the user starting the agent must be a member of the Performance Monitor Users group.
 
 <note>
 
@@ -66,7 +66,7 @@ subinacl.exe /service TCBuildAgent /grant=<user login name>=PTO
 #### Linux
 
 * The user must be able to run the `shutdown` command (for the agent machine reboot functionality and the machine shutdown functionality when running in a cloud environment).
-* If you are using `systemd`, it should not kill the processes on the main process exit (use [`RemainAfterExit=yes`](https://serverfault.com/questions/660063/teamcity-build-agent-gets-killed-by-systemd-when-upgrading)). See also [how to set up automatic agent start under Linux](#Automatic+Agent+Start+under+Linux).
+* If you are using `systemd`, it should not kill the processes on the main process exit (use [`RemainAfterExit=yes`](https://serverfault.com/questions/660063/teamcity-build-agent-gets-killed-by-systemd-when-upgrading)). See also [how to set up automatic agent start under Linux](start-teamcity-agent.md#Automatic+Agent+Start+Under+Linux).
 
 #### Build-related Permissions
 
@@ -98,13 +98,13 @@ The bidirectional communication is a legacy connection between the agent and the
 
 The data that is transferred via the connections established by the server to agents is passed via an unsecured HTTP channel and thus is potentially exposed to any third party that may listen to the traffic between the server and the agents. Moreover, since the agent and server can send "commands" to each other, an attacker that can send HTTP requests and capture responses may in theory trick the agent into executing an arbitrary command and perform other actions with a security impact.
 
-The communication protocol used by TeamCity agents is determined by the value of the `teamcity.agent.communicationProtocols` server [internal property](server-startup-properties.md#TeamCity+internal+properties). The property accepts a comma-separated ordered list of protocols (`polling`  and `xml-rpc` are supported protocol names) and is set to `teamcity.agent.communicationProtocols=polling` by default. If several protocols are specified, the agent tries to connect using the first protocol from this list and if it fails, it will try to connect via the second protocol in the list. `polling` means unidirectional protocol, `xml-rpc` - older, bidirectional communication.
+The communication protocol used by TeamCity agents is determined by the value of the `teamcity.agent.communicationProtocols` server [internal property](server-startup-properties.md#TeamCity+Internal+Properties). The property accepts a comma-separated ordered list of protocols (`polling`  and `xml-rpc` are supported protocol names) and is set to `teamcity.agent.communicationProtocols=polling` by default. If several protocols are specified, the agent tries to connect using the first protocol from this list and if it fails, it will try to connect via the second protocol in the list. `polling` means unidirectional protocol, `xml-rpc` - older, bidirectional communication.
 
 #### Changing Communication Protocol
 {product="tc"}
 
-* To change the communication protocol __for all agents__, set the TeamCity server `teamcity.agent.communicationProtocols` server [internal property](server-startup-properties.md#TeamCity+internal+properties). The new setting will be used by all agents which will connect to the server after the change. To change the protocol for the existing connections, restart the TeamCity server.
-* By default, the agent's property is not configured; when the agent first connects to the server, it receives it from the TeamCity server. To change the protocol __for an individual agent__ after the initial agent configuration, change the value of the `teamcity.agent.communicationProtocols` property in the [agent's properties](build-agent-configuration.md). The agent's property overrides the server property. After the change the agent will restart automatically upon finishing a running build, if any.
+* To change the communication protocol __for all agents__, set the TeamCity server `teamcity.agent.communicationProtocols` server [internal property](server-startup-properties.md#TeamCity+Internal+Properties). The new setting will be used by all agents which will connect to the server after the change. To change the protocol for the existing connections, restart the TeamCity server.
+* By default, the agent's property is not configured; when the agent first connects to the server, it receives it from the TeamCity server. To change the protocol __for an individual agent__ after the initial agent configuration, change the value of the `teamcity.agent.communicationProtocols` property in the [agent's properties](configure-agent-installation.md). The agent's property overrides the server property. After the change the agent will restart automatically upon finishing a running build, if any.
 
 [//]: # (Internal note. Do not delete. "Setting up and Running Additional Build Agentsd283e376.txt")
 
@@ -113,8 +113,8 @@ The communication protocol used by TeamCity agents is determined by the value of
 
 The recommended approach to connecting a self-hosted agent to a TeamCity Cloud instance is to generate a unique authentication token for this agent. To do this, go to __Agents__, open the __Install Build Agents__ menu in the upper right corner of the screen, and click _Use authentication token_. There are two options:
 
-* _Generate plain-text token_: you need to copy the generated token and enter it in the [build agent configuration](build-agent-configuration.md) file. On Windows, you will be prompted to enter it right in the _Configure Build Agent Properties_ installation dialog.
-* _Download config_: enter an agent name (`name` attribute in the [build agent config](build-agent-configuration.md)) and download the entire config file. Place it as the `buildAgent.properties` file in the build agent directory.
+* _Generate plain-text token_: you need to copy the generated token and enter it in the [build agent configuration](configure-agent-installation.md) file. On Windows, you will be prompted to enter it right in the _Configure Build Agent Properties_ installation dialog.
+* _Download config_: enter an agent name (`name` attribute in the [build agent config](configure-agent-installation.md)) and download the entire config file. Place it as the `buildAgent.properties` file in the build agent directory.
 
 Please generate own token or configuration file per each self-hosted agent.
 

@@ -20,25 +20,25 @@ Final Operating System choice should probably depend more on the available resou
 
 The hardware requirements differ for the server and the agents.
 
-The __agent__ hardware requirements are basically determined by the builds that are run. Running TeamCity agent software introduces a requirement for additional CPU time (but it can usually be neglected comparing to the build process CPU requirements) and additional memory: about 500Mb. The disk space required corresponds to the disk usage by the builds running on the agent (sources checkouts, downloaded artifacts, the disk space consumed during the build; all that combined for the regularly occurring builds). Although you can run a build agent on the same machine as the TeamCity server, the recommended approach is to use a separate machine (it may be virtual) for each build agent. If you chose to install several agents on the [same machine](setting-up-and-running-additional-build-agents.md#Installing+Several+Build+Agents+on+the+Same+Machine), consider the possible CPU, disk, memory or network bottlenecks that might occur. The [Performance Monitor](performance-monitor.md) build feature can help you in analyzing live data.
+The __agent__ hardware requirements are basically determined by the builds that are run. Running TeamCity agent software introduces a requirement for additional CPU time (but it can usually be neglected comparing to the build process CPU requirements) and additional memory: about 500Mb. The disk space required corresponds to the disk usage by the builds running on the agent (sources checkouts, downloaded artifacts, the disk space consumed during the build; all that combined for the regularly occurring builds). Although you can run a build agent on the same machine as the TeamCity server, the recommended approach is to use a separate machine (it may be virtual) for each build agent. If you chose to install several agents on the [same machine](install-multiple-agents-on-one-machine.md), consider the possible CPU, disk, memory or network bottlenecks that might occur. The [Performance Monitor](performance-monitor.md) build feature can help you in analyzing live data.
 
 The __server__ hardware requirements depend on the server load, which in its turn depends significantly on the type of the builds and server usage. Consider the following general guidelines.   
 
 <tip>
 
-* If you decide to run an [external database](setting-up-external-database.md) on the same machine as the server, take into account hardware requirements with database engine requirements in mind.
+* If you decide to run an [external database](set-up-external-database.md) on the same machine as the server, take into account hardware requirements with database engine requirements in mind.
 * If you face some TeamCity-related performance issues, they should probably be investigated and addressed individually. For example, if builds generate too much data, the server disk system might be needing an upgrade both in size and speed characteristics.
 </tip>
 
 __Database Note:__  
 When using the server extensively, the database performance starts to play a greater role.   
 For reliability and performance reasons you should use an external database.   
-See the [notes](setting-up-external-database.md) on choosing external database.    
+See the [notes](set-up-external-database.md) on choosing external database.    
 The database size requirements naturally vary based on the amount of data stored (number of builds, number of tests, and so on). The active server database usage can be estimated at several gigabytes of data per year.
 
 __Overview of the TeamCity hardware resources usage:__      
 * CPU: TeamCity utilizes multiple cores of the CPU, so increasing number of cores makes sense. For non-trivial TeamCity usage at least 4 CPU cores are recommended.
-* Memory: used by the TeamCity server main process and child processes (used for Maven integration, version control integration, Kotlin DSL execution). See the [notes](installing-and-configuring-the-teamcity-server.md#Setting+Up+Memory+settings+for+TeamCity+Server) on the main process memory usage. Generally, you will probably not need to dedicate more than 4G of memory to TeamCity server if you do not plan to run more than 100 concurrent builds (agents), support more than 200 online users or work with large repositories.
+* Memory: used by the TeamCity server main process and child processes (used for Maven integration, version control integration, Kotlin DSL execution). See the [notes](install-and-start-teamcity-server.md#Setting+Up+Memory+settings+for+TeamCity+Server) on the main process memory usage. Generally, you will probably not need to dedicate more than 4G of memory to TeamCity server if you do not plan to run more than 100 concurrent builds (agents), support more than 200 online users or work with large repositories.
 * HDD/disk usage: This sums up mainly from the temp directory usage (`<[TeamCity Home](teamcity-home-directory.md)>/temp` and OS default temp directory) and `<[TeamCity Data Directory](teamcity-data-directory.md)>/system` usage. Performance of the TeamCity server highly depends on the disk system performance. As TeamCity stores large amounts of data under `<[TeamCity Data Directory](teamcity-data-directory.md)>/system` (most notably, VCS caches and build results), it is important to ensure that the access to the disk is fast (in particular reading/writing files in multiple threads, listing files with attributes). Ensuring disk has good performance is especially important if you plan to store the Data Directory on a network drive. It is recommended to use local storage for `TeamCity Data Directory/system/caches` directory. See also [TeamCity Data Directory](teamcity-data-directory.md#Recommendations+as+to+choosing+Data+Directory+Location).
 * Network: This mainly sums up from the traffic from VCS servers, to clients (web browsers, IDE, etc.) and to/from build agents (send sources, receive build results, logs and artifacts).
 
@@ -121,7 +121,7 @@ The most important flows of traffic between the agent and the server are:
 ## Configuring TeamCity Server for Performance
 {product="tc"}
 
-Here are some recommendations to tweak TeamCity server setup for better performance. The list for [production server use](installing-and-configuring-the-teamcity-server.md#Configuring+Server+for+Production+Use) is a prerequisite:
+Here are some recommendations to tweak TeamCity server setup for better performance. The list for [production server use](install-and-start-teamcity-server.md#Configuring+Server+for+Production+Use) is a prerequisite:
 * Regularly review reported Server Health reports (including hidden ones)
 * Use a separate [reverse proxy](#Set+Up+TeamCity+behind+a+Proxy+Server) server (e.g. NGINX) to handle HTTPS
 * Use a separate server for the external database and monitor the database performance
@@ -250,7 +250,7 @@ PostgreSQL: We recommend using version 9.2\+, which has a lot of query optimizat
 
 Oracle: it is recommended to keep statistics on: all automatically gathered statistics should be enabled (since Oracle 10.0, this is the default setup). Also see the information on redo log files in the [Oracle documentation](https://docs.oracle.com/cd/B14117_01/server.101/b10752/iodesign.htm#26022).
 
-MS SQL Server: it is NOT recommended to use the jTDS driver: it does not work with `nchar/nvarchar`, and to preserve unicode streams it may cause queries to take a long time and consume a lot of IO. Also see the information on redo log in the [Microsoft Knowledge base](https://support.microsoft.com/kb/2033523). If you use jTDS, please [migrate](setting-up-external-database.md#jTDS+driver).
+MS SQL Server: it is NOT recommended to use the jTDS driver: it does not work with `nchar/nvarchar`, and to preserve unicode streams it may cause queries to take a long time and consume a lot of IO. Also see the information on redo log in the [Microsoft Knowledge base](https://support.microsoft.com/kb/2033523). If you use jTDS, please [migrate](set-up-external-database.md#jTDS+driver).
 
 MySQL: the query optimizer might be inefficient: some queries may get a wrong execution plan causing them to take a long time and consume huge IO.
 
@@ -296,7 +296,7 @@ The contents of this section have been moved to the [dedicated article](security
 ## Configure Newly Installed MySQL Server
 {product="tc"}
 
-If MySQL server is going to be used with TeamCity in addition to the [basic setup](setting-up-external-database.md#MySQL), you should review and probably change some of the MySQL server settings. If MySQL is installed on Windows, the settings are located in `my.ini` file which usually can be found under MySQL installation directory. For Unix-like systems the file is called `my.cnf` and can be placed somewhere under `/etc` directory. Read more about configuration file location in [MySQL documentation](http://dev.mysql.com/doc/refman/5.5/en/option-files.html). Note: you'll need to restart MySQL server after changing settings in `my.ini|my.cnf`.
+If MySQL server is going to be used with TeamCity in addition to the [basic setup](set-up-external-database.md#MySQL), you should review and probably change some of the MySQL server settings. If MySQL is installed on Windows, the settings are located in `my.ini` file which usually can be found under MySQL installation directory. For Unix-like systems the file is called `my.cnf` and can be placed somewhere under `/etc` directory. Read more about configuration file location in [MySQL documentation](http://dev.mysql.com/doc/refman/5.5/en/option-files.html). Note: you'll need to restart MySQL server after changing settings in `my.ini|my.cnf`.
 
 The following settings should be reviewed and/or changed:
 
@@ -458,7 +458,7 @@ The contents of this section have been moved to the [dedicated article](configur
 ## Enforce hiding stacktrace
 {product="tc"}
 
-If a user with access to your TeamCity server submits an invalid cross-site scripting (XSS) payload, the server will display the "Unexpected error" page containing a related stacktrace. To prevent exposing any sensible information about your environment via this stacktrace, you might want to disable its display. For this, set the `teamcity.web.runtimeError.showStacktrace` [internal property](configuring-teamcity-server-startup-properties.md#TeamCity+internal+properties) to `false`.
+If a user with access to your TeamCity server submits an invalid cross-site scripting (XSS) payload, the server will display the "Unexpected error" page containing a related stacktrace. To prevent exposing any sensible information about your environment via this stacktrace, you might want to disable its display. For this, set the `teamcity.web.runtimeError.showStacktrace` [internal property](server-startup-properties.md#TeamCity+Internal+Properties) to `false`.
 
 ## Configure HTTPS for TeamCity Web UI
 {product="tc"}
@@ -480,7 +480,7 @@ This section covers the configuration of a proxy server for TeamCity agent-to-se
 
 <chunk include-id="agent-proxy-server">
 
-On the TeamCity agent side, specify the proxy to connect to TeamCity server using the following properties in the [`buildAgent.properties`](build-agent-configuration.md) file:
+On the TeamCity agent side, specify the proxy to connect to TeamCity server using the following properties in the [`buildAgent.properties`](configure-agent-installation.md) file:
 
 
 ```Shell
@@ -500,17 +500,17 @@ Note that the proxy has to be configured not to cache any TeamCity server respon
 
 ## Install Multiple Agents on the Same Machine
 
-See the [corresponding section](setting-up-and-running-additional-build-agents.md#Installing+Several+Build+Agents+on+the+Same+Machine) under agent installation documentation.
+See the [corresponding section](install-multiple-agents-on-one-machine.md) under agent installation documentation.
 
 ## Change Server Port
 {product="tc"}
 
-See [corresponding section](installing-and-configuring-the-teamcity-server.md#Changing+Server+Port) in server installation instructions.
+See [corresponding section](install-and-start-teamcity-server.md#Changing+Server+Port) in server installation instructions.
 
 ## Test-drive Newer TeamCity Version before Upgrade
 {product="tc"}
 
-It's advised to try a new TeamCity version before upgrading your production server. The usual procedure is to [create a copy](#Create+a+Copy+of+TeamCity+Server+with+All+Data) of your production TeamCity installation, then [upgrade](upgrade.md) it, try the things out, and, when everything is checked, drop the test server and upgrade the main one. When you start the test server, remember to change the Server URL, disable Email and Jabber notifiers as well as [other features](#Copied+Server+Checklist) on the new server.
+It's advised to try a new TeamCity version before upgrading your production server. The usual procedure is to [create a copy](#Create+a+Copy+of+TeamCity+Server+with+All+Data) of your production TeamCity installation, then [upgrade](upgrading-teamcity-server-and-agents.md) it, try the things out, and, when everything is checked, drop the test server and upgrade the main one. When you start the test server, remember to change the Server URL, disable Email and Jabber notifiers as well as [other features](#Copied+Server+Checklist) on the new server.
 
 ## Create a Copy of TeamCity Server with All Data
 {product="tc"}
@@ -526,7 +526,7 @@ You can create a copy of the server using TeamCity backup functionality or manua
 1. Create a [backup](teamcity-data-backup.md) including everything. (You can skip the option to backup build logs is you are moving the artifacts, see below).
 2. Install a new TeamCity server of the same version that you are already running. Ensure that:
    * the appropriate environment is configured (see the notes below) 
-   * the server uses its own `<[TeamCity Data Directory](teamcity-data-directory.md)>` and its own [database](setting-up-external-database.md) (check the `<[TeamCity Data Directory](teamcity-data-directory.md)>config/database.properties` file)
+   * the server uses its own `<[TeamCity Data Directory](teamcity-data-directory.md)>` and its own [database](set-up-external-database.md) (check the `<[TeamCity Data Directory](teamcity-data-directory.md)>config/database.properties` file)
 3. [Restore the backup](restoring-teamcity-data-from-backup.md).
 4. Move the artifacts (these are not included into the backup) by moving the content of `<[TeamCity Data Directory](teamcity-data-directory.md)>/system/artifacts` directory from the old location to the new one. Since the artifacts can be large in the size, this can take a lot of time, so plan accordingly.
 5. Perform the necessary [environment transfer](#Environment+transferring).
@@ -541,7 +541,7 @@ In order to ensure complete server transfer, it is recommended to copy the entir
 If you do not want to use the bundled backup functionality or need manual control over the process, here is a general instruction on how to manually create a copy of the server:
 1. Create a [backup](teamcity-data-backup.md) so that you can restore it if anything goes wrong.
 2. Ensure the server is not running.
-3. Either perform clean [installation](installing-and-configuring-the-teamcity-server.md) or copy the TeamCity binaries ([`TeamCity Home Directory`](teamcity-home-directory.md)) into a new place (the `temp` and `work` subdirectories can be omitted during copying). Use exactly the same TeamCity version. If you plan to upgrade after copying, perform the upgrade only after you have the existing version up and running.
+3. Either perform clean [installation](install-and-start-teamcity-server.md) or copy the TeamCity binaries ([`TeamCity Home Directory`](teamcity-home-directory.md)) into a new place (the `temp` and `work` subdirectories can be omitted during copying). Use exactly the same TeamCity version. If you plan to upgrade after copying, perform the upgrade only after you have the existing version up and running.
 4. Copy `<[TeamCity Data Directory](teamcity-data-directory.md)>`. If you do not need the full copy, refer to the items below for options.
     * `.BuildServer/config` to preserve projects and build configurations settings
     * `.BuildServer/lib` and `.BuildServer/plugins` if you have them
@@ -551,8 +551,8 @@ If you do not want to use the bundled backup functionality or need manual contro
     * `.BuildServer/system/pluginData` (optional) if you want to preserve the state of various plugins, build triggers, and settings audit diff
     * `.BuildServer/system/caches` and `.BuildServer/system/caches` (optional) are not necessary to copy to the new server, they will be recreated on startup, but can take some time to be rebuilt (expect some slow down)
 5. Artifacts directory is usually large. If you need to minimize the downtime of the server when moving it, you can use the generic approach for copying the data: use rsync, robocopy or alike tool to copy the data while the original server is running. Repeat the sync run several times until the amount of synced data reduces. Run the final sync after the original server shutdown. Alternative solution for the server move is to make the old data artifacts directory accessible to the new server and configure it as a second [location of artifacts](teamcity-configuration-and-maintenance.md). Then copy the files over from this second location to the main one while the server is running. Restart the server after copying completion.
-6. Create a copy of the [database](setting-up-external-database.md), which your TeamCity installation is using, in a new schema or new database server. This can be done with database-specific tools or with the bundled maintainDB tool by [backing up](creating-backup-via-maintaindb-command-line-tool.md) database data and then [restoring](restoring-teamcity-data-from-backup.md) it.
-7. Configure the new TeamCity installation to use proper `<[TeamCity Data Directory](teamcity-data-directory.md)>` and [database](setting-up-external-database.md) (`.BuildServer/config/database.properties` points to a copy of the database).
+6. Create a copy of the [database](set-up-external-database.md), which your TeamCity installation is using, in a new schema or new database server. This can be done with database-specific tools or with the bundled maintainDB tool by [backing up](creating-backup-via-maintaindb-command-line-tool.md) database data and then [restoring](restoring-teamcity-data-from-backup.md) it.
+7. Configure the new TeamCity installation to use proper `<[TeamCity Data Directory](teamcity-data-directory.md)>` and [database](set-up-external-database.md) (`.BuildServer/config/database.properties` points to a copy of the database).
 8. Perform the necessary [environment transfer](#Environment+transferring).
 
 >If you want to do a quick check and do not need to preserve the build history on the new server, you can skip Step 6 (cloning database) and all the optional items of Step 4.
@@ -564,7 +564,7 @@ If you do not want to use the bundled backup functionality or need manual contro
 
 Consider transferring the relevant environment if it was specially modified for an existing TeamCity installation. This might include:
 * use the appropriate OS user account for running the TeamCity server process with properly configured settings, global and file system permissions
-* use the same [TeamCity process launching options](configuring-teamcity-server-startup-properties.md), specifically check/copy environment variables starting with `TEAMCITY_`
+* use the same [TeamCity process launching options](server-startup-properties.md), specifically check/copy environment variables starting with `TEAMCITY_`
 * ensure any files/settings that were configured in the TeamCity web UI with absolute paths are accessible
 * if relying on the OS-level user/machine settings like default SSH keys, cached VCS access credentials, transfer them as well
 * consider replicating any special settings or exceptions related to the machine in the network configuration, and so on
@@ -684,7 +684,7 @@ Apart from the binaries, TeamCity agent installation stores its configuration an
 
 The simplest way to move agent installation into a new machine or new location is to:
 * stop existing agent
-* [install](setting-up-and-running-additional-build-agents.md) a new agent on the new machine
+* [install](install-and-start-teamcity-agents.md) a new agent on the new machine
 * copy `conf/buildAgent.properties` from the old installation to a new one
 * start the new agent.
 With these steps the agent will be recognized by TeamCity server as the same and will perform [clean checkout](clean-checkout.md) for all the builds.
@@ -903,7 +903,7 @@ You should not publish values CodeCoverageB, CodeCoverageL, CodeCoverageM, CodeC
 
 If you get "Data format of the Data Directory (NNN) and the database (MMM) do not match." error on starting TeamCity, it means either the database or the TeamCity Data Directory were recently changed to an inconsistent state so they cannot be used together. Double-check the database and Data Directory locations and change them if they are not those where the server used to store the data.
 
-If they are right, most probably it means that the server was upgraded with another database or Data Directory and the [consistent upgrade](upgrade.md#Upgrading+TeamCity+Server) requirement was not met for your main Data Directory and the database.
+If they are right, most probably it means that the server was upgraded with another database or Data Directory and the [consistent upgrade](upgrading-teamcity-server-and-agents.md#Upgrading+TeamCity+Server) requirement was not met for your main Data Directory and the database.
 
 To recover from the state you will need backup of the consistent state made prior to the upgrade. You will need to restore that backup, ensure the right locations are used for the Data Directory and the database and perform the TeamCity upgrade.
 
@@ -997,7 +997,7 @@ If you want the users to accept a special agreement before using your TeamCity i
 
 ### Encryption
 
-If you want to encrypt the data used by TeamCity, it is recommended to use generic, non-TeamCity-specific tools for this as TeamCity does not provide dedicated functionality. TeamCity stores the data in the SQL database and on the file system. You can configure the database to store the data in encrypted form and use secure JDBC\-backed connection to the database (configured in the [`database.properties`](setting-up-external-database.md)).   
+If you want to encrypt the data used by TeamCity, it is recommended to use generic, non-TeamCity-specific tools for this as TeamCity does not provide dedicated functionality. TeamCity stores the data in the SQL database and on the file system. You can configure the database to store the data in encrypted form and use secure JDBC\-backed connection to the database (configured in the [`database.properties`](set-up-external-database.md)).   
 Also, you can configure encryption on the disk storage on the OS level.
 
 ### Logs and Debugging Data

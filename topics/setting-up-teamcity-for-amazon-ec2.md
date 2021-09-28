@@ -91,13 +91,13 @@ View information on example policies for [Linux](http://docs.aws.amazon.com/AWSE
 ### Preparing Image with Installed TeamCity Agent
 
 Here are the requirements for an image that can be used for TeamCity cloud integration:
-* TeamCity agent should be correctly [installed](setting-up-and-running-additional-build-agents.md).
+* TeamCity agent should be correctly [installed](install-and-start-teamcity-agents.md).
 * TeamCity agent should start on machine startup.
 * `buildAgent.properties` can be left as is. The `serverUrl`, `name`, and `authorizationToken` properties can be empty or set to any value; they are ignored when TeamCity starts the instance.
 
 Provided these requirements are met, usual TeamCity agent installation and cloud-provider image bundling procedures are applicable.
 
-If you need the [connection](setting-up-and-running-additional-build-agents.md#Agent-Server+Data+Transfers) between the server and the agent machine to be secure, you will need to set up the agent machine to establish a secure tunnel (for example, VPN) to the server on boot so that TeamCity agent receives data via the secure channel.
+If you need the [connection](install-and-start-teamcity-agents.md#Agent-Server+Data+Transfers) between the server and the agent machine to be secure, you will need to set up the agent machine to establish a secure tunnel (for example, VPN) to the server on boot so that TeamCity agent receives data via the secure channel.
 
 Recommended image (for example, Amazon AMI) preparation steps:
 
@@ -247,13 +247,13 @@ As mentioned [above](#Tagging+for+TeamCity-launched+instances), TeamCity tags ev
 
 Since Amazon doesn't provide a robust API method to retrieve all instance types, Amazon integration relies on the periodical update of AWS SDK to make new instance types available.
 
-However, there is a workaround if you are not willing to wait. To register new Instance Types, use the `teamcity.ec2.instance.types` [internal property](configuring-teamcity-server-startup-properties.md#TeamCity+internal+properties) with new instance types separated by ",".
+However, there is a workaround if you are not willing to wait. To register new Instance Types, use the `teamcity.ec2.instance.types` [internal property](server-startup-properties.md#TeamCity+Internal+Properties) with new instance types separated by ",".
 {product="tc"}
 
 ### Proxy settings
 {product="tc"}
 
-If your TeamCity server needs to use a proxy to connect to AWS API endpoint, configure the following server [internal properties](configuring-teamcity-server-startup-properties.md#TeamCity+internal+properties) to connect to Amazon AWS addresses.
+If your TeamCity server needs to use a proxy to connect to AWS API endpoint, configure the following server [internal properties](server-startup-properties.md#TeamCity+Internal+Properties) to connect to Amazon AWS addresses.
 
 * `teamcity.http.proxy.host.ec2` — proxy server host name
 * `teamcity.http.proxy.port.ec2` — proxy server port

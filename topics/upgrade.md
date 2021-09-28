@@ -71,7 +71,7 @@ __Once the data is converted, downgrade to the previous TeamCity versions which 
 There are several important issues with data format upgrade:
 
 * Data structure downgrade is not possible. Once newer TeamCity version changes the data format of database and Data Directory, you cannot use this data to run an older TeamCity version. Please ensure you [backup](teamcity-data-backup.md) the data before upgrading TeamCity.
-* Both the database and the Data Directory should be upgraded simultaneously. Ensure that during the first start of the newer server it uses the correct [TeamCity Data Directory](teamcity-data-directory.md) that in its turn has the correct database [configured](setting-up-external-database.md) in the `<[TeamCity Data Directory](teamcity-data-directory.md)>\config\database.properties` file. Also make sure the Data Directory is complete (for example, all the build logs and artifacts are in place), no Data Directory content supports copying from the Data Directory of the older server versions.
+* Both the database and the Data Directory should be upgraded simultaneously. Ensure that during the first start of the newer server it uses the correct [TeamCity Data Directory](teamcity-data-directory.md) that in its turn has the correct database [configured](set-up-external-database.md) in the `<[TeamCity Data Directory](teamcity-data-directory.md)>\config\database.properties` file. Also make sure the Data Directory is complete (for example, all the build logs and artifacts are in place), no Data Directory content supports copying from the Data Directory of the older server versions.
 
 If you accidentally performed an inconsistent upgrade, check the [recovery instructions](how-to.md#Recover+from+%22Data+format+of+the+Data+Directory+%28NNN%29+and+the+database+%28MMM%29+do+not+match%22+error).
 
@@ -103,7 +103,7 @@ In case of an automatic update failure, perform the following to restore your Te
 
 Current limitations of automatic update:
 * Some files like `TeamCityService.exe` and `teamcity-server.bat` are not included into the scope of autoupdate. 
-* Some customizations, for example, installations with [changed server context](installing-and-configuring-the-teamcity-server.md#Changing+Server+Context), are not supported by automatic update.
+* Some customizations, for example, installations with [changed server context](install-and-start-teamcity-server.md#Changing+Server+Context), are not supported by automatic update.
 * Only manual upgrade is possible if the server runs under the official [TeamCity Docker container](#Upgrading+TeamCity+started+from+Docker+images), started with Azure Resource Manager template.
 * The Windows uninstaller is not updated during the upgrade, so after several updates, old TeamCity version will still be noted in Windows lists. During the uninstallation, not all the TeamCity installation files might be deleted.
 * The bundled Java is not updated.
@@ -124,9 +124,9 @@ Current limitations of automatic update:
 6. Check if you a have local agent installed (though it is [not recommended](security-notes.md) to have a local agent), so that you can later select this option in the installer.
 7. Run the new installer and point it to the same place TeamCity is installed to (the location used for installation is remembered automatically). Confirm uninstalling the previous installation. The TeamCity uninstaller ensures proper uninstallation, but you might want to make sure the [TeamCity server installation directory](teamcity-home-directory.md) does not contain any non-customized files after uninstallation finishes. If there are any, backup/remove them before proceeding with the installation.
 8. If prompted, specify the `<[TeamCity Data Directory](teamcity-data-directory.md)>/` used by the previous installation.
-9. (optional as these will not be overwritten by the upgrade) Make sure you have the external database driver [installed](setting-up-external-database.md#General+Steps) (this applies only if you use an external database).
+9. (optional as these will not be overwritten by the upgrade) Make sure you have the external database driver [installed](set-up-external-database.md#General+Steps) (this applies only if you use an external database).
 10. Check and restore any customizations of Windows services and Tomcat configuration that you need. When upgrading from TeamCity versions 7.1 and earlier, make sure to transfer the [server memory setting](server-startup-properties.md) to the [environment variables](server-startup-properties.md#Standard+TeamCity+Startup+Scripts).
-11. If you were using 64-bit Java to run the server, restore the `<[TeamCity Home Directory](teamcity-home-directory.md)>\jre` directory previously backed up or repeat the 64-bit Java [installation steps](installing-and-configuring-the-teamcity-server.md#Java+Installation).
+11. If you were using 64-bit Java to run the server, restore the `<[TeamCity Home Directory](teamcity-home-directory.md)>\jre` directory previously backed up or repeat the 64-bit Java [installation steps](install-non-bundled-java-and-tomcat.md#Install+Java).
 12. If you use a customized Log4j configuration in the `conf\teamcity-server-log4j.xml` file and want to preserve it (note that it is recommended using [logging presets](teamcity-server-logs.md#Logging-related+Diagnostics+UI) instead), compare and merge `conf\teamcity-server-log4j.xml.backup` created by the installer from the existing copy with the default file saved with the default name. Compare the `conf\teamcity-*-log4j.xml.dist` file with the corresponding `conf\teamcity-*-log4j.xml` file and make sure that` .xml` file contains all the `.dist` file defaults. It is recommended to copy the `.dist` file over to the corresponding `.xml` file until you really need the changed logging configuration.
 13. Start up the TeamCity server (and agent, if it was installed together with the installer).
 14. Review the [TeamCity Maintenance Mode](teamcity-maintenance-mode.md) page to make sure there are no problems encountered, and confirm the upgrade by clicking the corresponding button. Only after that all data will be converted to the newer format.
@@ -164,9 +164,9 @@ Generally, versions of the IntelliJ IDEA TeamCity plugin, Eclipse TeamCity plugi
 
 ### Automatic Build Agent Upgrading
 
-On starting TeamCity server (and updating agent distribution or plugins on the server), TeamCity agents connected to the server and [correctly installed](setting-up-and-running-additional-build-agents.md#Necessary+OS+and+environment+permissions) are automatically updated to the version corresponding to the server. This occurs for both server upgrades and downgrades. If there is a running build on the agent, the build finishes. No new builds are started on the agent unless the agent is up to date with the server. 
+On starting TeamCity server (and updating agent distribution or plugins on the server), TeamCity agents connected to the server and [correctly installed](install-and-start-teamcity-agents.md#Necessary+OS+and+environment+permissions) are automatically updated to the version corresponding to the server. This occurs for both server upgrades and downgrades. If there is a running build on the agent, the build finishes. No new builds are started on the agent unless the agent is up to date with the server. 
 
-__Since TeamCity 2018.2__, before starting the agent upgrade, the agent is checked for free disk space, 3 Gb by default. To modify the value required for the upgrade, configure the `teamcity.agent.upgrade.ensure.free.space` [agent property](build-agent-configuration.md).
+__Since TeamCity 2018.2__, before starting the agent upgrade, the agent is checked for free disk space, 3 Gb by default. To modify the value required for the upgrade, configure the `teamcity.agent.upgrade.ensure.free.space` [agent property](configure-agent-installation.md).
 
 The agent update procedure is as follows: The agent (`agent.bat`, `agent.sh`, or agent service) will download the current agent package from the TeamCity server. When the download is complete and the agent is idle, it will start the upgrade process (the agent is stopped, the agent files are updated, and the agent is restarted). This process may take several minutes depending on the agent hardware and network bandwidth. __Do not interrupt the upgrade process__, as doing so may cause the upgrade to fail and you will need to manually reinstall the agent.
 
@@ -176,7 +176,7 @@ Various console windows can open and close during the agent upgrade. Please be p
 
 ### Upgrading Build Agents Manually
 
-All connected agents upgrade automatically, provided they are correctly [installed](setting-up-and-running-additional-build-agents.md), so manual upgrade is not necessary.
+All connected agents upgrade automatically, provided they are correctly [installed](install-and-start-teamcity-agents.md), so manual upgrade is not necessary.
 
 If you need to upgrade agent manually, you can follow the steps below:
 

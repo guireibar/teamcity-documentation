@@ -13,7 +13,7 @@ On the first TeamCity run, using an internal HSQLDB database is suggested by def
 
 However, __we strongly recommend using an external database__ as a backend TeamCity database in a production environment. An external database is usually more reliable and provides better performance: the internal database may crash and lose all your data (for example, on the "out of disk space" condition). The internal database may become extremely slow on large data sets (database storage files over 200 Mb). Please note that our support does not cover any performance or database data loss issues if you are using the internal database.
 
-In short, __do not use the internal HSQLDB database for production TeamCity instances__. [Migrate to an external database](migrating-to-an-external-database.md) the moment you start to rely on the data stored on your TeamCity server.
+In short, __do not use the internal HSQLDB database for production TeamCity instances__. [Migrate to an external database](migrate-to-external-database.md) the moment you start to rely on the data stored on your TeamCity server.
 
 ## Selecting External Database Engine
 [//]: # (AltHead: selectingDatabase)

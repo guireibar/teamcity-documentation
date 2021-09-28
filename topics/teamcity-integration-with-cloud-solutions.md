@@ -45,24 +45,24 @@ This section describes general steps required for cloud integration.
 ### Preparing a virtual machine with an installed TeamCity agent
 
 The requirements for a virtual machine/image to be used for TeamCity cloud integration:
-* The TeamCity agent must be correctly [installed](setting-up-and-running-additional-build-agents.md) and configured to start [automatically](setting-up-and-running-additional-build-agents.md#Automatic+Start) on the machine startup.
+* The TeamCity agent must be correctly [installed](install-and-start-teamcity-agents.md) and configured to start [automatically](install-and-start-teamcity-agents.md#Automatic+Start) on the machine startup.
 * to skip the update attempts on each agent connection to the server, make sure that the agent is up to date: start and wait for the update to complete. The agent state changes each time a plugin or tool is installed/updated/removed on the server.
 * the [`buildAgent.properties`](project-and-agent-level-build-parameters.md) file can be left "as is". The `serverUrl`, `name`, and `authorizationToken` properties can be left empty or set to any value, they are ignored when TeamCity starts the instance __unless otherwise specifically stated__ in [the platform-specific documentation](https://confluence.jetbrains.com/display/TW/Microsoft+Azure+cloud).
 
 Provided these requirements are met, the usual TeamCity agent installation and cloud\-provider image bundling procedures are applicable.
 
-If you need the [connection](setting-up-and-running-additional-build-agents.md#Agent-Server+Data+Transfers) between the server and the agent machine to be secure, you will need to set up the agent machine to establish a secure tunnel (for example, VPN) to the server on boot so that the TeamCity agent receives data via the secure channel. Keep in mind that communication between TeamCity agent and server is bidirectional and requires an open port on the agent as well as on the server.
+If you need the [connection](install-and-start-teamcity-agents.md#Agent-Server+Data+Transfers) between the server and the agent machine to be secure, you will need to set up the agent machine to establish a secure tunnel (for example, VPN) to the server on boot so that the TeamCity agent receives data via the secure channel. Keep in mind that communication between TeamCity agent and server is bidirectional and requires an open port on the agent as well as on the server.
 
 ### Preparing a virtual machine
 1. Create and start a virtual machine with desired OS installed.
 2. Connect and log in to the virtual machine. 
 3. Configure the running instance:
-   1. [Install](setting-up-and-running-additional-build-agents.md) and configure a build agent.
+   1. [Install](install-and-start-teamcity-agents.md) and configure a build agent.
       * Configure the server name and agent name in the [`buildAgent.properties`](project-and-agent-level-build-parameters.md) file — this is optional if TeamCity will be configured to launch the image, but it is useful to test the agent is configured correctly.
       * It usually makes sense to specify `tempDir` and `workDir` in `conf/buildAgent.properties` to use a non-system drive (for example, `D` drive under Windows)
    2. Install any additional software necessary for the builds on the machine (for example, Java or .NET)
    3. Start the agent and wait until it connects to server, ensure it is working OK and is compatible with all necessary build configurations (in the TeamCity web UI, go to the __Agents__ page, select the build agent and view the __Compatible Configurations__ tab), and so on.
-   4. Configure the system so that the agent is [started on the machine boot](setting-up-and-running-additional-build-agents.md#Automatic+Start) (and make sure TeamCity server is accessible on the machine boot).
+   4. Configure the system so that the agent is [started on the machine boot](install-and-start-teamcity-agents.md#Automatic+Start) (and make sure TeamCity server is accessible on the machine boot).
    5. Check the port on which the build agent will listen for incoming data from TeamCity and open the required firewall ports (usually 9090).
 4. Test the setup by rebooting machine and checking that the agent connects normally to the server. Once the agent connects, it will automatically update all the plugins. Wait until the agent is connected completely so that all plugins are downloaded to the agent machine.
 

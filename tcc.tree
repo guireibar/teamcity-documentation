@@ -20,15 +20,15 @@
             <toc-element id="testing-frameworks.md"/>
             <toc-element id="code-quality-tools.md" show-structure-for="chapter" show-structure-depth="4"/>
         </toc-element>
-        <toc-element id="installation-and-upgrade.md" hidden="true"/>
+        <toc-element id="installation-and-upgrading-teamcity-server-and-agents.md" hidden="true"/>
         <toc-element toc-title="Installation and Upgrade">
-            <toc-element id="installation.md" show-structure-for="chapter" show-structure-depth="4">
-                <toc-element id="setting-up-and-running-additional-build-agents.md" show-structure-for="chapter" show-structure-depth="4">
-                    <toc-element id="build-agent-configuration.md" show-structure-for="chapter" show-structure-depth="4"/>
+            <toc-element id="install-and-start-teamcity-server.md" show-structure-for="chapter" show-structure-depth="4">
+                <toc-element id="install-and-start-teamcity-agents.md" show-structure-for="chapter" show-structure-depth="4">
+                    <toc-element id="configure-agent-installation.md" show-structure-for="chapter" show-structure-depth="4"/>
                 </toc-element>
                 <toc-element id="csrf-protection.md" show-structure-for="chapter" show-structure-depth="4"/>
             </toc-element>
-            <toc-element id="upgrade.md" show-structure-for="chapter" show-structure-depth="4"/>
+            <toc-element id="upgrading-teamcity-server-and-agents.md" show-structure-for="chapter" show-structure-depth="4"/>
             <toc-element id="teamcity-release-cycle.md" show-structure-for="chapter" show-structure-depth="4"/>
         </toc-element>
         <toc-element id="concepts.md" hidden="true"/>

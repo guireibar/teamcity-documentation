@@ -216,7 +216,7 @@ When enabled, TeamCity creates a local agent mirror first (under agent's `system
 ## Internal Properties
 {product="tc"}
 
-This section describes hg-related [internal properties](server-startup-properties.md#TeamCity+internal+properties). You can modify the defaults to adjust the Mercurial settings as needed.
+This section describes hg-related [internal properties](server-startup-properties.md#TeamCity+Internal+Properties). You can modify the defaults to adjust the Mercurial settings as needed.
 
 Server-side internal properties:
 
@@ -292,7 +292,7 @@ Path to the hg executable on the server (see [Path to hg executable detection](#
 
 </td></tr></table>
 
-[Agent configuration](build-agent-configuration.md) for Mercurial:
+[Agent configuration](configure-agent-installation.md) for Mercurial:
 
 <table><tr>
 

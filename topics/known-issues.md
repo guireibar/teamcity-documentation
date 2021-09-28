@@ -22,15 +22,15 @@ When a TeamCity build agent is installed as a Windows service, there may appear 
 ### Security-related issues
 {product="tc"}
 
-The user account used by the service is required to have sufficient permissions to perform the build and [manage the service](setting-up-and-running-additional-build-agents.md). If you run the TeamCity agent service under the SYSTEM account, do the following:
-1. [Change](setting-up-and-running-additional-build-agents.md#Changing+Communication+Protocol) SYSTEM for a usual user account with necessary permissions granted.
+The user account used by the service is required to have sufficient permissions to perform the build and [manage the service](install-and-start-teamcity-agents.md). If you run the TeamCity agent service under the SYSTEM account, do the following:
+1. [Change](install-and-start-teamcity-agents.md#Changing+Communication+Protocol) SYSTEM for a usual user account with necessary permissions granted.
 2. Restart the service.
 
 ### Windows service limitations
 
 As a Windows service, the TeamCity agent and the build processes are not able to access network shares and mapped drives.
 
-To overcome these restrictions, run TeamCity agent [via console](setting-up-and-running-additional-build-agents.md#Starting+the+Build+Agent).
+To overcome these restrictions, run TeamCity agent [via console](install-and-start-teamcity-agents.md#Starting+the+Build+Agent).
 
 #### Issues with automated GUI and browser testing
 
@@ -42,9 +42,9 @@ Note that there is a Windows limitation to accessing a remote computer via mstsc
 </tip>
 
 To resolve / avoid these:
-1. Run TeamCity agent [via console](setting-up-and-running-additional-build-agents.md#Starting+the+Build+Agent).
+1. Run TeamCity agent [via console](install-and-start-teamcity-agents.md#Starting+the+Build+Agent).
 2. Configure the build agent machine not to launch a screensaver locking the desktop.
-3. Configure the TeamCity agent to start [automatically](setting-up-and-running-additional-build-agents.md#Starting+the+Build+Agent) (for example, configure an automatic user logon on Windows start and then configure the TeamCity agent start (via `agent.bat start`) on the user logon).
+3. Configure the TeamCity agent to start [automatically](install-and-start-teamcity-agents.md#Starting+the+Build+Agent) (for example, configure an automatic user logon on Windows start and then configure the TeamCity agent start (via `agent.bat start`) on the user logon).
     
 For graphical tests the build agent cannot be started as a service and it is recommended to configure the build agent launch with a 1 minute delay after the user auto-logon, e.g. using the `bin\agent.bat start` command in the task scheduler and configuring the delay there.
 
@@ -72,7 +72,7 @@ An unsupervised computer with a running desktop permanently logged into a user s
 
 #### Issues with .NET Selenium 
 
-When a TeamCity agent is started as a Windows service and automated tests for .NET applications use Selenium WebDriver, the tests may fail due to browser drivers limitations. As a solution, consider starting the agent [manually](setting-up-and-running-additional-build-agents.md#Manual+Start).
+When a TeamCity agent is started as a Windows service and automated tests for .NET applications use Selenium WebDriver, the tests may fail due to browser drivers limitations. As a solution, consider starting the agent [manually](install-and-start-teamcity-agents.md#Manual+Start).
 
 
 ### Early start of the service before other resources are initialized
@@ -159,7 +159,7 @@ Skype software is known to corrupt layout of pages displayed in Internet Explore
 ### svn: E175002: Received fatal alert: bad_record_mac
 {product="tc"}
 
-Add a system property `-Dsvnkit.http.sslProtocols=SSLv3,TLS` on the build server (see [Configuring TeamCity Server Startup Properties](configuring-teamcity-server-startup-properties.md)).   
+Add a system property `-Dsvnkit.http.sslProtocols=SSLv3,TLS` on the build server (see [Configuring TeamCity Server Startup Properties](server-startup-properties.md)).   
 If you use checkout on agent, add this property [on build agent](configuring-build-agent-startup-properties.md) as well.
 
 ### Subversion-related JVM Crashes
@@ -209,7 +209,7 @@ Only a single TeamCity server can work with one database, which is checked on th
 * A second TeamCity instance detected
 * The internal HSQL database is being used by another application
 
-The error is most probably caused by the fact that there is another running TeamCity installation which is connected to the same database. Сheck that the [database properties](setting-up-external-database.md) are correct and there is no other TeamCity server using the same database.
+The error is most probably caused by the fact that there is another running TeamCity installation which is connected to the same database. Сheck that the [database properties](set-up-external-database.md) are correct and there is no other TeamCity server using the same database.
 
 ## Slow download from TeamCity server
 {product="tc"}
@@ -325,7 +325,7 @@ __Workarounds:__ If Microsoft SQL Server upgrade is not possible for some reason
 Any of the workarounds listed below will make the connection between TeamCity and the database server vulnerable. Make sure to take proper security measures before trying them.
 </warning>
 
-* Continue using a block cipher such as `AES_128_CBC` or `3DES_EDE_CBC`, but disable CBC protection via `-Djsse.enableCBCProtection=false` Java command-line option (that can be added to `TEAMCITY_SERVER_OPTS` environment variable, as described [here](configuring-teamcity-server-startup-properties.md#JVM+Options).  
+* Continue using a block cipher such as `AES_128_CBC` or `3DES_EDE_CBC`, but disable CBC protection via `-Djsse.enableCBCProtection=false` Java command-line option (that can be added to `TEAMCITY_SERVER_OPTS` environment variable, as described [here](server-startup-properties.md#JVM+Options).  
     The `jsse.enableCBCProtection` Java system property is also available in all _OpenJDK_ 8 versions and _IBM J9_ [8.0.0 SR1](https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.security.component.80.doc/security-component/jsse2Docs/beast.html) and later.   
     Secure connection between _TeamCity_ and _Microsoft SQL Server_ would be stable but still vulnerable to [CVE-2011-3389](https://www.cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3389) also known as _BEAST_.
 * Fall back to a stream cipher (which is not susceptible to _BEAST_) such as `RC4_128`. This will render the connection vulnerable to [CVE-2015-2808](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2015-2808).
@@ -333,7 +333,7 @@ Any of the workarounds listed below will make the connection between TeamCity an
 
 ## Distorted Configuration Window During Agent Reinstallation
 
-When installing a TeamCity agent via a [Windows agent installer](setting-up-and-running-additional-build-agents.md#Installing+via+Windows+installer) on top of the already installed agent with a different version of Java, the "_Configure Build Agent Properties_" installation window might appear distorted.
+When installing a TeamCity agent via a [Windows agent installer](install-and-start-teamcity-agents.md#Installing+via+Windows+installer) on top of the already installed agent with a different version of Java, the "_Configure Build Agent Properties_" installation window might appear distorted.
 
 __This issue has been fixed in TeamCity 2019.1.5__.
 
@@ -442,7 +442,7 @@ This problem will be resolved in the TeamCity 2020.1.5 update. See the [related 
 ### .NET runner is not compatible with obsolete external .NET CLI Support plugin
 {product="tc"}
 
-The reworked [.NET build runner](net.md) is not compatible with the obsolete external plugin [.NET CLI Support](https://plugins.jetbrains.com/plugin/9190--net-cli-support) (used in versions 2017.1 and earlier). If the obsolete plugin is installed on your server, you will get the _Error creating bean with name "jetbrains.buildServer.dotnet.DotnetRunnerRunType"_ after updating to TeamCity 2020.1. To solve this issue, please [uninstall the obsolete plugin](installing-additional-plugins.md#Uninstalling+a+plugin+via+Web+UI) from your server.
+The reworked [.NET build runner](net.md) is not compatible with the obsolete external plugin [.NET CLI Support](https://plugins.jetbrains.com/plugin/9190--net-cli-support) (used in versions 2017.1 and earlier). If the obsolete plugin is installed on your server, you will get the _Error creating bean with name "jetbrains.buildServer.dotnet.DotnetRunnerRunType"_ after updating to TeamCity 2020.1. To solve this issue, please [uninstall the obsolete plugin](installing-additional-plugins.md#Uninstalling+Plugin+via+Web+UI) from your server.
 
 Note that all the existing .NET CLI Support build steps are automatically switched to the new .NET runner on updating to TeamCity 2019.2.3 or later. For more information, refer to our [upgrade notes](upgrade-notes.md#Reworked+.NET+build+runner).
 
@@ -469,7 +469,7 @@ __Problem__: After TeamCity server host machine move or upgrade, build metadata 
 
 __Cause__: The TeamCity NuGet feed relies on build metadata, and packages reindexing can take a lot of time depending on the number of packages and the idle time of the TeamCity server.
 
-__Solution__: To speed up build metadata reindexing, specify the following [internal properties](configuring-teamcity-server-startup-properties.md):
+__Solution__: To speed up build metadata reindexing, specify the following [internal properties](server-startup-properties.md):
 
 
 ```Shell

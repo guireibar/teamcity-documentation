@@ -182,7 +182,7 @@ Contains [clean-up](clean-up.md)-related log
 
 <td>
 
-(off by default) Logging related to [agent push](setting-up-and-running-additional-build-agents.md) operations
+(off by default) Logging related to [agent push](install-and-start-teamcity-agents.md) operations
 
 </td></tr><tr>
 
@@ -278,7 +278,7 @@ Contains [clean-up](clean-up.md)-related log
 
 <td>
 
-(off by default) logs of back-up/ restore/ migration performed with [maintainDB tool](migrating-to-an-external-database.md#Full+Migration)
+(off by default) logs of back-up/ restore/ migration performed with [maintainDB tool](migrate-to-external-database.md#Full+Migration)
 
 </td></tr><tr>
 
@@ -290,7 +290,7 @@ Contains [clean-up](clean-up.md)-related log
 
 <td>
 
-(off by default) contains extended information on possible data truncation during back-up/ restore/ migration performed with [maintainDB tool](migrating-to-an-external-database.md)
+(off by default) contains extended information on possible data truncation during back-up/ restore/ migration performed with [maintainDB tool](migrate-to-external-database.md)
 
 </td></tr><tr>
 
@@ -405,7 +405,7 @@ If necessary, you can change the path to the configuration by adding the `log4j.
 For example: `log4j.configuration=file:../conf/teamcity-server-log4j.xml` and `teamcity_logs=../logs/`.   
 Default values can be looked up in the `bin/teamcity-server` script available in the `.exe` and `tar.gz` distributions.
 
-If you start TeamCity by the means other than the bundled `teamcity-server` or `runAll` scripts, make sure to pass the above-mentioned options to the server JVM. See also the [recommendations](installing-and-configuring-the-teamcity-server.md) on installing TeamCity into not bundled web server.
+If you start TeamCity by the means other than the bundled `teamcity-server` or `runAll` scripts, make sure to pass the above-mentioned options to the server JVM. See also the [recommendations](install-and-start-teamcity-server.md) on installing TeamCity into not bundled web server.
 
 The default `teamcity-server-log4j.xml` file content can be found in the `.exe` and `tar.gz` distributions. The one with debug enabled can be found under `<[TeamCity Data Directory](teamcity-data-directory.md)>/config/_logging/debug-general.xml` name after server's first start. See also the sample [`teamcity-server-log4j.xml`](https://confluence.jetbrains.com/download/attachments/113084044/teamcity-server-log4j.xml?version=1&modificationDate=1362486616000&api=v2) file.
 

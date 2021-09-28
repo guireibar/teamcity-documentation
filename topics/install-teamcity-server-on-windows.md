@@ -20,7 +20,7 @@ Specifics of the `.exe` and `.tar.gz` distributions:
 
 To install the TeamCity server, run the executable (`.exe`) file and follow the installation instructions.
 
-You have options to install the TeamCity web server and one build agent that can be run as a Windows service. If you opted to install the services, you can use the standard Windows _Services_ app to manage the service. Otherwise, use standard [scripts](#Starting+TeamCity+server).
+You have options to install the TeamCity web server and one build agent that can be run as a Windows service. If you opted to install the services, you can use the standard Windows _Services_ app to manage the service. Otherwise, use standard [scripts](start-teamcity-server.md).
 
 Make sure the user account specified for the service has:
 * the [log on as service](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc794944(v=ws.10)?redirectedfrom=MSDN) right

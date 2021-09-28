@@ -9,7 +9,7 @@ This page covers software-related environments TeamCity works with. For hardware
 ### TeamCity Server
 {product="tc"}
 
-TeamCity Server is a web application that runs within a capable J2EE servlet container. It requires a Java SE JRE installation to run. See [notes](installing-and-configuring-the-teamcity-server.md#Java+Installation) on how to install Java on a TeamCity server.
+TeamCity Server is a web application that runs within a capable J2EE servlet container. It requires a Java SE JRE installation to run. See [notes](install-non-bundled-java-and-tomcat.md#Install+Java) on how to install Java on a TeamCity server.
 
 Supported Java versions: __OpenJDK and Oracle Java 8 (8u16 or later) and 11 (32 or 64 bit)__. Using 64-bit Java is recommended.  
 The TeamCity server Windows installer and server Docker images come __bundled with [Amazon Corretto](https://aws.amazon.com/corretto/) 64-bit Java 11__.
@@ -39,7 +39,7 @@ Windows XP/XP x64 are not supported.
 ### TeamCity Agent
 {product="tc"}
 
-TeamCity Agent is a standalone Java application. It requires a Java SE JRE installation to run. See [notes](setting-up-and-running-additional-build-agents.md#Configuring+Java) on how to configure Java on agents.
+TeamCity Agent is a standalone Java application. It requires a Java SE JRE installation to run. See [notes](configure-java-for-agent.md) on how to configure Java on agents.
 
 Supported Java versions: __OpenJDK and Oracle Java 8-11__. We recommend using the latest available version of JDK.  
 The TeamCity agent Windows installer comes __bundled with [Amazon Corretto](https://aws.amazon.com/corretto/) 64-bit Java 8__.
@@ -163,7 +163,7 @@ include-id="ubuntu-jb-agents"/>
 
 You can install a build agent locally on your machine, similarly to how you would do it in [TeamCity On-Premises](https://www.jetbrains.com/help/teamcity/setting-up-and-running-additional-build-agents.html), and connect it to the TeamCity Cloud instance. Note that you need to acquire a [concurrent build slot](teamcity-cloud-subscription-and-licensing.md#Using+Build+Credits) for each self-hosted agent.
 
-Build agents require a Java SE JRE installation to run. See [notes](setting-up-and-running-additional-build-agents.md#Configuring+Java) on how to configure Java on agents.
+Build agents require a Java SE JRE installation to run. See [notes](configure-java-for-agent.md) on how to configure Java on agents.
 
 Supported Java versions: OpenJDK and Oracle Java 8 - 11. We recommend using the latest available version of JDK.
 
@@ -787,7 +787,7 @@ Oracle
 </table>
 
 
-[Read more details](setting-up-external-database.md).
+[Read more details](set-up-external-database.md).
 
 ## Game Engines
 
