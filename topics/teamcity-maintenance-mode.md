@@ -1,7 +1,7 @@
 [//]: # (title: TeamCity Maintenance Mode)
 [//]: # (auxiliary-id: TeamCity Maintenance Mode)
 
-If you see the TeamCity Maintenance page on the TeamCity startup, it means this TeamCity instance requires technical maintenance before it can start. In most cases, this page appears if the data format expected by the TeamCity installation does not correspond to the data format in the [Data Directory](teamcity-data-directory.md) or the database. For example, during [upgrade](upgrade-teamcity-server-and-agents.md), TeamCity will display this page before converting the data to a newer format.
+If you see the TeamCity Maintenance page on the TeamCity startup, it means this TeamCity instance requires technical maintenance before it can start. In most cases, this page appears if the data format expected by the TeamCity installation does not correspond to the data format in the [Data Directory](teamcity-data-directory.md) or the database. For example, during [upgrade](upgrading-teamcity-server-and-agents.md), TeamCity will display this page before converting the data to a newer format.
 
 For security reasons, it is to be performed by a __system administrator__ who has administrative access to the environment where the TeamCity server is installed. If you __do not__ have access to the computer where TeamCity is installed, inform your system administrator that TeamCity requires technical maintenance.
 
@@ -41,7 +41,7 @@ If you see this screen when [setting up TeamCity with an external database](sett
  
 <seealso>
         <category ref="installation">
-            <a href="upgrade-teamcity-server-and-agents.md.md">Upgrade</a>
+            <a href="upgrade-teamcity-server-and-agents.md">Upgrade</a>
         </category>
         <category ref="admin-guide">
             <a href="teamcity-data-backup.md">TeamCity Data Backup</a>

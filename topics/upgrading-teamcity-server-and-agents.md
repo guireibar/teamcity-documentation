@@ -1,5 +1,5 @@
-[//]: # (title: Upgrade TeamCity Server and Agents)
-[//]: # (auxiliary-id: Upgrade TeamCity Server and Agents;Upgrade)
+[//]: # (title: Upgrading TeamCity Server and Agents)
+[//]: # (auxiliary-id: Upgrading TeamCity Server and Agents;Upgrade)
 
 Your TeamCity Cloud instance is kept to date automatically. We upgrade all Cloud instances during the week following each major and minor release. The upgrade occurs in the least loaded server time. The duration of upgrade depends on the size of your instance.
 {product="tcc"}
