@@ -93,6 +93,7 @@
             <toc-element id="start-teamcity-server.md" show-structure-for="chapter" show-structure-depth="4"/>
          </toc-element>
          <toc-element id="multinode-setup.md" show-structure-for="chapter" show-structure-depth="4"/>
+         <toc-element id="teamcity-maintenance-mode.md" show-structure-for="chapter" show-structure-depth="4"/>
          <toc-element id="install-and-start-teamcity-agents.md" show-structure-for="chapter" show-structure-depth="4" accepts-web-file-names="install-and-start-agents">
             <toc-element id="install-teamcity-agent.md" show-structure-for="chapter" show-structure-depth="4"/>
             <toc-element id="configure-agent-installation.md" show-structure-for="chapter" show-structure-depth="4" accepts-web-file-names="configure-agent-installation"/>
@@ -113,7 +114,6 @@
          <toc-element id="upgrade-teamcity-server-and-agents.md" show-structure-for="chapter" show-structure-depth="4"/>
          <toc-element id="upgrade-dsl.md" show-structure-for="chapter" show-structure-depth="4" accepts-web-file-names="upgrade-dsl"/>
          <toc-element id="upgrade-notes.md" show-structure-for="chapter" show-structure-depth="4"/>
-         <toc-element id="teamcity-maintenance-mode.md" show-structure-for="chapter" show-structure-depth="4"/>
       </toc-element>
       <toc-element id="user-s-guide.md" hidden="true"/>
       <toc-element toc-title="User's Guide">
