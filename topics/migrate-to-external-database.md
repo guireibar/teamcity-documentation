@@ -88,10 +88,10 @@ You can [create a backup](teamcity-data-backup.md) and then [restore it](restori
 
     and then run the Migration tool pointing to the database as the source: `jdbc:hsqldb:hsql://localhost/buildserver sa ''`
 
-* If you get "The input line is too long." error while running the tool (e.g. this may happen on Windows 2000), change the script to use an alternative classpath method.    
+* If you get "The input line is too long." error while running the tool (for example, this may happen on Windows 2000), change the script to use an alternative classpath method.    
     For `maintainDB.bat`, remove the lines below "Add all JARs from WEB-INF\lib to classpath" comment and uncomment the lines below "Alternative classpath: Add only necessary JARs" comment.
 
- <seealso>
+<seealso>
         <category ref="installation">
             <a href="common-problems.md">Common database-related problems</a>
             <a href="set-up-external-database.md">Setting up an External Database</a>
