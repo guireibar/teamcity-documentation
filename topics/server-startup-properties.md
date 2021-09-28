@@ -28,7 +28,7 @@ If you need to pass additional JVM options to a TeamCity server (for example, `-
 
 For general notes on the memory settings, refer to [this article](configure-server-installation.md#Configure+Memory+Settings+for+TeamCity+Server).
 
-You will need to [restart]() the server for the changes to take effect.
+You will need to [restart](start-teamcity-server.md) the server for the changes to take effect.
 
 ### Standard TeamCity Startup Scripts
 

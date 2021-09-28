@@ -11,9 +11,9 @@ If the web UI cannot be accessed, check the following:
 * The console output, if you run the server from a console.
 * The `teamcity-server.log` and other files in the `<[TeamCity Home](teamcity-home-directory.md)>\logs` directory for error messages.
 
-One of the most common issues with the server installation is using a port that is already used by another program. See [how to change the default port](#Change+Server+Port).
+One of the most common issues with the server installation is using a port that is already used by another program. See [how to change the default port](#Changing+Server+Port).
 
-## Change Server Port
+## Changing Server Port
 
 If another application uses the same port as the TeamCity server, the TeamCity server (Tomcat server) won't start. This will result in "_Address already in use_" errors in the server logs or server console.
 
@@ -26,21 +26,21 @@ To change the port of the installed/unpacked server, open the `<[TeamCity Home](
 
 ```
 
-To apply the changes, [restart the server]().
+To apply the changes, [restart the server](start-teamcity-server.md).
 
-If you change the port of an operational TeamCity server, you also need to change it in all the stored URLs of the server (browser bookmarks, agents' `serverUrl` [property](build-agent-configuration.md), URL in user's IDEs, the _Server URL_ setting on the __Administration | Global Settings__ page).  
+If you change the port of an operational TeamCity server, you also need to change it in all the stored URLs of the server (browser bookmarks, agents' `serverUrl` [property](configure-agent-installation.md), URL in user's IDEs, the _Server URL_ setting on the __Administration | Global Settings__ page).  
 If you run another Tomcat server on the same machine, you might also need to change other service ports of the Tomcat server (search for `port=` in the `server.xml` file).
 
 If you want to use the HTTPS protocol, it should be enabled separately. The process is specific to the web server used (by default, Tomcat). See notes on how to [configure HTTPS for TeamCity web UI](how-to.md#Configure+HTTPS+for+TeamCity+Web+UI).
 
-## Change Server Context
+## Changing Server Context
 
 By default, the TeamCity server is accessible under the root context of the server address (for example, [`http://localhost:8111/`](http://localhost:8111/) ). To make it available under a nested path instead (for example, [`http://localhost:8111/teamcity/`](http://localhost:8111/teamcity/) ), you need to:
 1. Stop the TeamCity server.
 2. Rename the `<[TeamCity Home](teamcity-home-directory.md)>\webapps\ROOT` directory to `<[TeamCity Home](teamcity-home-directory.md)>\webapps\teamcity`.
 3. [Start the TeamCity server](start-teamcity-server.md).
 
->After this change, [automatic update](upgrade.md#Automatic+Update) will be disabled for your installation and you will have to upgrade TeamCity [manually](upgrade.md#Manual+Upgrade).
+>After this change, [automatic update](upgrading-teamcity-server-and-agents.md#Automatic+Update) will be disabled for your installation and you will have to upgrade TeamCity [manually](upgrading-teamcity-server-and-agents.md#Manual+Upgrade).
 > 
 {type="note"}
 
@@ -81,12 +81,12 @@ The default placement of the TeamCity Data Directory can be changed. See [this a
 An out-of-the-box TeamCity server installation is suitable for evaluation purposes. For production use, you will need to perform additional configuration. It typically includes these steps:
 * Check that the server is using a [proper server port](#Changing+Server+Port) and configure [access via HTTPS](how-to.md#Configure+HTTPS+for+TeamCity+Web+UI).
 * Make sure the TeamCity server URL and email server settings are correct.
-* Configure the server process for OS-dependent [autostart]() on machine reboot.
+* Configure the server process for OS-dependent [autostart](start-teamcity-server.md) on machine reboot.
 * Use a reliable storage for [TeamCity Data Directory](teamcity-data-directory.md).
-* Use an [external database](setting-up-external-database.md).
+* Use an [external database](set-up-external-database.md).
 * Configure [recommended memory settings](#Configure+Memory+Settings+for+TeamCity+Server). Use "maximum settings" for active or growing servers.
 * Plan for regular [backups](teamcity-data-backup.md).
-* Plan for regular [upgrades](upgrade.md) to the latest TeamCity releases.
+* Plan for regular [upgrades](upgrading-teamcity-server-and-agents.md) to the latest TeamCity releases.
 * Consider adding the `teamcity.installation.completed=true` line into the `<[TeamCity Data Directory](teamcity-data-directory.md)>\conf\teamcity-startup.properties` file — this will prevent the server from creating an administrator user if no such user is found.
 
 Make sure to read the [notes on configuring the server for performance](how-to.md#Configuring+TeamCity+Server+for+Performance) and [security notes](security-notes.md).
