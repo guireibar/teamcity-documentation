@@ -93,10 +93,11 @@
             <toc-element id="start-teamcity-server.md" show-structure-for="chapter" show-structure-depth="4"/>
          </toc-element>
          <toc-element id="multinode-setup.md" show-structure-for="chapter" show-structure-depth="4"/>
-         <toc-element id="install-and-start-teamcity-agents.md" show-structure-for="chapter" show-structure-depth="4">
-            <toc-element id="install-teamcity-agent.md" show-structure-for="chapter" show-structure-depth="4" accepts-web-file-names="install-teamcity-agent"/>
+         <toc-element id="install-and-start-teamcity-agents.md" show-structure-for="chapter" show-structure-depth="4" accepts-web-file-names="install-and-start-agents">
+            <toc-element id="install-teamcity-agent.md" show-structure-for="chapter" show-structure-depth="4"/>
             <toc-element id="configure-agent-installation.md" show-structure-for="chapter" show-structure-depth="4" accepts-web-file-names="configure-agent-installation"/>
             <toc-element id="start-teamcity-agent.md" show-structure-for="chapter" show-structure-depth="4"/>
+            <toc-element id="configure-java-for-agent.md" show-structure-for="chapter" show-structure-depth="4"/>
             <toc-element id="install-multiple-agents-on-one-machine.md" show-structure-for="chapter" show-structure-depth="4"/>
          </toc-element>
          <toc-element id="set-up-external-database.md" show-structure-for="chapter" show-structure-depth="4">
