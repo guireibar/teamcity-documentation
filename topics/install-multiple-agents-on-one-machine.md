@@ -1,8 +1,6 @@
 [//]: # (title: Install Multiple Agents on One Machine)
 [//]: # (auxiliary-id: Install Multiple Agents on One Machine)
 
-## Installing Several Build Agents on the Same Machine
-
 You can install several TeamCity agents on the same machine if the machine is capable of running several builds at the same time. However, __we recommend running a single agent per (virtual) machine__ to minimize builds cross-influence and making builds more predictable. When installing several agents, it is recommended to install them under different OS users so that user-level resources (like Maven/Gradle/NuGet local artifact caches) do not conflict.
 
 TeamCity treats all agents equally regardless of whether they are installed on the same or on different machines.
@@ -20,7 +18,17 @@ After having one agent installed, you can install additional agents by following
 
 Usually, for a new agent installation you can just copy the directory of the existing agent to a new place except its `temp`, `work`, `logs`, and `system` directories. Then, modify `conf/buildAgent.properties` with the new `name` and `ownPort` values. Clear (delete or remove the value) the `authorizationToken` property and make sure the `workDir` and `tempDir` are relative/do not clash with another agent.
 
-### Configuring second build agent on macOS
+### Configuring Second Build Agent on Windows
+
+If you use Windows installer to install additional agents and want to run the agent as a service, you will need to perform manual steps as installing second agent as a service on the same machine is not supported by the installer: the existing service is overwritten (see also a [feature request](http://youtrack.jetbrains.net/issue/TW-4962)).
+
+In order to install the second agent, it is recommended to install the second agent [manually](#Installing+via+ZIP+File) (using the `.zip` agent distribution). You can use the Windows agent installer and do not opt for service installation, but you will lose uninstall option for the initially installed agent this way.
+
+After the second agent is installed, register a new service for it as mentioned in the [section above](#Build+Agent+as+a+Windows+Service).
+
+>For step-by-step instructions on installing a second Windows agent as a service, see the related [external blog post](https://handcraftsman.wordpress.com/2010/07/20/multiple-teamcity-build-agents-on-one-server/).
+
+## Configuring Second Build Agent on macOS
 
 If you want to start several build agents on macOS, repeat the procedure of installing and starting build agent with the following changes:
 * Install the second build agent in a different directory.
@@ -40,13 +48,3 @@ launchctl list | grep BuildAgent
 69722	0	jetbrains.teamcity.BuildAgent
 
 ```
-
-### Configuring second build agent on Windows
-
-If you use Windows installer to install additional agents and want to run the agent as a service, you will need to perform manual steps as installing second agent as a service on the same machine is not supported by the installer: the existing service is overwritten (see also a [feature request](http://youtrack.jetbrains.net/issue/TW-4962)).
-
-In order to install the second agent, it is recommended to install the second agent [manually](#Installing+via+ZIP+File) (using the `.zip` agent distribution). You can use the Windows agent installer and do not opt for service installation, but you will lose uninstall option for the initially installed agent this way.
-
-After the second agent is installed, register a new service for it as mentioned in the [section above](#Build+Agent+as+a+Windows+Service).
-
->For step-by-step instructions on installing a second Windows agent as a service, see the related [external blog post](https://handcraftsman.wordpress.com/2010/07/20/multiple-teamcity-build-agents-on-one-server/).

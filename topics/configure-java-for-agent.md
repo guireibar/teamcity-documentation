@@ -1,13 +1,11 @@
 [//]: # (title: Configure Java for Agent)
 [//]: # (auxiliary-id: Configure Java for Agent)
 
-## Configuring Java
-
 A TeamCity build agent is a Java application ([supported Java versions](supported-platforms-and-environments.md#TeamCity+Agent)).
 
 A build agent contains two processes:
-* Agent Launcher — a Java process that launches the agent process
-* Agent — the main process for a Build Agent; runs as a child process for the agent launcher
+* Agent Launcher — a Java process that launches the agent process.
+* Agent — the main process for a Build Agent; runs as a child process for the agent launcher.
 
 The (Windows) `.exe` TeamCity distribution comes bundled with 64-bit Amazon Corretto 8.   
 If you run a previous version of the TeamCity agent, you will need to repeat the agent installation to update the JVM.
@@ -35,14 +33,6 @@ If you are trying to launch an agent, and it is not able to find the required Ja
 
 If a build agent uses a Java version older than Java 8, you will see the corresponding warning on the agent's page and a [health item](server-health.md) in the web UI.
 
-<note>
-
-__Support for Java prior to version 8 on agents has been dropped in TeamCity 2019.2__. Consider upgrading Java on the agent if you see the warning.   
-An agent machine can have multiple Java versions installed, and the agent can use one Java version while the build tasks use other Java versions.
-
-Please let us know using any of our [support channels](feedback.md) if your setup depends on the older version of Java and if you will not be able to upgrade to version 8 for some reason.
-</note>
-
 It is recommended to use latest Java 8, 64-bit version.  
 OpenJDK 8 (for example, bundled [Amazon Corretto](https://aws.amazon.com/corretto/)) 1.8.0_161 or later. [Oracle Java 8](http://www.oracle.com/technetwork/java/javase/downloads/) is also supported.
 
@@ -52,9 +42,8 @@ To update Java on agents, do one of the following:
 * Install a required Java on the agent into one of the standard locations, and restart the agent — the agent should then detect it and provide an action to use a newer Java in the web UI (see above).
 * Install a required Java on the agent and [configure the agent](#Configuring+Java) to use it.
 
-
 <note>
 
-In a rare case of updating the Java for the process that launches the TeamCity agent, use one of the options for the agent Java upgrade. Another way for Build Agent started as a __Windows service__, is to stop the service, change the `wrapper.java.command` variable in `buildAgent\launcher\conf\wrapper.conf` to point to the new `java.exe` binary, and restart the service.
+In a rare case of updating the Java for the process that launches the TeamCity agent, use one of the options for the agent Java upgrade. Another way for an agent started as a __Windows service__, is to stop the service, change the `wrapper.java.command` variable in `buildAgent\launcher\conf\wrapper.conf` to point to the new `java.exe` binary, and restart the service.
 </note>
 

@@ -11,16 +11,15 @@ Before you can start customizing projects and creating build configurations, you
 Before you can start customizing projects and creating build configurations, you need to add and configure [build agents](build-agent.md). Review the [agent-server communication](#Agent-Server+Data+Transfers) and [Prerequisites](#Prerequisites) sections before proceeding with agent installation. Make sure to also read our [security notes](security-notes.md#Build+Agents) on maintaining build agents and [licensing policy](teamcity-cloud-subscription-and-licensing.md) on adding new agents.
 {product="tcc"}
 
-
 If you install TeamCity bundled with a Tomcat servlet container, or use the TeamCity installer for Windows, both the server and one build agent are installed on the same machine. This is not a recommended setup for [production purposes](configure-server-installation.md#Configure+Server+for+Production+Use) because of [security concerns](security-notes.md). Moreover, the build procedure can slow down the responsiveness of the web UI and overall TeamCity server functioning.
 
 ## Prerequisites
 
 ### Necessary OS and environment permissions
 
-Before the installation, review the [Conflicting Software](known-issues.md#Conflicting+Software) section. In case of any issues, make sure no conflicting software is used.
+Before the installation, review the [Supported Platforms](supported-platforms-and-environments.md#TeamCity+Agent) and [Conflicting Software](known-issues.md#Conflicting+Software) sections.
 
-Note that to run a TeamCity build agent, the environment and user account used to run the Agent need to comply with the following requirements:
+Note that to run a TeamCity build agent, the environment and user account used to run the agent need to comply with the following requirements:
 
 <anchor name="Network"/>
 
@@ -71,7 +70,7 @@ subinacl.exe /service TCBuildAgent /grant=<user login name>=PTO
 
 #### Build-related Permissions
 
-The build process is launched by a TeamCity agent and thus shares the environment and is executed under the OS user used by the TeamCity agent. Ensure that the TeamCity agent is configured accordingly. See [Known Issues](known-issues.md) for related Windows Service Limitations.
+The build process is launched by a TeamCity agent and thus shares the environment and is executed under the OS user used by the TeamCity agent. Ensure that the TeamCity agent is configured accordingly. See [Known Issues](known-issues.md#Agent+running+as+Windows+Service+Limitations) for related Windows Service Limitations.
 
 <anchor name="SettingupandRunningAdditionalBuildAgents-ServerDataTransfers"/>
 <anchor name="SettingupandRunningAdditionalBuildAgents-Agent-ServerDataTransfers"/>
