@@ -4,7 +4,7 @@
 Most user issues are related to the following topics. Before reporting your problem, check if any of these Help pages contains the solution already:
 {product="tc"}
 
-* [Configuring server memory settings](install-and-start-teamcity-server.md#Setting+Up+Memory+settings+for+TeamCity+Server)
+* [Configuring server memory settings](configure-server-installation.md#Configure+Memory+Settings+for+TeamCity+Server)
 {product="tc"}
 * [Reporting server slowness issues](reporting-issues.md#Collect+Data)
 {product="tc"}
@@ -23,9 +23,9 @@ Here are details on the approach:
 
 Check that the build runs fine from the command prompt when run on the same machine as the TeamCity agent and under the same user that the agent is running, with the same environment variables and the same working directory, same architecture (32/64 bit) command line.
 
-If the TeamCity build agent is run as a service (for example, it is installed as a Windows service), try running the TeamCity agent under a regular user with administrative permissions [from the command line](install-and-start-teamcity-agents.md#Starting+the+Build+Agent). See also [Windows Service limitations](known-issues.md#Agent+running+as+Windows+Service+Limitations).
+If the TeamCity build agent is run as a service (for example, it is installed as a Windows service), try running the TeamCity agent under a regular user with administrative permissions [from the command line](start-teamcity-agent.md). See also [Windows Service limitations](known-issues.md#Agent+running+as+Windows+Service+Limitations).
 
-If this fixes the issue, you can try to figure out why running under the service is a problem for the build. Most often this is service-specific and is not related to TeamCity directly. Also, you can set up the TeamCity agent to be run from the console all the time (for example, [configure](install-and-start-teamcity-agents.md#Automatic+Agent+Start+under+Windows) an automatic user logon and run the agent on the user logon).
+If this fixes the issue, you can try to figure out why running under the service is a problem for the build. Most often this is service-specific and is not related to TeamCity directly. Also, you can set up the TeamCity agent to be run from the console all the time (for example, [configure](start-teamcity-agent.md#Automatic+Agent+Start+Under+Windows) an automatic user logon and run the agent on the user logon).
 
 Here are the detailed steps you can use to run a build from the command line.
 
@@ -100,11 +100,11 @@ Read more on [clean-up settings](clean-up.md#Base+Rule+Behavior+for+Dependency+B
 
 If during the TeamCity server start-up you encounter errors like: _"error in script file line: ... out of memory"_, _"java.sql.SQLException: out of memory"_, perform the following:
 
-* try [increasing server memory](install-and-start-teamcity-server.md#Setting+Up+Memory+settings+for+TeamCity+Server). If this does not help, most probably this means that you have encountered __internal database corruption__. You can try to deal with this corruption using the [notes](http://www.hsqldb.org/doc/1.8/guide/apc.html) based on the HSQLDB documentation.
+* try [increasing server memory](configure-server-installation.md#Configure+Memory+Settings+for+TeamCity+Server). If this does not help, most probably this means that you have encountered __internal database corruption__. You can try to deal with this corruption using the [notes](http://www.hsqldb.org/doc/1.8/guide/apc.html) based on the HSQLDB documentation.
 
 Here is a way to attempt a manual database restore:
 * stop the TeamCity server
-* backup the `<[TeamCity Data Directory](teamcity-data-directory.md)>/system/buildserver.data` file
+* back up the `<[TeamCity Data Directory](teamcity-data-directory.md)>/system/buildserver.data` file
 * remove the `<[TeamCity Data Directory](teamcity-data-directory.md)>/system/buildserver.data` file and replace it with zero-size file of the same name
 * start the TeamCity server
 
@@ -485,7 +485,7 @@ The build configuration or template reference a VCS root which is not defined in
 ## TeamCity installation problems
 {product="tc"}
 
-If the TeamCity web UI cannot be accessed after installation, you might be running TeamCity on a port that is already in use by another program. [Check and configure](install-and-start-teamcity-server.md#Installation+Configuration) your TeamCity installation.
+If the TeamCity web UI cannot be accessed after installation, you might be running TeamCity on a port that is already in use by another program. [Check and configure](configure-server-installation.md) your TeamCity installation.
 
 ## Problems with TeamCity NuGet Feed
 {product="tc"}
@@ -524,7 +524,7 @@ To solve the issue, use one of the options:
 
 You might want to use tools which require some manual interaction during the build procedure executed on the TeamCity agent. This is not a TeamCity-specific problem, so it should be approached using generic means.
 
-Under Windows, you might want to configure TeamCity agent to run not as a Service, but with access to the desktop by configuring automatic user logon, [related details](install-and-start-teamcity-agents.md#Automatic+Agent+Start+under+Windows).
+Under Windows, you might want to configure TeamCity agent to run not as a Service, but with access to the desktop by configuring automatic user logon, [related details](start-teamcity-agent.md#Automatic+Agent+Start+Under+Windows).
 
 There is no simple solution for Extended Validation (EV) code signing as the feature is built in for a reason. There is some discussion on the issue on [stack overflow](https://stackoverflow.com/questions/17927895/automate-extended-validation-ev-code-signing=). The appropriate solution seems to implement a dedicated service with own authorization approach and sign the binaries through it.
 

@@ -11,7 +11,7 @@ Before you can start customizing projects and creating build configurations, you
 Before you can start customizing projects and creating build configurations, you need to add and configure [build agents](build-agent.md). Review the [agent-server communication](#Agent-Server+Data+Transfers) and [Prerequisites](#Prerequisites) sections before proceeding with agent installation. Make sure to also read our [security notes](security-notes.md#Build+Agents) on maintaining build agents and [licensing policy](teamcity-cloud-subscription-and-licensing.md) on adding new agents.
 {product="tcc"}
 
-If you install TeamCity bundled with a Tomcat servlet container, or use the TeamCity installer for Windows, both the server and one build agent are installed on the same machine. This is not a recommended setup for [production purposes](configure-server-installation.md#Configure+Server+for+Production+Use) because of [security concerns](security-notes.md). Moreover, the build procedure can slow down the responsiveness of the web UI and overall TeamCity server functioning.
+If you install TeamCity bundled with a Tomcat servlet container, or use the TeamCity installer for Windows, both the server and one build agent are installed on the same machine. This is not a recommended setup for [production purposes](configure-server-installation.md#Configuring+Server+for+Production+Use) because of [security concerns](security-notes.md). Moreover, the build procedure can slow down the responsiveness of the web UI and overall TeamCity server functioning.
 
 ## Prerequisites
 

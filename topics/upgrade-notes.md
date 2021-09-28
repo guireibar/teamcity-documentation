@@ -451,7 +451,7 @@ The bundled version of Java in Windows installers of TeamCity Server and Agent a
 
 If you were using the default bundled Java on Windows, make sure the following conditions are satisfied:
 * The TeamCity server and agents operate on the 64-bit Windows OS. If you need to use a 32-bit OS, you need to install and use 32-bit Java to run TeamCity;
-* If the TeamCity server has manually configured [memory settings](install-and-start-teamcity-server.md#Setting+Up+Memory+settings+for+TeamCity+Server) (the `TEAMCITY_SERVER_MEM_OPTS` environment variable is defined), the value of the `-Xmx` parameter should be increased (recommended to twice the previous value). Before increasing the value, make sure the machine has enough physical memory for that.
+* If the TeamCity server has manually configured [memory settings](configure-server-installation.md#Configure+Memory+Settings+for+TeamCity+Server) (the `TEAMCITY_SERVER_MEM_OPTS` environment variable is defined), the value of the `-Xmx` parameter should be increased (recommended to twice the previous value). Before increasing the value, make sure the machine has enough physical memory for that.
 * If you use Microsoft SQL Server as the TeamCity database with the integrated MS SQL authentication, the 64-bit `sqljdbc_auth.dll` native library has to be [present in the due location](setting-up-teamcity-with-ms-sql-server.md#integratedSecurityAuth).
 * If there was any custom logic executing native tools on the server, check that it still works with the new process bitness.
 
@@ -2218,7 +2218,7 @@ __Default memory options change__
 We changed the default [memory option](install-and-start-teamcity-server.md) for PermGen memory space and if you had `-Xmx` JVM option changed to about 1.3G and are running on 32-bit JVM, the server may fail to start with a message like: "Error occurred during initialization of VM Could not reserve enough space for object heap Could not create the Java virtual machine".
 
 On this occasion, please consider either:
-* switching to 64 bit JVM. Please consider the [note](install-and-start-teamcity-server.md#Using+64+bit+Java+to+Run+TeamCity+Server).
+* [switching to 64-bit JVM](configure-server-installation.md#Configure+Memory+Settings+for+TeamCity+Server).
 * reducing PermGen memory via `-XX:MaxPermSize` [JVM option](server-startup-properties.md) (to previous default 120m)
 * reducing heap memory via `-Xmx` [JVM option](server-startup-properties.md)
 

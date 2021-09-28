@@ -17,7 +17,7 @@ To make sure TeamCity "knows" the actual absolute URLs used by the client to acc
 
 These URLs are used to generate absolute URLs in the client redirects and other responses.
 
-Note: An internal TeamCity server should work under the __same context__ (that is part of the URL after the host name) as it is visible from outside by an external address. See also the TeamCity server [context changing instructions](install-and-start-teamcity-server.md#Changing+Server+Context).   
+Note: An internal TeamCity server should work under the __same context__ (that is part of the URL after the host name) as it is visible from outside by an external address. See also the TeamCity server [context changing instructions](configure-server-installation.md#Changing+Server+Context).   
 If you need to run the server under a different context, note that the context-changing proxy should conceal this fact from the TeamCity: for example, it should map server redirect URLs as well as cookies setting paths to the original (external) context.
 
 The proxy should be configured with the generic web security in mind. Headers like `Referer` and `Origin` and all unknown headers should be passed to the TeamCity web application in the unmodified form. For example, TeamCity relies on the `X-TC-CSRF-Token` header added by the clients.

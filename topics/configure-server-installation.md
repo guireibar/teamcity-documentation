@@ -52,7 +52,7 @@ TeamCity Server has the main process which can also launch child processes. Chil
 
 As a JVM application, the TeamCity main server process utilizes only memory available to the JVM. The required memory depends on the JVM bitness (32- or 64-bit). The memory used by JVM usually consists of: heap (configured via `-Xmx`) and metaspace (limited by the amount of available native memory), internal JVM (usually tens of Mb), and OS-dependent memory features like memory-mapped files. TeamCity mostly depends on the heap memory. This setting can be manually configured by [passing](server-startup-properties.md#JVM+Options) the `-Xmx` (heap space) option to the JVM running the TeamCity server.
 
-Once you start [using TeamCity for production purposes](#Configure+Server+for+Production+Use) or if you want to load the server during evaluation, you should manually set the appropriate memory settings for the TeamCity server.
+Once you start [using TeamCity for production purposes](#Configuring+Server+for+Production+Use) or if you want to load the server during evaluation, you should manually set the appropriate memory settings for the TeamCity server.
 
 To __change the memory settings__, refer to [this article](server-startup-properties.md#JVM+Options). In most cases, it will result in setting `TEAMCITY_SERVER_MEM_OPTS` environment variable to a value like `-Xmx750m`.
 
@@ -76,7 +76,7 @@ If an `OutOfMemory` errors occur or you consistently see a memory-related warnin
 
 The default placement of the TeamCity Data Directory can be changed. See [this article](teamcity-data-directory.md) for details.
 
-### Configure Server for Production Use
+## Configuring Server for Production Use
 
 An out-of-the-box TeamCity server installation is suitable for evaluation purposes. For production use, you will need to perform additional configuration. It typically includes these steps:
 * Check that the server is using a [proper server port](#Changing+Server+Port) and configure [access via HTTPS](how-to.md#Configure+HTTPS+for+TeamCity+Web+UI).

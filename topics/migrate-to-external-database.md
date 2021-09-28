@@ -21,7 +21,7 @@ There are several ways to migrate data into a new database:
 If you want a fast switch to an external database and _do not want to preserve existing data_ like users and builds on the server, follow the steps below. See [Full Migration](#Full+Migration) for preserving all the data. After the switch, the server will start with an empty database, but preserve all the _settings_ stored under TeamCity Data Directory (see [details](manual-backup-and-restore.md) on what is stored where).
 
 Steps to perform the switch:
-1. [Create and configure an external database](set-up-external-database.md#Supported+Databases) to be used by TeamCity.
+1. [Create and configure an external database](set-up-external-database.md) to be used by TeamCity.
 2. Shut down the TeamCity server.
 3. [Create a backup copy](teamcity-data-backup.md) of the `<[TeamCity Data Directory](teamcity-data-directory.md)>` used by the server.
 4. Clean up the `system` folder: you __must__ remove the `messages` and `artifacts` folders from the `system` folder of your `<[TeamCity Data Directory](teamcity-data-directory.md)>`; you __may__ delete the old HSQLDB files: `buildserver.*` to remove the no longer needed internal storage data.
@@ -49,7 +49,7 @@ If an error occurs during migration, do not use the new database as it may resul
 
 __To migrate all your existing data to a new external database:__
 
-1\. [Create and configure an external database](set-up-external-database.md#Supported+Databases) to be used by TeamCity and install the database driver into TeamCity. __Do not modify any TeamCity settings at this stage__.
+1\. [Create and configure an external database](set-up-external-database.md) to be used by TeamCity and install the database driver into TeamCity. __Do not modify any TeamCity settings at this stage__.
 
 2\. Shut down the TeamCity server.
 

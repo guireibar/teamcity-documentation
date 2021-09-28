@@ -84,11 +84,11 @@ Check if you have any [conflicting software](known-issues.md#Conflicting+Softwar
 
 Check that the database used by TeamCity and the file storage of the TeamCity Data Directory do not have performance issues.
 
-If you have a substantial TeamCity installation, check your [memory settings](install-and-start-teamcity-server.md#Setting+Up+Memory+settings+for+TeamCity+Server) as the first step.
+If you have a substantial TeamCity installation, check your [memory settings](configure-server-installation.md#Configure+Memory+Settings+for+TeamCity+Server) as the first step.
 
 ### Collect Data
 
-During the slow operation, take several thread dumps of the slow process (see below for thread dump taking approaches) with 5\-10 seconds interval. If the slowness continues, take several more thread dumps (for example, 3-5 within several minutes) and then repeat after some time (for example, 10 minutes) while the process is still being slow.
+During the slow operation, take several thread dumps of the slow process (see below for thread dump taking approaches) with 5-10 seconds interval. If the slowness continues, take several more thread dumps (for example, 3-5 within several minutes) and then repeat after some time (for example, 10 minutes) while the process is still being slow.
 
 Then [send](feedback.md) us a detailed description of the issue accompanied with the thread dumps and full server (or agent) [logs](#Logging+events) covering the issue. Unless it is undesirable for some reason, the preferred way is to file an issue into our [issue tracker](http://youtrack.jetbrains.com/issues/TW) and let us know via support email. Please include all the relevant details of investigation, including the CPU/IO load information, what specifically is slow and what is not, note affected URLs, visible effects, and so on. For large amounts of data, use [our file upload](#Uploading+Large+Data+Archives) service to share the archives with us.
 
@@ -175,7 +175,7 @@ The log can also be sent to us for analysis.
 
 If you experience problems with TeamCity consuming too much memory or "OutOfMemoryError"/"Java heap space" errors in the log, do the following:
 * Determine what process encounters the error (the actual building process, the TeamCity server, or the TeamCity agent). You can track memory and CPU usage by TeamCity with the charts on the __Administration | Server Administration | Diagnostics__ page of your TeamCity web UI.
-* If the server is to blame, check you have increased memory settings from the default ones for using the server in production (see the [section](install-and-start-teamcity-server.md#Setting+Up+Memory+settings+for+TeamCity+Server)).
+* If the server is to blame, check you have increased memory settings from the default ones for using the server in production (see the [section](configure-server-installation.md#Configure+Memory+Settings+for+TeamCity+Server)).
 * If the build process is to blame, set "JVM Command Line Parameters" settings in the build runner. Increase the value for the `-Xmx` JVM option: for instance, `-Xmx1200m`. Note that Java Inspections builds may specifically need increasing the `-Xmx` value.
 * If the TeamCity server is to blame and increasing the memory size does not help, please report the case for us to investigate. For this, while the server is high on memory consumption, take several server thread dumps as described [above](#Taking+Thread+Dump), get the memory dump (see below) and all the server logs including `threadDumps-*` sub-directories, archive the results, and [send them](#Uploading+Large+Data+Archives) to us for further analysis. Make sure that the `-Xmx` setting is less than 8Gb before getting the dump:
   * if a memory dump (`hprof` file) is created automatically, the `java_xxx.hprof` file is created in the process startup directory (`<[TeamCity Home](teamcity-home-directory.md)>/bin` or `<[TeamCity Agent home](agent-home-directory.md)>/bin`);
@@ -456,7 +456,7 @@ Please send this file to us for investigation and consider updating the JVM for 
 Please send this file to us for investigation and consider updating the [agents'](configure-java-for-agent.md) JVM to the latest version available.
 {product="tcc"}
 
-If you get the "There is insufficient memory for the Java Runtime Environment to continue. Native memory allocation (malloc) failed to allocate..." message with the crash or in the crash report file, make sure to [switch to 64-bit JVM](install-and-start-teamcity-server.md#Using+64+bit+Java+to+Run+TeamCity+Server) or reduce the `-Xmx` setting below `1024m`, see details in the [memory configuration section](install-and-start-teamcity-server.md#Setting+Up+Memory+settings+for+TeamCity+Server).
+If you get the "There is insufficient memory for the Java Runtime Environment to continue. Native memory allocation (malloc) failed to allocate..." message with the crash or in the crash report file, make sure to [switch to 64-bit JVM](configure-server-installation.md#Configure+Memory+Settings+for+TeamCity+Server) or reduce the `-Xmx` setting below `1024m`, see details in the [memory configuration section](configure-server-installation.md#Configure+Memory+Settings+for+TeamCity+Server).
 {product="tc"}
 
 ## Build Log Issues

@@ -32,7 +32,7 @@ By default, the Windows service is installed under the `SYSTEM` account. To chan
 
 If you did not change the default port (`8111`) during the installation, the TeamCity web UI can be accessed via [`http://localhost/`](http://localhost/) in a web browser running on the same machine where the server is installed. Note that port 8111 can be used by other programs. In this case, you can specify another port during the installation and use [`http://localhost:<port>/`](http://localhost:<port>/) address in the browser.
 
->During the server setup, you can select either an internal database or an existing external database. By default, TeamCity uses an HSQLDB database that does not require configuring. This database suites the purposes of testing and evaluating the system. For [production purposes](configure-server-installation.md#Configure+Server+for+Production+Use), using a standalone external database is highly recommended.
+>During the server setup, you can select either an internal database or an existing external database. By default, TeamCity uses an HSQLDB database that does not require configuring. This database suites the purposes of testing and evaluating the system. For [production purposes](configure-server-installation.md#Configuring+Server+for+Production+Use), using a standalone external database is highly recommended.
 >
 {type="warning"}
 

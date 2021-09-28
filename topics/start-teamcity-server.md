@@ -73,4 +73,4 @@ Starting up TeamCity server on macOS is quite similar to starting Tomcat on macO
     <string>teamcity_user</string>
     
     ```
-The TeamCity server will now start automatically when the machine starts. To configure automatic start of a TeamCity build agent, see the [dedicated section](install-and-start-teamcity-agents.md#Automatic+Start).
+The TeamCity server will now start automatically when the machine starts. To configure automatic start of a TeamCity build agent, see the [dedicated section](start-teamcity-agent.md#Automatic+Start).

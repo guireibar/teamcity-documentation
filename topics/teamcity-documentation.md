@@ -22,7 +22,7 @@ Welcome to the documentation for [TeamCity 2021.x](https://www.jetbrains.com/tea
     
 ### Install
     
-* [Install TeamCity Server](installation.md)  
+* [Install TeamCity Server](install-and-start-teamcity-server.md)  
 * [Set up Additional Build Agents](install-and-start-teamcity-agents.md)
     
 </td>

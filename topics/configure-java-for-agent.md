@@ -11,7 +11,7 @@ The (Windows) `.exe` TeamCity distribution comes bundled with 64-bit Amazon Corr
 If you run a previous version of the TeamCity agent, you will need to repeat the agent installation to update the JVM.
 
 Using 64-bit JDK (not JRE) is recommended. JDK is required for some build runners like [IntelliJ IDEA Project](intellij-idea-project.md), Java [Inspections](inspections.md), and [Duplicates](duplicates-finder-java.md). If you do not have Java builds, you can install JRE instead of JDK.   
-On switching from 32- to 64-bit, you might need to double the `-Xmx` memory value for the main agent process (see related notes for [build agents](configuring-build-agent-startup-properties.md) and [server](install-and-start-teamcity-server.md#Setting+Up+Memory+settings+for+TeamCity+Server)).
+On switching from 32- to 64-bit, you might need to double the `-Xmx` memory value for the main agent process (see related notes for [build agents](configuring-build-agent-startup-properties.md) and [server](configure-server-installation.md#Configure+Memory+Settings+for+TeamCity+Server)).
 {product="tc"}
 
 Using 64-bit JDK (not JRE) is recommended. JDK is required for some build runners like [IntelliJ IDEA Project](intellij-idea-project.md), Java [Inspections](inspections.md), and [Duplicates](duplicates-finder-java.md). If you do not have Java builds, you can install JRE instead of JDK.   
@@ -29,7 +29,7 @@ For the `.zip` agent installation you need to install the appropriate Java versi
 
 ### Upgrading Java on Agents
 
-If you are trying to launch an agent, and it is not able to find the required Java version (currently Java 8) in any of the [default locations](install-and-start-teamcity-agents.md#java-paths), the agent will report an error on starting, the process will not launch, and the agent will be shown as disconnected in the TeamCity UI.
+If you are trying to launch an agent, and it is not able to find the required Java version (currently Java 8) in any of the [default locations](#java-paths), the agent will report an error on starting, the process will not launch, and the agent will be shown as disconnected in the TeamCity UI.
 
 If a build agent uses a Java version older than Java 8, you will see the corresponding warning on the agent's page and a [health item](server-health.md) in the web UI.
 
@@ -38,7 +38,7 @@ OpenJDK 8 (for example, bundled [Amazon Corretto](https://aws.amazon.com/corrett
 
 To update Java on agents, do one of the following:
 * If the agent details page in the TeamCity UI displays a Java version note with the corresponding action, you can switch to using newer Java: if the appropriate Java version of the same bitness as the current one is detected on the agent, the agent page provides an action to switch to using that Java automatically. Upon the action invocation, the agent process is restarted (once the agent becomes idle, i.e. finishes the current build if there is one) using the new Java.
-* (Windows) Since the build agent Windows installer comes bundled with the required Java, you can just manually reinstall the agent using the Windows installer (`.exe`) obtained from the TeamCity server __Agents__ page. See [installation instructions](install-and-start-teamcity-agents.md#Installing+via+Windows+installer). It is important to uninstall the previous version of the agent before installing the updated agent: invoke `Uninstall.exe` in the agent home directory, clear all the "_Remove_" checkboxes, and click __Uninstall__.
+* (Windows) Since the build agent Windows installer comes bundled with the required Java, you can just manually reinstall the agent using the Windows installer (`.exe`) obtained from the TeamCity server __Agents__ page. See [installation instructions](install-teamcity-agent.md#Install+from+Windows+Executable). It is important to uninstall the previous version of the agent before installing the updated agent: invoke `Uninstall.exe` in the agent home directory, clear all the "_Remove_" checkboxes, and click __Uninstall__.
 * Install a required Java on the agent into one of the standard locations, and restart the agent — the agent should then detect it and provide an action to use a newer Java in the web UI (see above).
 * Install a required Java on the agent and configure the agent to use it.
 

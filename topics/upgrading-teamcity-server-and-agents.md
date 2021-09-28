@@ -103,7 +103,7 @@ In case of an automatic update failure, perform the following to restore your Te
 
 Current limitations of automatic update:
 * Some files like `TeamCityService.exe` and `teamcity-server.bat` are not included into the scope of autoupdate.
-* Some customizations, for example, installations with [changed server context](install-and-start-teamcity-server.md#Changing+Server+Context), are not supported by automatic update.
+* Some customizations, for example, installations with [changed server context](configure-server-installation.md#Changing+Server+Context), are not supported by automatic update.
 * Only manual upgrade is possible if the server runs under the official [TeamCity Docker container](#Upgrading+TeamCity+started+from+Docker+images), started with Azure Resource Manager template.
 * The Windows uninstaller is not updated during the upgrade, so after several updates, old TeamCity version will still be noted in Windows lists. During the uninstallation, not all the TeamCity installation files might be deleted.
 * The bundled Java is not updated.

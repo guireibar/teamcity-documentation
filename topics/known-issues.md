@@ -30,7 +30,7 @@ The user account used by the service is required to have sufficient permissions 
 
 As a Windows service, the TeamCity agent and the build processes are not able to access network shares and mapped drives.
 
-To overcome these restrictions, run TeamCity agent [via console](install-and-start-teamcity-agents.md#Starting+the+Build+Agent).
+To overcome these restrictions, run TeamCity agent [via console](start-teamcity-agent.md).
 
 #### Issues with automated GUI and browser testing
 
@@ -42,9 +42,9 @@ Note that there is a Windows limitation to accessing a remote computer via mstsc
 </tip>
 
 To resolve / avoid these:
-1. Run TeamCity agent [via console](install-and-start-teamcity-agents.md#Starting+the+Build+Agent).
+1. Run TeamCity agent [via console](start-teamcity-agent.md).
 2. Configure the build agent machine not to launch a screensaver locking the desktop.
-3. Configure the TeamCity agent to start [automatically](install-and-start-teamcity-agents.md#Starting+the+Build+Agent) (for example, configure an automatic user logon on Windows start and then configure the TeamCity agent start (via `agent.bat start`) on the user logon).
+3. Configure the TeamCity agent to start [automatically](start-teamcity-agent.md) (for example, configure an automatic user logon on Windows start and then configure the TeamCity agent start (via `agent.bat start`) on the user logon).
     
 For graphical tests the build agent cannot be started as a service and it is recommended to configure the build agent launch with a 1 minute delay after the user auto-logon, e.g. using the `bin\agent.bat start` command in the task scheduler and configuring the delay there.
 
@@ -72,7 +72,7 @@ An unsupervised computer with a running desktop permanently logged into a user s
 
 #### Issues with .NET Selenium 
 
-When a TeamCity agent is started as a Windows service and automated tests for .NET applications use Selenium WebDriver, the tests may fail due to browser drivers limitations. As a solution, consider starting the agent [manually](install-and-start-teamcity-agents.md#Manual+Start).
+When a TeamCity agent is started as a Windows service and automated tests for .NET applications use Selenium WebDriver, the tests may fail due to browser drivers limitations. As a solution, consider starting the agent [manually](start-teamcity-agent.md).
 
 
 ### Early start of the service before other resources are initialized
@@ -333,7 +333,7 @@ Any of the workarounds listed below will make the connection between TeamCity an
 
 ## Distorted Configuration Window During Agent Reinstallation
 
-When installing a TeamCity agent via a [Windows agent installer](install-and-start-teamcity-agents.md#Installing+via+Windows+installer) on top of the already installed agent with a different version of Java, the "_Configure Build Agent Properties_" installation window might appear distorted.
+When installing a TeamCity agent via a [Windows agent installer](install-teamcity-agent.md#Install+from+Windows+Executable) on top of the already installed agent with a different version of Java, the "_Configure Build Agent Properties_" installation window might appear distorted.
 
 __This issue has been fixed in TeamCity 2019.1.5__.
 
