@@ -3,8 +3,6 @@
 
 This page provides details on using an [Amazon Aurora](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Aurora.Overview.html) cluster as the TeamCity database server.
 
-## Overview
-
 When using an AWS Aurora cluster with TeamCity pointing to the [cluster end-point](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Aurora.html#Aurora.Overview.Endpoints) as the database server, it is important to understand what happens when an AWS Aurora cluster fails over.
 
 Both AWS Aurora DB instances are rebooted (so for a short period of time TeamCity entirely loses connection to the cluster) and
@@ -79,5 +77,4 @@ To change the mode of the SSL connection (for example, to enforce or disable it)
     ```Text
     connectionUrl=jdbc:mysql://<hostname>:3306/<dbname>?sslMode=<value>
   ``` 
-
 See the list of supported connection mode values in [Connector/J configuration properties](https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-configuration-properties.html).

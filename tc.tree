@@ -102,8 +102,6 @@
             <toc-element id="install-multiple-agents-on-one-machine.md" show-structure-for="chapter" show-structure-depth="4"/>
          </toc-element>
          <toc-element id="set-up-external-database.md" show-structure-for="chapter" show-structure-depth="4">
-            <toc-element id="choose-database.md" show-structure-for="chapter" show-structure-depth="4"/>
-            <toc-element id="connect-database-with-teamcity.md" show-structure-for="chapter" show-structure-depth="4"/>
             <toc-element id="setting-up-teamcity-with-ms-sql-server.md" show-structure-for="chapter" show-structure-depth="4"/>
             <toc-element id="configuring-utf8-character-set-for-mysql.md" show-structure-for="chapter" show-structure-depth="4"/>
             <toc-element id="using-aws-aurora-database-cluster.md" show-structure-for="chapter" show-structure-depth="4"/>

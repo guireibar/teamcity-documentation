@@ -64,7 +64,7 @@ Note that Microsoft JDBC driver v6.0\+ has compatibility issues with Microsoft S
 For Windows authentication (MS SQL integrated security), in addition to the JDBC driver, it is necessary to install native driver library `sqljdbc_auth.dll` from the JDBC driver package. The required version of the library depends on the bitness of the Java version used by the server.
 
 For the default 32-bit JVM bundled with the TeamCity server, copy the `<sql_jdbc_home>/enu/auth/x86/sqljdbc_auth.dll` file into `<[TeamCity Data Directory](teamcity-data-directory.md)>/lib/jdbc/native/windows-i386`.   
-For the [64-bit JVM](installing-and-configuring-the-teamcity-server.md) used to run the TeamCity server, use the `<sql_jdbc_home>/enu/auth/x64/sqljdbc_auth.dll` and place it into the `<[TeamCity Data Directory](teamcity-data-directory.md)>/lib/jdbc/native/windows-amd64` directory.
+For the 64-bit JVM used to run the TeamCity server, use the `<sql_jdbc_home>/enu/auth/x64/sqljdbc_auth.dll` and place it into the `<[TeamCity Data Directory](teamcity-data-directory.md)>/lib/jdbc/native/windows-amd64` directory.
 
 ## Start TeamCity
 
@@ -72,10 +72,10 @@ For the [64-bit JVM](installing-and-configuring-the-teamcity-server.md) used to 
 2. Select MS SQL as the database.
 3. Click the Refresh the JDBC drivers if asked.
 4. Specify the connection settings:
-    - Database host - your SQL server host     
-    - Port - optional     
-    - Database instance name - leave blank for the default SQL server instance. If a named instance is used, provide its name here.    
-    - Database name - the name of the newly created database
+    - Database host — your SQL server host     
+    - Port — optional     
+    - Database instance name — leave blank for the default SQL server instance. If a named instance is used, provide its name here.    
+    - Database name — the name of the newly created database
 5. Select the required authentication type, for SQL Server authentication provide the credentials of the dedicated SQL user [configured at this step](#Create+dedicated+user+for+TeamCity+with+SQL+server+authentication).![DB_SQLAuth.png](DB_SQLAuth.png)
 6. Continue with the setup. It'll take some time to initialize the database schema and the components.
 
