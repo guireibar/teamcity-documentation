@@ -52,6 +52,6 @@ Note that for large production TeamCity installations, exporting and importing o
 
 <seealso product="tc">
         <category ref="installation">
-            <a href="upgrade.md">Upgrade</a>
+            <a href="upgrade-teamcity-server-and-agents.md">Upgrade</a>
         </category>
 </seealso>

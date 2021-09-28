@@ -84,7 +84,7 @@ All agents connected to the server must have unique agent names.
 
 Only users with certain roles can manage agents. See [Role and Permission](role-and-permission.md) for more information.
 
-For a build agent configuration, refer to [this section](build-agent-configuration.md).
+For a build agent configuration, refer to [this section](configure-agent-installation.md).
 
 ## Agent Upgrade
 {product="tc"}

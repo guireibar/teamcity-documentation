@@ -28,11 +28,15 @@ Make sure the user account specified for the service has:
 * write permissions for the [TeamCity Home](teamcity-home-directory.md), that is directory where TeamCity has been installed
 * all the permissions necessary to work with external systems like VCSs
 
-By default, the Windows service is installed under the SYSTEM account. To change it, use the Services applet (__Control Panel | Administrative Tools | Services__).
+By default, the Windows service is installed under the `SYSTEM` account. To change it, use the Services applet (__Control Panel | Administrative Tools | Services__).
 
-If you did not change the default port (8111) during the installation, the TeamCity web UI can be accessed via [`http://localhost/`](http://localhost/) in a web browser running on the same machine where the server is installed. Note that port 8111 can be used by other programs. In this case, you can specify another port during the installation and use [`http://localhost:<port>/`](http://localhost:<port>/) address in the browser.
+If you did not change the default port (`8111`) during the installation, the TeamCity web UI can be accessed via [`http://localhost/`](http://localhost/) in a web browser running on the same machine where the server is installed. Note that port 8111 can be used by other programs. In this case, you can specify another port during the installation and use [`http://localhost:<port>/`](http://localhost:<port>/) address in the browser.
 
-If you want to edit the TeamCity server's service parameters, memory settings or system properties after the installation, refer to the [this article]().
+>During the server setup, you can select either an internal database or an existing external database. By default, TeamCity uses an HSQLDB database that does not require configuring. This database suites the purposes of testing and evaluating the system. For [production purposes](configure-server-installation.md#Configure+Server+for+Production+Use), using a standalone external database is highly recommended.
+>
+{type="warning"}
+
+If you want to edit the TeamCity server's service parameters, memory settings or system properties after the installation, refer to the [this article](server-startup-properties.md).
 
 ## Install from tar.gz
 

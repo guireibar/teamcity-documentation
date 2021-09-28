@@ -6,4 +6,17 @@
         <accepts>installation.html</accepts>
         <accepts>installing-and-configuring-the-teamcity-server.html</accepts>
     </rule>
+    <rule id="server-startup-properties">
+        <accepts>configuring-teamcity-server-startup-properties.html</accepts>
+    </rule>
+    <rule id="install-teamcity-agent">
+        <accepts>setting-up-and-running-additional-build-agents.html</accepts>
+    </rule>
+    <rule id="configure-agent-installation">
+        <accepts>build-agent-configuration.html</accepts>
+    </rule>
+    <rule id="upgrade-dsl">
+        <accepts>upgrading-dsl.html</accepts>
+    </rule>
+
 </rules>
