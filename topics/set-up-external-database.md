@@ -3,7 +3,7 @@
 
 TeamCity stores build history, users, build results, and some runtime data in an SQL database. See the full list [here](manual-backup-and-restore.md).
 
->If you have been evaluating TeamCity with the internal database and want to copy the data from it, read how to [migrate to an external database](migrate-to-external-database.md).
+>If you have been evaluating TeamCity with the internal database and want to copy the data from it, read how to [migrate to an external database](migrating-to-external-database.md).
 
 The currently used database is shown on the __Administration | Global Settings__ page. It is also mentioned in `teamcity-server.log` on the server startup. `HSQL*` means that the internal database is in use.
 
@@ -13,7 +13,7 @@ On the first TeamCity run, using an internal HSQLDB database is suggested by def
 
 However, __we strongly recommend using an external database__ as a backend TeamCity database in a production environment. An external database is usually more reliable and provides better performance: the internal database may crash and lose all your data (for example, on the "out of disk space" condition). The internal database may become extremely slow on large data sets (database storage files over 200 Mb). Please note that our support does not cover any performance or database data loss issues if you are using the internal database.
 
-In short, __do not use the internal HSQLDB database for production TeamCity instances__. [Migrate to an external database](migrate-to-external-database.md) the moment you start to rely on the data stored on your TeamCity server.
+In short, __do not use the internal HSQLDB database for production TeamCity instances__. [Migrate to an external database](migrating-to-external-database.md) the moment you start to rely on the data stored on your TeamCity server.
 
 ## Selecting External Database Engine
 [//]: # (AltHead: selectingDatabase)
@@ -162,7 +162,7 @@ TeamCity uses Apache DBCP for database connection pooling. Refer to [Apache Comm
 <seealso>
         <category ref="installation">
             <a href="common-problems.md">Common database-related problems</a>
-            <a href="migrate-to-external-database.md">Migrating to an External Database</a>
+            <a href="migrating-to-external-database.md">Migrating to an External Database</a>
         </category>
         <category ref="concepts">
             <a href="teamcity-data-directory.md">TeamCity Data Directory</a>
