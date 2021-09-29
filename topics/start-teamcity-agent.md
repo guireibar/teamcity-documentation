@@ -17,7 +17,7 @@ Run the following script:
 
 ## Automatic Start
 
-### Automatic Agent Start under Windows
+### Automatic Agent Start Under Windows
 
 To run an agent automatically on the machine boot under Windows, you can either set up the agent to be run as a Windows service or use another way of the automatic process start.   
 Using the Windows service approach is the easiest way, but Windows applies [some constraints](known-issues.md#Agent+running+as+Windows+Service+Limitations) to the processes run this way.   

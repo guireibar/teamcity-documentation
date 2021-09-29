@@ -505,7 +505,7 @@ See the [corresponding section](install-multiple-agents-on-one-machine.md) under
 ## Change Server Port
 {product="tc"}
 
-See [corresponding section](install-and-start-teamcity-server.md#Changing+Server+Port) in server installation instructions.
+See [corresponding section](configure-server-installation.md#Changing+Server+Port) in server installation instructions.
 
 ## Test-drive Newer TeamCity Version before Upgrade
 {product="tc"}

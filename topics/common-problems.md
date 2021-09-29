@@ -25,7 +25,7 @@ Check that the build runs fine from the command prompt when run on the same mach
 
 If the TeamCity build agent is run as a service (for example, it is installed as a Windows service), try running the TeamCity agent under a regular user with administrative permissions [from the command line](start-teamcity-agent.md). See also [Windows Service limitations](known-issues.md#Agent+running+as+Windows+Service+Limitations).
 
-If this fixes the issue, you can try to figure out why running under the service is a problem for the build. Most often this is service-specific and is not related to TeamCity directly. Also, you can set up the TeamCity agent to be run from the console all the time (for example, [configure](start-teamcity-agent.md#Automatic+Agent+Start+Under+Windows) an automatic user logon and run the agent on the user logon).
+If this fixes the issue, you can try to figure out why running under the service is a problem for the build. Most often this is service-specific and is not related to TeamCity directly. Also, you can set up the TeamCity agent to be run from the console all the time (for example, [configure](start-teamcity-agent.md#Au) an automatic user logon and run the agent on the user logon).
 
 Here are the detailed steps you can use to run a build from the command line.
 
