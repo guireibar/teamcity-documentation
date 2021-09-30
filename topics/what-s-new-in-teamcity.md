@@ -129,7 +129,7 @@ Linux Docker images of TeamCity agent and server now come with a Perforce client
 
 Post-commit hooks allow reducing the number of polling operations and offloading the TeamCity and VCS servers. In the previous versions, it was required to maintain several hooks for Perforce. Now, you can easily configure a single post-commit hook for the entire Perforce depot. To do this, follow [this instruction](configuring-vcs-post-commit-hooks-for-teamcity.md#Using+post-commit+script+for+Perforce) in our documentation.
 
->A generic script for other VCS types is available [here](configuring-vcs-post-commit-hooks-for-teamcity.md#Post-commit+generic+script).
+>A generic script for other VCS types is available [here](configuring-vcs-post-commit-hooks-for-teamcity.md#Post-Commit+Generic+Script).
 
 ### Support ChangeView specification
 
